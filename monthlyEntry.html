@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+        // See http://stackoverflow.com/questions/4881938/javascript-calculate-number-of-days-in-month-for-a-given-year
+        Date.prototype.daysInMonth = function(year, month) { 
+            var monthStart  = new Date(year, month, 1);
+            var monthEnd    = new Date(year, month + 1, 1);
+            var monthLength = Math.round((monthEnd - monthStart) / (1000 * 60 * 60 * 24));
+            var mm  = ((month + 1) < 10) ? ('0' + (month + 1)) : (month + 1);
+            var ret = new Array();
+            for (var i = 1; i <= monthLength; i++) {
+                var dd = (i < 10) ? ('0' + i) : i;
+                ret.push(dd + '/' + mm + '/' + year);
+            }
+            return ret;
+        };
+
+        function addRows(table, dates) {
+            var idx = 1;
+            for (var i in dates) {
+                table.append('<tr>'+
+                             '<td><input name="date'+idx+'" id="date'+idx+'" class="date" value="'+dates[i]+'"></td>'+
+                             '<td><input name="startTime'+idx+'" id="startTime'+idx+'"></td>'+
+                             '<td><input name="endTime'+idx+'" id="EndTime'+idx+'"></td>'+
+                             '<td>'+
+                             '<select name="hourType'+idx+'" id="hourType'+idx+'">'+
+                             '<option value="">Please select</option>'+
+                             '<option value="1">Regular</option>'+
+                             '<option value="2">Overtime</option>'+
+                             '</select>'+
+                             '</td>'+
+                             '</tr>');
+                idx++;
+            }
+        }
+
+        $(function() {
+            var myDate = new Date();
+            var year   = myDate.getFullYear();
+            var month  = myDate.getMonth(); 
+            var dates  = myDate.daysInMonth(year, month);
+            var table  = $("#myTable").find("tbody");
+            addRows(table, dates);
+        });
+        </script>       
+    </head>
+    <body>
+        <form>
+          <table id="myTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Hour Type</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </form>
+    </body>
+</html>
