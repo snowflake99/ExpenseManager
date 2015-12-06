@@ -2,13 +2,13 @@
     <head>
         <title>Expense Manager</title>
         <link rel="stylesheet" type="text/css" href="style/iframe.css"> 
-        <link rel="stylesheet" type="text/css" href="style/horzNav.css"> 
+        <link rel="stylesheet" type="text/css" href="style/horzNav.css">
     </head>
 
     <body>
         <!-- Create hyperlinks to Horizontal Navigation bar  -->
         <ul>
-            <li><a class="highlightColor" ref="#">Happy Home</a></li>
+            <li><a class="highlightColor" href="">Happy Home</a></li>
             <li><a href="#">Save</a></li>
             <li><a href="#">Report</a></li>
             <li><a href="#">Download</a></li>
@@ -18,9 +18,8 @@
                 <li><a href="#">Login</a></li>
             </ul>
         </ul>
-        
         <!-- Create frame for vertical navigation bar and main window  -->
-        <iframe class="menu" src="navBar.html" frameborder="0"></iframe>
-        <iframe class="mainContent" src="welcome.html" frameborder="0"></iframe>
+        <iframe id="frame1" class="menu" src="navBar.html" frameborder="0"></iframe>
+        <iframe id="frame2" class="mainContent" src="welcome.html" frameborder="0"></iframe>
     </body>
 </html>
