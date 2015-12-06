@@ -1,67 +1,26 @@
 <html>
-<head>
-  <title>Expense Manager</title>
-        <style>
-            body {
-                margin: 0;
-            }
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                background-color: #333;
-            }
-            
-            li {
-                float: left;
-            }
-            
-            li a {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-            
-            li a:hover:not(.active) {
-                background-color: #111;
-            }
-            
-            .active {
-                background-color: #b7c732;
-            }
-            .highlightColor {
-                background-color: #4CAF50;
-            }
-    
-            .menu {
-               float:left;
-               width:20%;
-               height:100%;
-            }
-            .mainContent {
-               float:left;
-               width:75%;
-               height:100%;
-            }
-        </style>
+    <head>
+        <title>Expense Manager</title>
+        <link rel="stylesheet" type="text/css" href="style/iframe.css"> 
+        <link rel="stylesheet" type="text/css" href="style/horzNav.css"> 
     </head>
 
     <body>
+        <!-- Create hyperlinks to Horizontal Navigation bar  -->
         <ul>
-          <li><a class="highlightColor" ref="#">Happy Home</a></li>
-          <li><a href="#">Save</a></li>
-          <li><a href="#">Report</a></li>
-          <li><a href="#">Download</a></li>
-          <li><a href="#">Summary</a></li>
-          <ul style="float:right;list-style-type:none;">
-              <li><a href="#">About</a></li>
-              <li><a href="#">Login</a></li>
-          </ul>
+            <li><a class="highlightColor" ref="#">Happy Home</a></li>
+            <li><a href="#">Save</a></li>
+            <li><a href="#">Report</a></li>
+            <li><a href="#">Download</a></li>
+            <li><a href="#">Summary</a></li>
+            <ul style="float:right;list-style-type:none;">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
         </ul>
+        
+        <!-- Create frame for vertical navigation bar and main window  -->
         <iframe class="menu" src="navBar.html"></iframe>
         <iframe class="mainContent" src="monthlyEntry.html"></iframe>
-</body>
+    </body>
 </html>

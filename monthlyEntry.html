@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <script language="javascript" type="text/javascript" src=".\jquery.min.js"></script>
-    <script>
+    <style>
+    </style>
+    <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script language="javascript" type="text/javascript">
         Date.prototype.daysInMonth = function(year, month) { 
             var monthStart  = new Date(year, month, 1);
             var monthEnd    = new Date(year, month + 1, 1);
@@ -21,23 +23,23 @@
             for (var i in dates) {
                 table.append(
                 '<tr>'+
-                   '<td><input name="date'+idx+'" id="date'+idx+'" class="date" value="'+dates[i]+'"></td>'+
-                   '<td>'+
-                     '<select name="Category'+idx+'" id="Category'+idx+'">'+
-                        '<option value="">Please select</option>'+
-                        '<option value="1">Home</option>'+
-                        '<option value="2">Conveyance</option>'+
-                        '<option value="3">Groceries</option>'+
-                        '<option value="4">Gifts</option>'+
-                        '<option value="5">Shopping</option>'+
-                        '<option value="6">Miscellaneous</option>'+
-                        '<option value="7">Cigarette</option>'+
-                        '<option value="8">Bills</option>'+
-                        '<option value="9">Food</option>'+
-                     '</select>'+
-                   '</td>'+
-                   '<td><input name="Description'+idx+'" id="Description'+idx+'"></td>'+
-                   '<td><input name="Amount'+idx+'" id="Amount'+idx+'"></td>'+
+                '<td><input name="Date'+idx+'" id="Date'+idx+'" class="Date" value="'+dates[i]+'"></td>'+
+                '<td>'+
+                  '<select name="Category'+idx+'" id="Category'+idx+'">'+
+                     '<option value="">Please select</option>'+
+                     '<option value="1">Home</option>'+
+                     '<option value="2">Conveyance</option>'+
+                     '<option value="3">Groceries</option>'+
+                     '<option value="4">Gifts</option>'+
+                     '<option value="5">Shopping</option>'+
+                     '<option value="6">Miscellaneous</option>'+
+                     '<option value="7">Cigarette</option>'+
+                     '<option value="8">Bills</option>'+
+                     '<option value="9">Food</option>'+
+                  '</select>'+
+                '</td>'+
+                '<td><input name="Description'+idx+'" id="Description'+idx+'"></td>'+
+                '<td><input name="Amount'+idx+'" id="Amount'+idx+'"></td>'+
                 '</tr>');
                 idx++;
             }
@@ -48,26 +50,26 @@
             var year   = myDate.getFullYear();
             var month  = myDate.getMonth(); 
             var dates  = myDate.daysInMonth(year, month);
-            var table  = $("#myTable").find("tbody");
-            addRows(table, dates);
+            var table  = $("#myTable");
+            var tBody  = table.find("tbody");
+            addRows(tBody, dates);
         });
-        </script>       
+    </script>       
     </head>
-
     <body>
         <form>
-          <table id="myTable">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
+            <table id="myTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </form>
     </body>
 </html>

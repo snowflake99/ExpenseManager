@@ -1,0 +1,10 @@
+.menu {
+   float:left;
+   width:20%;
+   height:100%;
+}
+.mainContent {
+   float:left;
+   width:75%;
+   height:100%;
+}
