@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script>
-        // See http://stackoverflow.com/questions/4881938/javascript-calculate-number-of-days-in-month-for-a-given-year
+    <script language="javascript" type="text/javascript" src=".\jquery.min.js"></script>
+    <script>
         Date.prototype.daysInMonth = function(year, month) { 
             var monthStart  = new Date(year, month, 1);
             var monthEnd    = new Date(year, month + 1, 1);
@@ -21,20 +20,20 @@
             var idx = 1;
             for (var i in dates) {
                 table.append(
-				'<tr>'+
+                '<tr>'+
                    '<td><input name="date'+idx+'" id="date'+idx+'" class="date" value="'+dates[i]+'"></td>'+
                    '<td>'+
                      '<select name="Category'+idx+'" id="Category'+idx+'">'+
-                   		'<option value="">Please select</option>'+
-						'<option value="1">Home</option>'+
-						'<option value="2">Conveyance</option>'+
-						'<option value="3">Groceries</option>'+
-						'<option value="4">Gifts</option>'+
-						'<option value="5">Shopping</option>'+
-						'<option value="6">Miscellaneous</option>'+
-						'<option value="7">Cigarette</option>'+
-						'<option value="8">Bills</option>'+
-						'<option value="9">Food</option>'+
+                        '<option value="">Please select</option>'+
+                        '<option value="1">Home</option>'+
+                        '<option value="2">Conveyance</option>'+
+                        '<option value="3">Groceries</option>'+
+                        '<option value="4">Gifts</option>'+
+                        '<option value="5">Shopping</option>'+
+                        '<option value="6">Miscellaneous</option>'+
+                        '<option value="7">Cigarette</option>'+
+                        '<option value="8">Bills</option>'+
+                        '<option value="9">Food</option>'+
                      '</select>'+
                    '</td>'+
                    '<td><input name="Description'+idx+'" id="Description'+idx+'"></td>'+
@@ -54,6 +53,7 @@
         });
         </script>       
     </head>
+
     <body>
         <form>
           <table id="myTable">

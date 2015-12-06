@@ -1,0 +1,68 @@
+<html>
+<head>
+  <title>Frames Test</title>
+        <style>
+            body {
+                margin: 0;
+            }
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+            }
+            
+            li {
+                float: left;
+            }
+            
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            
+            li a:hover:not(.active) {
+                background-color: #111;
+            }
+            
+            .active {
+                background-color: #4CAF50;
+            }
+    
+            .menu {
+               float:left;
+               width:20%;
+               height:100%;
+            }
+            .mainContent {
+               float:left;
+               width:75%;
+               height:100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <ul>
+          <li><a class="active" href="#">Happy Home</a></li>
+          <li><a href="#">JAN</a></li>
+          <li><a href="#">FEB</a></li>
+          <li><a href="#">MAR</a></li>
+          <li><a href="#">APR</a></li>
+          <li><a href="#">MAY</a></li>
+          <li><a href="#">JUN</a></li>
+          <li><a href="#">JUL</a></li>
+          <li><a href="#">AUG</a></li>
+          <li><a href="#">SEP</a></li>
+          <li><a href="#">OCT</a></li>
+          <li><a href="#">NOV</a></li>
+          <li><a href="#">DEC</a></li>
+        </ul>
+        <iframe class="menu" src="navBar.html"></iframe>
+        <iframe class="mainContent" src="monthlyEntry.html"></iframe>
+</body>
+</html>
