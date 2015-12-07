@@ -8,10 +8,11 @@
         function daysInMonth(year, month) { 
             var monthLength = new Date(year,month,0).getDate();
             var ret = new Array();
+            var mm = month ? ('0' + month) : month;
 
             for (var i = 1; i <= monthLength; i++) {
                 var dd = (i < 10) ? ('0' + i) : i;
-                ret.push(dd + '/' + month + '/' + year);
+                ret.push(dd + '/' + mm + '/' + year);
             }
             
             return ret;
