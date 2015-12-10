@@ -41,6 +41,14 @@
                 '<td><input name="Description'+idx+'" id="Description'+idx+'"></td>'+
                 '<td><input name="Amount'+idx+'" id="Amount'+idx+'"></td>'+
                 '</tr>');
+                $('#Date'+idx)[0].style.width='80px';
+                $('#Date'+idx)[0].style.textAlign='center';
+
+                $('#Description'+idx)[0].style.width='500px';
+                $('#Description'+idx)[0].textAlign='right';
+
+                $('#Amount'+idx)[0].style.width='80px';
+                $('#Amount'+idx)[0].style.textAlign='center';
                 idx++;
             }
         }
@@ -57,16 +65,15 @@
             var year   = todaysDate.getFullYear();
             var month  = curselMonth;
             var dates  = daysInMonth(year, month);
-            var table  = $("#myTable");
+            var table  = $("#expenseTable");
             var tBody  = table.find("tbody");
-
             addRows(tBody, dates);
         });
     </script>       
     </head>
     <body>
         <form>
-            <table id="myTable">
+            <table id="expenseTable">
                 <thead>
                     <tr>
                         <th>Date</th>
