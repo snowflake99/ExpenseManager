@@ -19,6 +19,16 @@ li a {
     padding: 8px 0 8px 16px;
     text-decoration: none;
 }
+ 
+li {
+    text-align: left;
+}
+
+.blank_rows
+{
+    height: 218px; 
+    background-color: #f1f1f1;
+}
 
 li a.active {
     background-color: #c3c0c0;

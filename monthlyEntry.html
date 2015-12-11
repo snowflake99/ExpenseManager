@@ -67,7 +67,9 @@
             var dates  = daysInMonth(year, month);
             var table  = $("#expenseTable");
             var tBody  = table.find("tbody");
-            //addRows(tBody, dates);
+            addRows(tBody, dates);
+
+	    // TODO: Test connection of mysql DB
 	    $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
 		console.log (data);
 	    });
