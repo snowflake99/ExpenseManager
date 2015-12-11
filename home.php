@@ -19,10 +19,10 @@
             </ul>
         </ul>
         <!-- Create frame for vertical navigation bar and main window  -->
-        <iframe name="frame1" class="menu" src="navBar.html" frameborder="0">
+        <iframe name="frame1" class="menu" src="navBar.php" frameborder="0">
             <p>Your browser does not support iframes.</p>
 	</iframe>
-        <iframe name="frame2" class="mainContent" src="welcome.html" frameborder="0">
+        <iframe name="frame2" class="mainContent" src="welcome.php" frameborder="0">
             <p>Your browser does not support iframes.</p>
 	</iframe>
     </body>
