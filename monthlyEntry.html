@@ -68,7 +68,7 @@
             var table  = $("#expenseTable");
             var tBody  = table.find("tbody");
             //addRows(tBody, dates);
-	    $.get("./php/connectDB.php", {key: 'val'}).done(function(data) {
+	    $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
 		console.log (data);
 	    });
         });

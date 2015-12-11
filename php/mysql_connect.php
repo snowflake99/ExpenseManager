@@ -1,6 +1,6 @@
 <?php
-	$username = "sanjoy";
-	$password = "sanjoy";
+	$username = $_GET['name'];
+	$password = $_GET['password'];
 	$hostname = "localhost"; 
 	
 	//connection to the database
