@@ -1,5 +1,5 @@
 <?php
-    header("Location: ../home.html"); 
+    header("Location: ../login"); 
 
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -13,13 +13,17 @@
 
     $result = mysql_query("SELECT username, password FROM usrAuth");
 
-    $success=false;
+    $msg="Login failure";
     while ($row = mysql_fetch_array($result)) {
        if (strcmp ($row{'username'}, $username) == 0 && 
                strcmp ($row{'password'}, $password) == 0) {
-        $success=true;
+	$msg="Login successful";
+        header("Location: ../home"); 
+	break;
        }
     }
 
-    echo $success;
+    echo $msg;
+
+    die();
 ?>
