@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <style>
-    </style>
     <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <?php
+    session_start();
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+        //echo "Welcome to the member's area, " . $_SESSION['username'] . "!";
+    } else {
+        //echo "Please log in first to see this page.";
+        header("Location: ./login"); 
+    }
+    ?>
+
     <script language="javascript" type="text/javascript">
         function daysInMonth(year, month) { 
             var monthLength = new Date(year,month,0).getDate();

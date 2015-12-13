@@ -3,6 +3,16 @@
         <title>Expense Manager</title>
         <link rel="stylesheet" type="text/css" href="style/iframe.css"> 
         <link rel="stylesheet" type="text/css" href="style/horzNav.css">
+
+        <?php
+        session_start();
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            //echo "Welcome to the member's area, " . $_SESSION['username'] . "!";
+        } else {
+            //echo "Please log in first to see this page.";
+            header("Location: ./login"); 
+        }
+        ?>
     </head>
 
     <body>

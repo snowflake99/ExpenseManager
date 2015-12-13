@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <?php
+        session_start();
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            //echo "Welcome to the member's area, " . $_SESSION['username'] . "!";
+        } else {
+            //echo "Please log in first to see this page.";
+            header("Location: ./login"); 
+        }
+        ?>
+    </head>
     <body>
         <img src="image/welcome.jpg" alt="Welcome Screen" style="width:100%;height:100%;">
     </body>
