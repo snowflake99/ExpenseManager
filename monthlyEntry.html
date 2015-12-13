@@ -8,7 +8,10 @@
             box-shadow: 0 0 5px #888;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="style/roundButton.css">
+
     <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+
     <?php
     session_start();
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
@@ -55,6 +58,8 @@
                 '</td>'+
                 '<td><input name="Description'+idx+'" id="Description'+idx+'"></td>'+
                 '<td><input name="Amount'+idx+'" id="Amount'+idx+'"></td>'+
+		'<td><div class="round-button"><div class="round-button-circle"><a href="http://example.com" class="round-button">-</a></div></div></td>'+
+		'<td><div class="round-button"><div class="round-button-circle"><a href="http://example.com" class="round-button">+</a></div></div></td>'+
                 '</tr>');
                 $('#Date'+idx)[0].style.width='80px';
                 $('#Date'+idx)[0].style.textAlign='center';
