@@ -23,8 +23,13 @@
             <li><a href="#">Report</a></li>
             <li><a href="#">Download</a></li>
             <li><a href="#">Summary</a></li>
-            <ul style="float:right;list-style-type:none;">
-                <li><a href="#">Logout <?= $_SESSION['username'] ?></a></li>
+            <ul class="dropdown" style="float:right;list-style-type:none;">
+                <li>
+                    <a href="#">Logout &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#"><?= $_SESSION['username'] ?></a></li>
+                    </ul>
+                </li>
             </ul>
         </ul>
 

@@ -31,3 +31,15 @@ li a:hover:not(.active) {
 .highlightColor {
     background-color: #4CAF50;
 }
+
+ul li ul.dropdown{
+    background: #333;
+    display: none;
+    position: absolute;
+}
+ul li:hover ul.dropdown{
+    display: block; /* Display the dropdown */
+}
+ul li ul.dropdown li{
+    display: block;
+}
