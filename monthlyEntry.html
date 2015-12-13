@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <style>
+        table {
+            -moz-box-shadow: 0 0 5px #888;
+            -webkit-box-shadow: 0 0 5px#888;
+            box-shadow: 0 0 5px #888;
+        }
+    </style>
     <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
     <?php
     session_start();
@@ -77,19 +84,19 @@
             var tBody  = table.find("tbody");
             addRows(tBody, dates);
 
-	    // TODO: Test connection of mysql DB
-	    $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
-		//var currDates = data['Date'];
-		//addRows(tBody, currDates);
-		console.log (data);
-		//console.log (currDates);
-	    });
+        // TODO: Test connection of mysql DB
+        $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
+        //var currDates = data['Date'];
+        //addRows(tBody, currDates);
+        console.log (data);
+        //console.log (currDates);
+        });
         });
     </script>       
     </head>
     <body>
         <form>
-            <table id="expenseTable">
+            <table id="expenseTable" align="center"  bgcolor="#f1f1f1">
                 <thead>
                     <tr>
                         <th>Date</th>
