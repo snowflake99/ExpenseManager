@@ -13,8 +13,7 @@
 	$result = mysql_query("SELECT Date, Category, Description, Amount FROM _01_2015_");
 
 	while ($row = mysql_fetch_array($result)) {
-	   echo "+Date:".$row{'Date'}."Category:".$row{'Category'}."Description".$row{'Description'}."Amount".$row{'Amount'};
+	   echo "Date=".$row{'Date'}." Category=".$row{'Category'}." Description=".$row{'Description'}." Amount=".$row{'Amount'};
 
 	}	
-	//echo $result;
 ?>

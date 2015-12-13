@@ -71,7 +71,10 @@
 
 	    // TODO: Test connection of mysql DB
 	    $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
+		//var currDates = data['Date'];
+		//addRows(tBody, currDates);
 		console.log (data);
+		//console.log (currDates);
 	    });
         });
     </script>       
