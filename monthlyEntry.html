@@ -58,8 +58,8 @@
                 '</td>'+
                 '<td><input name="Description'+idx+'" id="Description'+idx+'"></td>'+
                 '<td><input name="Amount'+idx+'" id="Amount'+idx+'"></td>'+
-		'<td><div class="round-button"><div class="round-button-circle"><a href="http://example.com" class="round-button">-</a></div></div></td>'+
-		'<td><div class="round-button"><div class="round-button-circle"><a href="http://example.com" class="round-button">+</a></div></div></td>'+
+                '<td><div class="round-button"><div class="round-button-circle"><a href="http://example.com" class="round-button">-</a></div></div></td>'+
+                '<td><div class="round-button"><div class="round-button-circle"><a href="http://example.com" class="round-button">+</a></div></div></td>'+
                 '</tr>');
                 $('#Date'+idx)[0].style.width='80px';
                 $('#Date'+idx)[0].style.textAlign='center';
@@ -85,17 +85,18 @@
             var year   = todaysDate.getFullYear();
             var month  = curselMonth;
             var dates  = daysInMonth(year, month);
+
             var table  = $("#expenseTable");
             var tBody  = table.find("tbody");
             addRows(tBody, dates);
 
-        // TODO: Test connection of mysql DB
-        $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
-        //var currDates = data['Date'];
-        //addRows(tBody, currDates);
-        console.log (data);
-        //console.log (currDates);
-        });
+            // TODO: Test connection of mysql DB
+            $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
+            //var currDates = data['Date'];
+            //addRows(tBody, currDates);
+            console.log (data);
+            //console.log (currDates);
+            });
         });
     </script>       
     </head>
