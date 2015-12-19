@@ -43,8 +43,6 @@
             var tBody  = table.find("tbody");
             var rowCount = document.getElementById("expenseTable").rows.length;
 
-	    console.log (dates);
-
             tBody.append(
             '<tr id="row'+idx+'">'+
             '<td><input type="date" name="Date'+idx+'" id="Date'+idx+'" class="Date" value="'+dates[0]+'"></td>'+
@@ -96,19 +94,19 @@
     
             if (curselMonth < 10)
                 curselMonth = '0'+curselMonth;
-                dateTemplate.push('2015-'+curselMonth+'-01');
+            dateTemplate.push('2015-'+curselMonth+'-01');
 
-                addRow(dateTemplate);
+            addRow(dateTemplate);
 
-                // TODO: Test connection of mysql DB
-                $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
+            // TODO: Test connection of mysql DB
+            $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
                 //var currDates = data['Date'];
                 //addRow(currDates);
                 console.log (data);
                 //console.log (currDates);
             });
         });
-    </script>       
+    </script> 
     </head>
     <body>
         <form>
