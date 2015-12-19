@@ -9,12 +9,13 @@
     $dbhandle = mysql_connect($hostname, $username,$password) 
       or die("Unable to connect to MySQL");
 
-    $selected = mysql_select_db("testdb",$dbhandle) 
+    $selectedDB = mysql_select_db("testdb",$dbhandle) 
       or die("Could not select examples");
 
     session_start();
-    $_SESSION['loggedin'] = true;
-    $_SESSION['username'] = $username;
+    $_SESSION['loggedin']   = true;
+    $_SESSION['username']   = $username;
+    $_SESSION['activeConn'] = $dbhandle;
 
     $msg="Login successful";
 
