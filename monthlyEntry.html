@@ -10,7 +10,9 @@
     </style>
     <link rel="stylesheet" type="text/css" href="style/roundButton.css">
 
-    <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script language="javascript" 
+            type="text/javascript" 
+            src="js/jquery-1.11.3.min.js"></script>
 
     <?php
     session_start();
@@ -21,23 +23,36 @@
         header("Location: ./login"); 
     }
     ?>
-
         
     <script language="javascript" type="text/javascript">
         // Global variable used to create unique row elements id
         var idx = 0;
 
-        function deleteRow(rowIdNum)    {
+        /* 
+        *  Function Name: delRow
+        *  Purpose: Function to delete row
+        *  Input : rowIdNum
+        *  Output: none
+        */
+        function delRow(rowIdNum)    {
             var rowRef = document.getElementById('row'+rowIdNum);
-            var numRows = document.getElementById("expenseTable").rows.length;;
+            var numRows = document.getElementById("expenseTable").rows.length;
     
             if (numRows > 2)    {
                 // Delete the row and show '+' in last row element
-                document.getElementById("expenseTable").deleteRow(rowRef.rowIndex);
-                $('#expenseTable tr:last')[0].childNodes[5].style.visibility="visible";
+                document.getElementById("expenseTable").
+                                    deleteRow(rowRef.rowIndex);
+                $('#expenseTable tr:last')[0].
+                                    childNodes[5].style.visibility="visible";
             }
         }
 
+        /* 
+        *  Function Name: addRow
+        *  Purpose: Function to add new row
+        *  Input : forDate
+        *  Output: none
+        */
         function addRow(forDate) {
             var table  = $("#expenseTable");
             var tBody  = table.find("tbody");
@@ -46,69 +61,101 @@
             // If the date is not provided, will take date from last enty made
             if ($.inArray('*', forDate) > -1)   {
                 forDate = Array();
-                forDate.push($('#expenseTable tr:last')[0].cells[0].childNodes[0].value);
+                forDate.push($('#expenseTable tr:last')[0].
+                                            cells[0].childNodes[0].value);
             }
 
             tBody.append(
             '<tr id="row'+idx+'">'+
-            '<td><input type="date" name="Date'+idx+'" id="Date'+idx+'" class="Date" value="'+forDate[0]+'"></td>'+
-            '<td>'+
-              '<select name="Category'+idx+'" id="Category'+idx+'">'+
-                 '<option value="0">None</option>'+
-                 '<option value="1">Home</option>'+
-                 '<option value="2">Conveyance</option>'+
-                 '<option value="3">Groceries</option>'+
-                 '<option value="4">Gifts</option>'+
-                 '<option value="5">Shopping</option>'+
-                 '<option value="6">Miscellaneous</option>'+
-                 '<option value="7">Cigarette</option>'+
-                 '<option value="8">Bills</option>'+
-                 '<option value="9">Food</option>'+
-              '</select>'+
-            '</td>'+
-            '<td><input name="Description'+idx+'" id="Description'+idx+'"></td>'+
-            '<td><input name="Amount'+idx+'" id="Amount'+idx+'"></td>'+
-            '<td><div name="neg'+idx+'" id="neg'+idx+'" class="round-button"><div class="round-button-circle"><a href="javascript:deleteRow('+idx+');" class="round-button">-</a></div></div></td>'+
-            '<td><div name="pos'+idx+'" id="pos'+idx+'"  class="round-button"><div class="round-button-circle"><a href="javascript:addRow(&quot;*&quot;);" class="round-button">+</a></div></div></td>'+
+                '<td><input type="date"             \
+                            name="Date'+idx+'"      \
+                            id="Date'+idx+'"        \
+                            class="Date"            \
+                            value="'+forDate[0]+'"> \
+                </td>'+
+                '<td>'+
+                  '<select name="Category'+idx+'" id="Category'+idx+'">'+
+                     '<option value="0">None</option>'+
+                     '<option value="1">Home</option>'+
+                     '<option value="2">Conveyance</option>'+
+                     '<option value="3">Groceries</option>'+
+                     '<option value="4">Gifts</option>'+
+                     '<option value="5">Shopping</option>'+
+                     '<option value="6">Miscellaneous</option>'+
+                     '<option value="7">Cigarette</option>'+
+                     '<option value="8">Bills</option>'+
+                     '<option value="9">Food</option>'+
+                  '</select>'+
+                '</td>'+
+                '<td><input name="Description'+idx+'"id="Description'+idx+'"></td>'+
+                '<td><input name="Amount'+idx+'"id="Amount'+idx+'"></td>'+
+                '<td><div name="neg'+idx+'"id="neg'+idx+'"class="round-button"> \
+                        <div class="round-button-circle">                       \
+                            <a href="javascript:delRow('+idx+');"class="round-button">-</a> \
+                        </div>                                                              \
+                     </div>                                                                 \
+                </td>'+
+                '<td><div name="pos'+idx+'"id="pos'+idx+'"class="round-button"> \
+                        <div class="round-button-circle">                       \
+                            <a href="javascript:addRow(&quot;*&quot;);"class="round-button">+</a> \
+                        </div>                                                                    \
+                     </div>                                                                       \
+                </td>'+
             '</tr>');
-            $('#Date'+idx)[0].style.width='140px';
-            $('#Date'+idx)[0].style.textAlign='center';
+            $('#Date'+idx)[0].style.width       ='140px';
+            $('#Date'+idx)[0].style.textAlign   ='center';
 
             $('#Description'+idx)[0].style.width='500px';
-            $('#Description'+idx)[0].textAlign='right';
+            $('#Description'+idx)[0].textAlign  ='right';
 
-            $('#Amount'+idx)[0].style.width='80px';
-            $('#Amount'+idx)[0].style.textAlign='center';
+            $('#Amount'+idx)[0].style.width     ='80px';
+            $('#Amount'+idx)[0].style.textAlign ='center';
 
             // Hide the + button in previous row
             if (rowCount > 1) {
-                $('#expenseTable tr:last').prev()[0].childNodes[5].style.visibility="hidden";
+                $('#expenseTable tr:last').
+                        prev()[0].childNodes[5].style.visibility="hidden";
             }
 
             idx++;
         }
 
+        /* 
+        *  Function Name: getUrlVars
+        *  Purpose: Function to get values of parameters passed in URL
+        *  Input : none
+        *  Output: key value
+        */
         function getUrlVars() {
             var vars = {};
-            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {vars[key] = value;});
+            var parts = window.location.href.
+                            replace(/[?&]+([^=&]+)=([^&]*)/gi, 
+                            function(m,key,value) {vars[key] = value;});
             return vars;
         }
 
+        /* 
+        *  Function Name: getMonthName
+        *  Purpose: Function to get name of the month 
+        *  Input : monthId
+        *  Output: month name
+        */
         function getMonthName (monthId) {
             var monthName = "undefined";
+
             switch (monthId)    {
-                case '1': monthName ="JAN"; break;
-                case '2': monthName ="FEB"; break;
-                case '3': monthName ="MAR"; break;
-                case '4': monthName ="APR"; break;
-                case '5': monthName ="MAY"; break;
-                case '6': monthName ="JUN"; break;
-                case '7': monthName ="JUL"; break;
-                case '8': monthName ="AUG"; break;
-                case '9': monthName ="SEP"; break;
-                case '10': monthName="OCT"; break;
-                case '11': monthName="NOV"; break;
-                case '12': monthName="DEC"; break;
+                case '1':  monthName ="JAN"; break;
+                case '2':  monthName ="FEB"; break;
+                case '3':  monthName ="MAR"; break;
+                case '4':  monthName ="APR"; break;
+                case '5':  monthName ="MAY"; break;
+                case '6':  monthName ="JUN"; break;
+                case '7':  monthName ="JUL"; break;
+                case '8':  monthName ="AUG"; break;
+                case '9':  monthName ="SEP"; break;
+                case '10': monthName ="OCT"; break;
+                case '11': monthName ="NOV"; break;
+                case '12': monthName ="DEC"; break;
                 default:
                     // Do nothing, will return undefined
             }
@@ -116,6 +163,12 @@
             return monthName;
         } 
 
+        /* 
+        *  Function Name: OnPageLoad 
+        *  Purpose: Function will be called on page load
+        *  Input : none
+        *  Output: none
+        */
         $(function() {
             var dateTemplate = Array(); 
             var curselMonth = getUrlVars()["sel"];
@@ -131,7 +184,8 @@
             addRow(dateTemplate);
 
             // TODO: Test connection of mysql DB
-            $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
+            $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).
+                    done(function(data) {
                 //var currDates = data['Date'];
                 //addRow(currDates);
                 //console.log (data);
@@ -141,9 +195,16 @@
     </script> 
     </head>
     <body>
-        <div id="hdrText" align="center" style="font-family: Arial Black; font-size: 25px; color: black">$Month $Year</div>
+        <div id="hdrText" 
+             align="center" 
+             style="font-family: Arial Black; font-size: 25px; color: black">
+             $Month $Year
+        </div>
         <form>
-            <table name="expenseTable" id="expenseTable" align="center"  bgcolor="#f1f1f1">
+            <table name="expenseTable" 
+                   id="expenseTable" 
+                   align="center"
+                   bgcolor="#f1f1f1">
                 <thead>
                     <tr>
                         <th>Date</th>
