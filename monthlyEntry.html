@@ -32,23 +32,29 @@
             var numRows = document.getElementById("expenseTable").rows.length;;
     
             if (numRows > 2)    {
-            // Delete the row and show '+' in last row element
+                // Delete the row and show '+' in last row element
                 document.getElementById("expenseTable").deleteRow(rowRef.rowIndex);
                 $('#expenseTable tr:last')[0].childNodes[5].style.visibility="visible";
             }
         }
 
-        function addRow(dates) {
+        function addRow(forDate) {
             var table  = $("#expenseTable");
             var tBody  = table.find("tbody");
             var rowCount = document.getElementById("expenseTable").rows.length;
 
+            // If the date is not provided, will take date from last enty made
+            if ($.inArray('*', forDate) > -1)   {
+                forDate = Array();
+                forDate.push($('#expenseTable tr:last')[0].cells[0].childNodes[0].value);
+            }
+
             tBody.append(
             '<tr id="row'+idx+'">'+
-            '<td><input type="date" name="Date'+idx+'" id="Date'+idx+'" class="Date" value="'+dates[0]+'"></td>'+
+            '<td><input type="date" name="Date'+idx+'" id="Date'+idx+'" class="Date" value="'+forDate[0]+'"></td>'+
             '<td>'+
               '<select name="Category'+idx+'" id="Category'+idx+'">'+
-                 '<option value="">Please select</option>'+
+                 '<option value="0">None</option>'+
                  '<option value="1">Home</option>'+
                  '<option value="2">Conveyance</option>'+
                  '<option value="3">Groceries</option>'+
@@ -63,7 +69,7 @@
             '<td><input name="Description'+idx+'" id="Description'+idx+'"></td>'+
             '<td><input name="Amount'+idx+'" id="Amount'+idx+'"></td>'+
             '<td><div name="neg'+idx+'" id="neg'+idx+'" class="round-button"><div class="round-button-circle"><a href="javascript:deleteRow('+idx+');" class="round-button">-</a></div></div></td>'+
-            '<td><div name="pos'+idx+'" id="pos'+idx+'"  class="round-button"><div class="round-button-circle"><a href="javascript:addRow('+dates+');" class="round-button">+</a></div></div></td>'+
+            '<td><div name="pos'+idx+'" id="pos'+idx+'"  class="round-button"><div class="round-button-circle"><a href="javascript:addRow(&quot;*&quot;);" class="round-button">+</a></div></div></td>'+
             '</tr>');
             $('#Date'+idx)[0].style.width='140px';
             $('#Date'+idx)[0].style.textAlign='center';
@@ -90,7 +96,6 @@
 
         function getMonthName (monthId) {
             var monthName = "undefined";
-            console.log(monthId);
             switch (monthId)    {
                 case '1': monthName ="JAN"; break;
                 case '2': monthName ="FEB"; break;
@@ -129,7 +134,7 @@
             $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).done(function(data) {
                 //var currDates = data['Date'];
                 //addRow(currDates);
-                console.log (data);
+                //console.log (data);
                 //console.log (currDates);
             });
         });
