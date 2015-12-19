@@ -32,7 +32,7 @@
             var numRows = document.getElementById("expenseTable").rows.length;;
     
             if (numRows > 2)    {
-	        // Delete the row and show '+' in last row element
+            // Delete the row and show '+' in last row element
                 document.getElementById("expenseTable").deleteRow(rowRef.rowIndex);
                 $('#expenseTable tr:last')[0].childNodes[5].style.visibility="visible";
             }
@@ -88,14 +88,41 @@
             return vars;
         }
 
+        function getMonthName (monthId) {
+            var monthName = "undefined";
+            console.log(monthId);
+            switch (monthId)    {
+                case '1': monthName="JAN"; break;
+                case '2': monthName="FEB"; break;
+                case '3': monthName="MAR"; break;
+                case '4': monthName="APR"; break;
+                case '5': monthName="MAY"; break;
+                case '6': monthName="JUN"; break;
+                case '7': monthName="JUL"; break;
+                case '8': monthName="AUG"; break;
+                case '9': monthName="SEP"; break;
+                case '10': monthName="OCT"; break;
+                case '11': monthName="NOV"; break;
+                case '12': monthName="DEC"; break;
+                default:
+                    // Do nothing, will return undefined
+            }
+
+            return monthName;
+        } 
+
         $(function() {
-            var curselMonth = getUrlVars()["sel"];
             var dateTemplate = Array(); 
+            var curselMonth = getUrlVars()["sel"];
+            var curselYear = getUrlVars()["year"];
+            var headerText=document.getElementById('hdrText');
     
+            hdrText.innerHTML = getMonthName (curselMonth) + " " + curselYear;
+
             if (curselMonth < 10)
                 curselMonth = '0'+curselMonth;
-            dateTemplate.push('2015-'+curselMonth+'-01');
 
+            dateTemplate.push(curselYear+'-'+curselMonth+'-01');
             addRow(dateTemplate);
 
             // TODO: Test connection of mysql DB
@@ -109,6 +136,7 @@
     </script> 
     </head>
     <body>
+        <div id="hdrText" align="center" style="font-family: Arial Black; font-size: 25px; color: black">$Month $Year</div>
         <form>
             <table name="expenseTable" id="expenseTable" align="center"  bgcolor="#f1f1f1">
                 <thead>
