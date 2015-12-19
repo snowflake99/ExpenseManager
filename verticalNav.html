@@ -11,10 +11,18 @@
             header("Location: ./login"); 
         }
         ?>
-
+        <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script language="javascript" type="text/javascript">
+            $(document).ready(function() {
+                $('#NavigationTable > li').click(function() {
+                  $('#NavigationTable > li').css('background-color','#e6e6e6');
+                  $(this).css('background-color','#c3c0c0');
+                });
+            });
+        </script>
     </head>
     <body>
-        <ul>
+        <ul id="NavigationTable">
           <li><a target='frame2' href="monthlyEntry.html?sel=1">January</a></li>
           <li><a target='frame2' href="monthlyEntry.html?sel=2">February</a></li>
           <li><a target='frame2' href="monthlyEntry.html?sel=3">March</a></li>
