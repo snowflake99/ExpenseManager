@@ -11,30 +11,66 @@
             header("Location: ./login"); 
         }
         ?>
+
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
         <script language="javascript" type="text/javascript">
+           // variable to store the current selected month and year
+           var selYear = 0;
+           var selMonth = 0;
+
             $(document).ready(function() {
                 $('#NavigationTable > li').click(function() {
                   $('#NavigationTable > li').css('background-color','#e6e6e6');
                   $(this).css('background-color','#c3c0c0');
                 });
+                selYear = new Date().getFullYear();
+                $('#yearSelection').val(selYear);
             });
+
+            function gotoMonthlyEntry(month) {
+                var entryhref = 'monthlyEntry.html?sel='+month+'&year='+selYear;
+                $("a").attr("href", entryhref);
+                selMonth=month;
+
+		return entryhref;
+            }
+
+            function selectedYear() {
+                selYear = document.getElementById("yearSelection").value;
+                if (selMonth != 0)
+                    parent.document.getElementById('frame2').src = gotoMonthlyEntry(selMonth);
+            }
         </script>
     </head>
     <body>
         <ul id="NavigationTable">
-          <li><a target='frame2' href="monthlyEntry.html?sel=1&year=2015">January</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=2&year=2015">February</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=3&year=2015">March</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=4&year=2015">April</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=5&year=2015">May</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=6&year=2015">June</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=7&year=2015">July</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=8&year=2015">August</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=9&year=2015">September</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=10&year=2015">October</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=11&year=2015">November</a></li>
-          <li><a target='frame2' href="monthlyEntry.html?sel=12&year=2015">December</a></li>
+          <select id="yearSelection" onchange="selectedYear()"> 
+              <option value="2015">2015</option> 
+              <option value="2016">2016</option> 
+              <option value="2017">2017</option> 
+              <option value="2018">2018</option> 
+              <option value="2019">2019</option> 
+              <option value="2020">2020</option> 
+              <option value="2021">2021</option> 
+              <option value="2022">2022</option> 
+              <option value="2023">2023</option> 
+              <option value="2024">2024</option> 
+              <option value="2025">2025</option>
+              <!-- Add new entry for years --> 
+          </select> 
+
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(01);return true;">January</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(02);return true;">February</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(03);return true;">March</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(04);return true;">April</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(05);return true;">May</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(06);return true;">June</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(07);return true;">July</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(08);return true;">August</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(09);return true;">September</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(10);return true;">October</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(11);return true;">November</a></li>
+          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(12);return true;">December</a></li>
         </ul>
     </body>
 </html>
