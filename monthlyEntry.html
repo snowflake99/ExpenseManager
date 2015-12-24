@@ -184,11 +184,11 @@
             addRow(dateTemplate);
 
             // TODO: Test connection of mysql DB
-            $.get("./php/mysql_connect.php", {name: 'sanjoy', password: 'sanjoy'}).
+            $.get("./php/getEntry.php", {month: curselMonth, year: curselYear}).
                     done(function(data) {
                 //var currDates = data['Date'];
                 //addRow(currDates);
-                //console.log (data);
+                console.log (data);
                 //console.log (currDates);
             });
         });
