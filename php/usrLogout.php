@@ -5,13 +5,11 @@
         if ( isset( $_COOKIE[session_name()] ) ) {
             setcookie( session_name(), “”, time()-3600, “/” );
         }
-        mysql_close ($_SESSION['activeConn']);
+        echo "Killing:".$_SESSION['username'];
 
         $_SESSION = array();
         session_destroy();
     
         header("Location: ../login");
-     
-        echo "Killing:".$_SESSION['username'];
     }
 ?>

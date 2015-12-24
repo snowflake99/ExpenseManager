@@ -1,27 +1,41 @@
 <?php
     header("Location: ../login"); 
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $hostname = "localhost";
-    $msg="Login failure";
+    include 'config.php';
+    include 'opendb.php';
 
-    $dbhandle = mysql_connect($hostname, $username,$password) 
-      or die("Unable to connect to MySQL");
+    // username and password sent from form 
+    $myusername = $_POST['username'];
+    $mypassword = $_POST['password'];
 
-    $selectedDB = mysql_select_db("testdb",$dbhandle) 
-      or die("Could not select examples");
+    // To protect MySQL injection 
+    $myusername = stripslashes($myusername);
+    $mypassword = stripslashes($mypassword);
+    $myusername = mysql_real_escape_string
+                              ($myusername);
+    $mypassword = mysql_real_escape_string
+                              ($mypassword);
+    $sql="SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
+    $result=mysql_query($sql);
 
-    session_start();
-    $_SESSION['loggedin']   = true;
-    $_SESSION['username']   = $username;
-    $_SESSION['activeConn'] = $dbhandle;
+    // Mysql_num_row is counting table row
+    $count=mysql_num_rows($result);
 
-    $msg="Login successful";
+    // If result matched $myusername and $mypassword, 
+    // table row must be 1 row
+    if($count==1)   {
+        session_start();
 
-    header("Location: ../home"); 
-    
-    echo $msg;
+        $_SESSION['loggedin']   = true;
+        $_SESSION['username']   = $myusername;
+
+        header("Location: ../home"); 
+    }
+    else {
+        echo "Wrong Username or Password";
+    }
+
+    include 'closedb.php';
 
     die();
 ?>
