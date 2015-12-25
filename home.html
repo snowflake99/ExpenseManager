@@ -13,13 +13,48 @@
             header("Location: ./login"); 
         }
         ?>
+
+        <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script language="javascript" type="text/javascript">
+            function saveEntries() {
+                var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
+                var curselYear =  document.getElementById("frame1").contentWindow.selYear;
+                var data = "";
+
+                var table = $("#frame2").contents().find("tbody")[0]; 
+                for (var i = 0, row; row = table.rows[i]; i++) {
+                   data += "@"; 
+                   for (var j = 0, col; col = row.cells[j]; j++) {
+                        switch (j)  {
+                            // date
+                            case 0: data += "edate=" + col.childNodes[0].value; break;
+                            // category
+                            case 1: data += "?category=" + col.childNodes[0].value; break;
+                            // description
+                            case 2: data += "?description=" + col.childNodes[0].value; break;
+                            // amount
+                            case 3: data += "?amount=" + col.childNodes[0].value; break;
+                            default: break;
+                        }
+                   } 
+                }
+
+                if (curselMonth < 10) curselMonth = "0" + curselMonth;        
+                $.get("./php/setEntry.php", {month: curselMonth, 
+                                             year: curselYear, 
+                                             rowEntries: data}).
+                      done(function(ret_status) {
+                    alert (ret_status);
+                })
+            }
+        </script>
     </head>
 
     <body>
         <!-- Create hyperlinks to Horizontal Navigation bar  -->
         <ul>
             <li><a class="highlightColor" href="">Happy Home</a></li>
-            <li><a href="#">Save</a></li>
+            <li><a href="javascript:saveEntries();">Save</a></li>
             <li><a href="#">Report</a></li>
             <li><a href="#">Download</a></li>
             <li><a href="#">Summary</a></li>
