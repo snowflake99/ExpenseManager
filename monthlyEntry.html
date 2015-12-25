@@ -203,7 +203,7 @@
             // Get data for current selected month/year from DB
             // If no data is found create a template row with first day of
             // the month.
-            $.get("./php/getEntry.php", {month: curselMonth, year: curselYear}).
+            $.get("./php/getTableRows.php", {month: curselMonth, year: curselYear}).
                     done(function(rowEntries) {
                 var tableIsEmpty = true;
                 var m_recordRow;

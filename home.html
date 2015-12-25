@@ -55,7 +55,7 @@
                     }
 
                     if (curselMonth < 10) curselMonth = "0" + curselMonth;        
-                    $.get("./php/setEntry.php", {month: curselMonth, 
+                    $.get("./php/setTableRows.php", {month: curselMonth, 
                                                  year: curselYear, 
                                                  rowEntries: data}).
                           done(function(ret_status) {
