@@ -31,7 +31,7 @@
         /* 
         *  Function Name: delRow
         *  Purpose: Function to delete row
-        *  Input : rowIdNum
+        *  Input : rowIdNum - unique row index identifier.
         *  Output: none
         */
         function delRow(rowIdNum)    {
@@ -50,7 +50,7 @@
         /* 
         *  Function Name: addRow
         *  Purpose: Function to add new row
-        *  Input : forDate
+        *  Input : forDate - Date in format YYYY-MM-DD
         *  Output: none
         */
         function addRow(forDate) {
@@ -102,6 +102,7 @@
                      </div>                                                                       \
                 </td>'+
             '</tr>');
+            // Format the with and alignment of fields
             $('#Date'+idx)[0].style.width       ='140px';
             $('#Date'+idx)[0].style.textAlign   ='center';
 
@@ -117,8 +118,27 @@
                         prev()[0].childNodes[5].style.visibility="hidden";
             }
 
+            // Increment the unique index identifier
             idx++;
         }
+
+        /* 
+        *  Function Name: setRowValues
+        *  Purpose: Function to set values for row identified by unique idx. 
+        *  Input : idx - unique identifier for a row
+        *          s_Category - value of category field (0,1,2,....).
+        *          s_Desc - value of description field.
+        *          s_Amount - value of amount field.
+        *  Output: none
+        */
+        function setRowValues (idx, s_Category, s_Desc, s_Amount)   {
+            if (s_Category != null)
+                $('#Category'+idx)[0].value     = s_Category;
+            if (s_Desc != null)
+                $('#Description'+idx)[0].value  = s_Desc;
+            if (s_Amount != null)
+                $('#Amount'+idx)[0].value       = s_Amount;
+        } 
 
         /* 
         *  Function Name: getUrlVars
@@ -137,7 +157,7 @@
         /* 
         *  Function Name: getMonthName
         *  Purpose: Function to get name of the month 
-        *  Input : monthId
+        *  Input : monthId - Month in (1 to 12)
         *  Output: month name
         */
         function getMonthName (monthId) {
@@ -177,20 +197,62 @@
     
             hdrText.innerHTML = getMonthName (curselMonth) + " " + curselYear;
 
-            if (curselMonth < 10)
-                curselMonth = '0'+curselMonth;
-
+            if (curselMonth < 10) curselMonth = '0'+curselMonth;
             dateTemplate.push(curselYear+'-'+curselMonth+'-01');
-            addRow(dateTemplate);
 
-            // TODO: Test connection of mysql DB
+            // Get data for current selected month/year from DB
+            // If no data is found create a template row with first day of
+            // the month.
             $.get("./php/getEntry.php", {month: curselMonth, year: curselYear}).
-                    done(function(data) {
-                //var currDates = data['Date'];
-                //addRow(currDates);
-                console.log (data);
-                //console.log (currDates);
+                    done(function(rowEntries) {
+                var tableIsEmpty = true;
+                var m_recordRow;
+                var m_recordCell;
+        
+                var re_recordRow = /[^@]+/g;
+                var re_recordCell = /[^?]+/g;
+        
+                var re_recordCellElement = /[^=]+$/;
+               
+                // For all the row entries read from DB 
+                while (m_recordRow = re_recordRow.exec(rowEntries)) {
+                    // For all the entries in a single row
+                    while(m_recordCell = re_recordCell.exec(m_recordRow[0]))    {
+                        // If this is a date, Add row with date and all other
+                        // fields empty.
+                        if (m_recordCell[0].indexOf("date") > -1)   
+                            addRow(re_recordCellElement.exec(m_recordCell[0]));
+                        // If this is category, Update the category field of 
+                        // newly added row.
+                        if (m_recordCell[0].indexOf("category") > -1)   
+                            setRowValues ((idx-1), 
+                                          re_recordCellElement.exec(m_recordCell[0]), 
+                                          null,
+                                          null);
+                        // If this is description, Update the description field of
+                        // newly added row.
+                        if (m_recordCell[0].indexOf("description") > -1)   
+                            setRowValues ((idx-1),
+                                          null, 
+                                          re_recordCellElement.exec(m_recordCell[0]), 
+                                          null);
+                        // If this is amount, Update the amount field of newly added
+                        // row
+                        if (m_recordCell[0].indexOf("amount") > -1)   
+                            setRowValues ((idx-1),
+                                          null, 
+                                          null,
+                                          re_recordCellElement.exec(m_recordCell[0]));
+                    }
+                    // Flag the table is not empty. The DB contains entries for selected
+                    // month/year combination.
+                    tableIsEmpty = false;
+                }
+                // Add a row with template date (first day of the month) if the DB table
+                // if empty.
+                if (tableIsEmpty == true) addRow(dateTemplate);
             });
+ 
         });
     </script> 
     </head>

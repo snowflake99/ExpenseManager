@@ -1,5 +1,4 @@
 <?php
-
     include 'config.php';
     include 'opendb.php';
     
@@ -7,11 +6,11 @@
     $selyear = $_GET['year'];
     $table = "_".$selmonth."_".$selyear."_";
 
-    $sql="SELECT * FROM $table";
+    $sql="SELECT edate,category,description,amount FROM $table";
     $result=mysql_query($sql);
 
     while ($row = mysql_fetch_array($result)) {
-       echo "#Date=".$row{'Date'}."?Category=".$row{'Category'}."?Description=".$row{'Description'}."?Amount=".$row{'Amount'};
+       echo "@edate=".$row{'edate'}."?category=".$row{'category'}."?description=".$row{'description'}."?amount=".$row{'amount'};
     }
 
     include 'closedb.php';
