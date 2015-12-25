@@ -13,7 +13,7 @@
                                      edate date not null, 
                                      category int, 
                                      description varchar(255), 
-                                     amount int, 
+                                     amount float, 
                 Primary key(idx))";
     } else {
         $sql = "TRUNCATE TABLE $table";
