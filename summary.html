@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Monthly Summary</title>
+
+        <script language="javascript" 
+                type="text/javascript" 
+                src="js/jquery-1.11.3.min.js"></script>
+
+        <?php
+        session_start();
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            //echo "Welcome to the member's area, " . $_SESSION['username'] . "!";
+        } else {
+            //echo "Please log in first to see this page.";
+            header("Location: ./login"); 
+        }
+        ?>
+
+        <style>
+            table {
+                -moz-box-shadow: 0 0 5px #888;
+                -webkit-box-shadow: 0 0 5px#888;
+                box-shadow: 0 0 5px #888;
+            }
+            table, th, td {
+                border: 1px solid black;
+            }
+        </style>
+        <script type="text/javascript">
+            // Category color, name, data and percent
+            var categoryColor = ["#ECD078","#D95B43","#C02942","#542437","#53777A",
+                                 "#b35900","#999966","#aaaa55","#3f0080","#669999" ];
+            var categoryName  = ["None", "Home", "Conveyance", "Groceries", "Gifts",
+                                 "Shopping", "Miscellaneous", "Cigarette", "Bills", "Food"];
+            var categoryData  = [0.0, 0.0, 0.0, 0.0, 0.0,
+                                 0.0, 0.0, 0.0, 0.0, 0.0];
+            var categoryPerc  = [0.0, 0.0, 0.0, 0.0, 0.0,
+                                 0.0, 0.0, 0.0, 0.0, 0.0];
+
+            function getTotal(){
+                var myTotal = 0.0;
+                for (var j = 0; j < categoryData.length; j++) {
+                    myTotal += (typeof categoryData[j] == 'number') ? categoryData[j] : 0;
+                }
+                return myTotal;
+            }
+
+            function getTotalPercent(){
+                var myTotal = 0.0;
+                for (var j = 0; j < categoryPerc.length; j++) {
+                    myTotal += (typeof categoryPerc[j] == 'number') ? categoryPerc[j] : 0;
+                }
+                return myTotal;
+            }
+            
+            function getMonthName (monthId) {
+                var monthName = "undefined";
+
+                switch (monthId)    {
+                    case '1':  monthName ="JAN"; break;
+                    case '2':  monthName ="FEB"; break;
+                    case '3':  monthName ="MAR"; break;
+                    case '4':  monthName ="APR"; break;
+                    case '5':  monthName ="MAY"; break;
+                    case '6':  monthName ="JUN"; break;
+                    case '7':  monthName ="JUL"; break;
+                    case '8':  monthName ="AUG"; break;
+                    case '9':  monthName ="SEP"; break;
+                    case '10': monthName ="OCT"; break;
+                    case '11': monthName ="NOV"; break;
+                    case '12': monthName ="DEC"; break;
+                    default:
+                        // Do nothing, will return undefined
+                }
+
+                return monthName;
+            } 
+
+            function plotPieChart() {
+                var canvas;
+                var ctx;
+                var lastend = 0;
+                var myTotal = getTotal();
+                
+                canvas = document.getElementById("canvas");
+                ctx = canvas.getContext("2d");
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+               
+                // Draw the pie chart 
+                for (var i = 0; i < categoryData.length; i++) {
+                    ctx.fillStyle = categoryColor[i];
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width/2,canvas.height/2);
+                    ctx.arc(canvas.width/2,canvas.height/2,200,lastend,lastend+
+                      (Math.PI*2*(categoryData[i]/myTotal)),false);
+                    ctx.lineTo(canvas.width/2,canvas.height/2);
+                    ctx.fill();
+                    lastend += Math.PI*2*(categoryData[i]/myTotal);
+                }
+
+                lastend = 0;
+                // Draw the legends
+                for (var j = 0; j < categoryName.length; j++)   {
+                    ctx.fillStyle = categoryColor[j];
+                    ctx.beginPath();
+                    ctx.rect (0,100+lastend,10,10);
+                    ctx.fillText (categoryName[j], 15, 110+lastend);
+                    ctx.fill();
+
+                    lastend += 20;
+                } 
+            }
+
+            function createCategoryTable () {
+                var table  = $("#summaryTable");
+                var tBody  = table.find("tbody");
+                var idx = 0;
+
+                for (var i = 0; i < categoryName.length; i++)   { 
+                    tBody.append(
+                    '<tr id="row'+idx+'">'+
+                        '<td align="left">'+categoryName[i]+'</td>'+
+                        '<td align="center">'+categoryData[i].toFixed(2)+'</td>'+
+                        '<td align="center">'+categoryPerc[i].toFixed(2)+'</td>'+
+                    '</tr>'
+                    );
+                    idx++;
+                }
+                tBody.append(
+                '<tr id="row'+idx+'">'+
+                    '<td align="left"><b>Total</b></td>'+
+                    '<td align="center"><b>'+getTotal().toFixed(2)+'</b></td>'+
+                    '<td align="center"><b>'+getTotalPercent().toFixed(2)+'</b></td>'+
+                '</tr>'
+                );
+            }
+
+            $(function() {
+                var curselMonth = $('#frame1', window.parent.document)[0].contentWindow.selMonth;
+                var curselYear =  $('#frame1', window.parent.document)[0].contentWindow.selYear;
+                var headerText=document.getElementById('hdrText');
+    
+                hdrText.innerHTML = "SUMMARY OF " +
+                                    getMonthName (curselMonth.toString()) + 
+                                    " " + 
+                                    curselYear;
+
+                if (curselMonth < 10) curselMonth = "0" + curselMonth;        
+                $.get("./php/summary.php", {month: curselMonth, 
+                                                 year: curselYear}).
+                      done(function(summary) {
+                    var m_recordRow;
+                    var m_recordCell;
+                    var idx = 0;
+        
+                    var re_recordRow = /[^@]+/g;
+                    var re_recordCell = /[^?]+/g;
+                    var re_recordCellValue = /[^=]+$/;
+               
+                    // For all the row entries read from DB 
+                    while (m_recordRow = re_recordRow.exec(summary)) {
+                        // For all the entries in a single row
+                        while(m_recordCell = re_recordCell.exec(m_recordRow[0]))    {
+                            if (m_recordCell[0].indexOf("category") > -1)
+                               idx = re_recordCellValue.exec(m_recordCell[0]);
+ 
+                            if (m_recordCell[0].indexOf("total") > -1)  {
+                                categoryData[idx] = parseFloat(
+                                                    re_recordCellValue.exec(m_recordCell[0]));
+                            }
+                        }
+                    }
+                    // calulate percentage
+                    var totalExpense = getTotal();
+                    for (var i = 0; i < categoryData.length; i++)   {
+                        categoryPerc[i] = ((categoryData[i]/totalExpense) * 100);
+                    }
+
+                    plotPieChart();
+                    createCategoryTable ();
+                })
+            });
+        </script>
+    </head>
+    <body>
+        <br>
+            <div id="hdrText" 
+                 align="center" 
+                 style="font-family: Arial Black; font-size: 25px; color: black">
+                 Summary $Month $Year
+            </div>
+        </br>
+        <table name="summaryTable" 
+               id="summaryTable" 
+               align="left"
+               width="400"
+               bgcolor="#f2f2f2">
+            <thead>
+                <tr>
+                    <th align="left">Category</th>
+                    <th align="center">Amount</th>
+                    <th align="center">Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <section align="right">
+            <div>
+                <canvas id="canvas" width="550" height="400">
+                    Your browser does not support HTML5 Canvas.
+                </canvas>
+            </div>
+        </section>
+    </body>
+</html>
