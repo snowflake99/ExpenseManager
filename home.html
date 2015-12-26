@@ -21,36 +21,36 @@
                 var curselYear =  document.getElementById("frame1").contentWindow.selYear;
                 var data = "";
 
-            if ((curselMonth >= 1 && curselMonth <= 12) &&
-                (curselYear >= 1979 && curselYear <= 9999)) {
+                if ((curselMonth >= 1 && curselMonth <= 12) &&
+                    (curselYear >= 1979 && curselYear <= 9999)) {
                     var table = $("#frame2").contents().find("tbody")[0]; 
                     for (var i = 0, row; row = table.rows[i]; i++) {
                        data += "@"; 
                        for (var j = 0, col; col = row.cells[j]; j++) {
-                            switch (j)  {
-                                // date
-                                case 0: 
-                                if (isNaN(Date.parse(col.childNodes[0].value)) == true)
-                                     data += "edate="+curselYear+"-"+curselMonth+"-"+"01";
-                                else data += "edate=" + col.childNodes[0].value; 
-                                break;
-                                // category
-                                case 1:
-                                if (col.childNodes[0].value == '')  data += "?category=0";
-                                else data += "?category=" + col.childNodes[0].value; 
-                                break;
-                                // description
-                                case 2:
-                                if (col.childNodes[0].value == '') data += "?description=--Empty--"; 
-                                else data += "?description=" + col.childNodes[0].value; 
-                                break;
-                                // amount
-                                case 3:
-                                if (col.childNodes[0].value == '') data += "?amount=0";
-                                else data += "?amount=" + col.childNodes[0].value; 
-                                break;
-                                default: break;
-                            }
+                           switch (j)  {
+                               // date
+                               case 0: 
+                               if (isNaN(Date.parse(col.childNodes[0].value)) == true)
+                                    data += "edate="+curselYear+"-"+curselMonth+"-"+"01";
+                               else data += "edate=" + col.childNodes[0].value; 
+                               break;
+                               // category
+                               case 1:
+                               if (col.childNodes[0].value == '')  data += "?category=0";
+                               else data += "?category=" + col.childNodes[0].value; 
+                               break;
+                               // description
+                               case 2:
+                               if (col.childNodes[0].value == '') data += "?description=--Empty--"; 
+                               else data += "?description=" + col.childNodes[0].value; 
+                               break;
+                               // amount
+                               case 3:
+                               if (col.childNodes[0].value == '') data += "?amount=0";
+                               else data += "?amount=" + col.childNodes[0].value; 
+                               break;
+                               default: break;
+                           }
                        } 
                     }
 
@@ -72,7 +72,7 @@
         <!-- Create hyperlinks to Horizontal Navigation bar  -->
         <ul>
             <li><a class="highlightColor" href="">Happy Home</a></li>
-            <li><a target="frame2" href="javascript:saveEntries();">Save</a></li>
+            <li><a href="#" onclick="javascript:saveEntries();">Save</a></li>
             <li><a href="#">Report</a></li>
             <li><a href="#">Download</a></li>
             <li><a target="frame2" href="summary.html">Summary</a></li>
