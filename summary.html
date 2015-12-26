@@ -186,8 +186,11 @@
                     for (var i = 0; i < categoryData.length; i++)   {
                         categoryPerc[i] = ((categoryData[i]/totalExpense) * 100);
                     }
+                    if (totalExpense > 0) 
+                        plotPieChart();
+                    else 
+                        $('#canvasSection')[0].style.display='none';
 
-                    plotPieChart();
                     createCategoryTable ();
                 })
             });
@@ -201,13 +204,11 @@
                  Summary $Month $Year
             </div>
         </br>
-        <section align="center">
-            <div>
-                <canvas id="canvas" width="600" height="400">
-                    Your browser does not support HTML5 Canvas.
-                </canvas>
-            </div>
-       </section>
+        <div id="canvasSection" align="center">
+            <canvas id="canvas" width="600" height="400">
+                Your browser does not support HTML5 Canvas.
+            </canvas>
+        </div>
         <table name="summaryTable" id="summaryTable">
             <thead>
                 <tr>
