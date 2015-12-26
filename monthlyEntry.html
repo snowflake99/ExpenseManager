@@ -212,7 +212,7 @@
                 var re_recordRow = /[^@]+/g;
                 var re_recordCell = /[^?]+/g;
         
-                var re_recordCellElement = /[^=]+$/;
+                var re_recordCellValue = /[^=]+$/;
                
                 // For all the row entries read from DB 
                 while (m_recordRow = re_recordRow.exec(rowEntries)) {
@@ -221,12 +221,12 @@
                         // If this is a date, Add row with date and all other
                         // fields empty.
                         if (m_recordCell[0].indexOf("date") > -1)   
-                            addRow(re_recordCellElement.exec(m_recordCell[0]));
+                            addRow(re_recordCellValue.exec(m_recordCell[0]));
                         // If this is category, Update the category field of 
                         // newly added row.
                         if (m_recordCell[0].indexOf("category") > -1)   
                             setRowValues ((idx-1), 
-                                          re_recordCellElement.exec(m_recordCell[0]), 
+                                          re_recordCellValue.exec(m_recordCell[0]), 
                                           null,
                                           null);
                         // If this is description, Update the description field of
@@ -234,7 +234,7 @@
                         if (m_recordCell[0].indexOf("description") > -1)   
                             setRowValues ((idx-1),
                                           null, 
-                                          re_recordCellElement.exec(m_recordCell[0]), 
+                                          re_recordCellValue.exec(m_recordCell[0]), 
                                           null);
                         // If this is amount, Update the amount field of newly added
                         // row
@@ -242,7 +242,7 @@
                             setRowValues ((idx-1),
                                           null, 
                                           null,
-                                          re_recordCellElement.exec(m_recordCell[0]));
+                                          re_recordCellValue.exec(m_recordCell[0]));
                     }
                     // Flag the table is not empty. The DB contains entries for selected
                     // month/year combination.
@@ -257,11 +257,13 @@
     </script> 
     </head>
     <body>
-        <div id="hdrText" 
-             align="center" 
-             style="font-family: Arial Black; font-size: 25px; color: black">
-             $Month $Year
-        </div>
+        <br>
+            <div id="hdrText" 
+                 align="center" 
+                 style="font-family: Arial Black; font-size: 25px; color: black">
+                 $Month $Year
+            </div>
+        </br>
         <form>
             <table name="expenseTable" 
                    id="expenseTable" 
