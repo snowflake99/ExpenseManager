@@ -19,51 +19,54 @@
             function saveEntries() {
                 var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
                 var curselYear =  document.getElementById("frame1").contentWindow.selYear;
+                var mainWinHref = document.getElementById("frame2").contentWindow.location.href;
                 var data = "";
 
-                if ((curselMonth >= 1 && curselMonth <= 12) &&
-                    (curselYear >= 1979 && curselYear <= 9999)) {
-                    var table = $("#frame2").contents().find("tbody")[0]; 
-                    for (var i = 0, row; row = table.rows[i]; i++) {
-                       data += "@"; 
-                       for (var j = 0, col; col = row.cells[j]; j++) {
-                           switch (j)  {
-                               // date
-                               case 0: 
-                               if (isNaN(Date.parse(col.childNodes[0].value)) == true)
-                                    data += "edate="+curselYear+"-"+curselMonth+"-"+"01";
-                               else data += "edate=" + col.childNodes[0].value; 
-                               break;
-                               // category
-                               case 1:
-                               if (col.childNodes[0].value == '')  data += "?category=0";
-                               else data += "?category=" + col.childNodes[0].value; 
-                               break;
-                               // description
-                               case 2:
-                               if (col.childNodes[0].value == '') data += "?description=--Empty--"; 
-                               else data += "?description=" + col.childNodes[0].value; 
-                               break;
-                               // amount
-                               case 3:
-                               if (col.childNodes[0].value == '') data += "?amount=0";
-                               else data += "?amount=" + col.childNodes[0].value; 
-                               break;
-                               default: break;
-                           }
-                       } 
-                    }
+                if (mainWinHref.indexOf("monthlyEntry.html") > -1)	{
+                    if ((curselMonth >= 1 && curselMonth <= 12) &&
+                        (curselYear >= 1979 && curselYear <= 9999)) {
+                        var table = $("#frame2").contents().find("tbody")[0]; 
+                        for (var i = 0, row; row = table.rows[i]; i++) {
+                           data += "@"; 
+                           for (var j = 0, col; col = row.cells[j]; j++) {
+                               switch (j)  {
+                                   // date
+                                   case 0: 
+                                   if (isNaN(Date.parse(col.childNodes[0].value)) == true)
+                                        data += "edate="+curselYear+"-"+curselMonth+"-"+"01";
+                                   else data += "edate=" + col.childNodes[0].value; 
+                                   break;
+                                   // category
+                                   case 1:
+                                   if (col.childNodes[0].value == '')  data += "?category=0";
+                                   else data += "?category=" + col.childNodes[0].value; 
+                                   break;
+                                   // description
+                                   case 2:
+                                   if (col.childNodes[0].value == '') data += "?description=--Empty--"; 
+                                   else data += "?description=" + col.childNodes[0].value; 
+                                   break;
+                                   // amount
+                                   case 3:
+                                   if (col.childNodes[0].value == '') data += "?amount=0";
+                                   else data += "?amount=" + col.childNodes[0].value; 
+                                   break;
+                                   default: break;
+                               }
+                           } 
+                        }
 
-                    if (curselMonth < 10) curselMonth = "0" + curselMonth;        
-                    $.get("./php/setTableRows.php", {month: curselMonth, 
-                                                 year: curselYear, 
-                                                 rowEntries: data}).
-                          done(function(ret_status) {
-                        alert (ret_status);
-                    })
-                } else {
-                    alert ("Please select a month for saving !");
-                }
+                        if (curselMonth < 10) curselMonth = "0" + curselMonth;        
+                        $.get("./php/setTableRows.php", {month: curselMonth, 
+                                                     year: curselYear, 
+                                                     rowEntries: data}).
+                              done(function(ret_status) {
+                            alert (ret_status);
+                        })
+                    } else {
+                        alert ("Please select a month for saving !");
+                    }
+		}
             }
         </script>
     </head>
