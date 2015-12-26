@@ -18,15 +18,6 @@
            var selYear = 0;
            var selMonth = 0;
 
-            $(document).ready(function() {
-                $('#NavigationTable > li').click(function() {
-                  $('#NavigationTable > li').css('background-color','#e6e6e6');
-                  $(this).css('background-color','#c3c0c0');
-                });
-                selYear = new Date().getFullYear();
-                $('#yearSelection').val(selYear);
-            });
-
             function gotoMonthlyEntry(month) {
                 var entryhref = 'monthlyEntry.html?sel='+month+'&year='+selYear;
                 $("a").attr("href", entryhref);
@@ -40,24 +31,24 @@
                 if (selMonth != 0)
                     parent.document.getElementById('frame2').src = gotoMonthlyEntry(selMonth);
             }
+
+            $(document).ready(function() {
+                for (var i = new Date().getFullYear(); i > 2010; i--){
+                    $('#yearSelection').append($('<option />').val(i).html(i));
+                }
+
+                $('#NavigationTable > li').click(function() {
+                  $('#NavigationTable > li').css('background-color','#e6e6e6');
+                  $(this).css('background-color','#c3c0c0');
+                });
+                selYear = new Date().getFullYear();
+                $('#yearSelection').val(selYear);
+            });
         </script>
     </head>
     <body>
         <ul id="NavigationTable">
-          <select id="yearSelection" onchange="selectedYear()"> 
-              <option value="2015">2015</option> 
-              <option value="2016">2016</option> 
-              <option value="2017">2017</option> 
-              <option value="2018">2018</option> 
-              <option value="2019">2019</option> 
-              <option value="2020">2020</option> 
-              <option value="2021">2021</option> 
-              <option value="2022">2022</option> 
-              <option value="2023">2023</option> 
-              <option value="2024">2024</option> 
-              <option value="2025">2025</option>
-              <!-- Add new entry for years --> 
-          </select> 
+          <select name="yearSelection" id="yearSelection" onchange="selectedYear()"></select> 
 
           <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(01);return true;">January</a></li>
           <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(02);return true;">February</a></li>
