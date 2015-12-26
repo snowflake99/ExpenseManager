@@ -3,6 +3,25 @@
     <head>
         <meta charset="UTF-8" />
         <title>Monthly Summary</title>
+        <style>
+            table {
+                -moz-box-shadow: 0 0 5px #888;
+                -webkit-box-shadow: 0 0 5px#888;
+                box-shadow: 0 0 5px #888;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th, td {
+                text-align: left;
+                padding: 8px;
+            }
+            
+            th {
+                background-color: #666666;
+                color: white;
+            }
+        </style>
 
         <script language="javascript" 
                 type="text/javascript" 
@@ -18,16 +37,6 @@
         }
         ?>
 
-        <style>
-            table {
-                -moz-box-shadow: 0 0 5px #888;
-                -webkit-box-shadow: 0 0 5px#888;
-                box-shadow: 0 0 5px #888;
-            }
-            table, th, td {
-                border: 1px solid black;
-            }
-        </style>
         <script type="text/javascript">
             // Category color, name, data and percent
             var categoryColor = ["#ECD078","#D95B43","#C02942","#542437","#53777A",
@@ -121,18 +130,18 @@
                 for (var i = 0; i < categoryName.length; i++)   { 
                     tBody.append(
                     '<tr id="row'+idx+'">'+
-                        '<td align="left">'+categoryName[i]+'</td>'+
-                        '<td align="center">'+categoryData[i].toFixed(2)+'</td>'+
-                        '<td align="center">'+categoryPerc[i].toFixed(2)+'</td>'+
+                        '<td>'+categoryName[i]+'</td>'+
+                        '<td>'+categoryData[i].toFixed(2)+'</td>'+
+                        '<td>'+categoryPerc[i].toFixed(2)+'</td>'+
                     '</tr>'
                     );
                     idx++;
                 }
                 tBody.append(
                 '<tr id="row'+idx+'">'+
-                    '<td align="left"><b>Total</b></td>'+
-                    '<td align="center"><b>'+getTotal().toFixed(2)+'</b></td>'+
-                    '<td align="center"><b>'+getTotalPercent().toFixed(2)+'</b></td>'+
+                    '<td><b>Total</b></td>'+
+                    '<td><b>'+getTotal().toFixed(2)+'</b></td>'+
+                    '<td><b>'+getTotalPercent().toFixed(2)+'</b></td>'+
                 '</tr>'
                 );
             }
@@ -192,27 +201,23 @@
                  Summary $Month $Year
             </div>
         </br>
-        <table name="summaryTable" 
-               id="summaryTable" 
-               align="left"
-               width="400"
-               bgcolor="#f2f2f2">
+        <section align="center">
+            <div>
+                <canvas id="canvas" width="600" height="400">
+                    Your browser does not support HTML5 Canvas.
+                </canvas>
+            </div>
+       </section>
+        <table name="summaryTable" id="summaryTable">
             <thead>
                 <tr>
-                    <th align="left">Category</th>
-                    <th align="center">Amount</th>
-                    <th align="center">Percentage</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Percentage</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
-        <section align="right">
-            <div>
-                <canvas id="canvas" width="550" height="400">
-                    Your browser does not support HTML5 Canvas.
-                </canvas>
-            </div>
-        </section>
     </body>
 </html>
