@@ -78,6 +78,14 @@
                     document.getElementById('frame2').src = "summary";
                 }
             }
+
+            function yearlyReport () {
+                var curselYear =  document.getElementById("frame1").contentWindow.selYear;
+
+                if (curselYear >= 1979 && curselYear <= 9999) {
+                    document.getElementById('frame2').src = "report";
+                }
+            }
         </script>
     </head>
 
@@ -87,7 +95,8 @@
             <li><a class="highlightColor" href="">Happy Home</a></li>
             <li><a href="javascript:void(0);" 
                    onclick="javascript:saveEntries();">Save</a></li>
-            <li><a href="javascript:void(0);">Report</a></li>
+            <li><a href="javascript:void(0);"
+                   onclick="javascript:yearlyReport();">Report</a></li>
             <li><a href="javascript:void(0);">Download</a></li>
             <li><a href="javascript:void(0);" 
                    onclick="javascript:monthlySummary();">Summary</a></li>

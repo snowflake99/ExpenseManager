@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Yearly Report</title>
+
+        <script language="javascript" 
+                type="text/javascript" 
+                src="js/jquery-1.11.3.min.js"></script>
+
+        <?php
+        session_start();
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            //echo "Welcome to the member's area, " . $_SESSION['username'] . "!";
+        } else {
+            //echo "Please log in first to see this page.";
+            header("Location: ./login"); 
+        }
+        ?>
+
+        <script type="text/javascript">
+            var canvas;
+            var context;
+            var xScale;
+            var yScale;
+            var y;
+            // values of each item on the graph
+            var itemName = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var itemValue = [ 12, 15, 23, 150, 50, 30,
+                              70, 10, 12, 90, 45, 50];
+            
+            function plotBarGraph() {
+                // intialize values for each variables
+                var sections    = 12;
+                var Val_Max     = 150;
+                var Val_Min     = 0;
+                var stepSize    = 10;
+                var columnSize  = 50;
+                var rowSize     = 50;
+                var margin      = 10;
+
+                var header = "In Thousand" 
+                    
+                canvas = document.getElementById("canvas");
+                context = canvas.getContext("2d");
+                context.fillStyle = "#000;"
+                
+                yScale = (canvas.height - columnSize - margin) / (Val_Max);
+                xScale = (canvas.width - rowSize) / (sections + 1);
+                // background black lines
+                context.strokeStyle="#000;"; 
+                context.beginPath();
+                // column names 
+                context.font = "19 pt Arial;"
+                context.fillText(header, 0,columnSize - margin);
+                // draw lines in the background
+                context.font = "16 pt Helvetica"
+                var count =  0;
+                for (scale=Val_Max;scale>=0;scale = scale - stepSize) {
+                    y = columnSize + (yScale * count * stepSize); 
+                    context.fillText(scale, margin,y + margin);
+                    context.moveTo(rowSize,y)
+                    context.lineTo(canvas.width,y)
+                    count++;
+                }
+                context.stroke();
+                
+                // print names of each data entry
+                context.font = "20 pt Verdana";
+                context.textBaseline="bottom";
+                for (i=0;i<sections;i++) {
+                    computeHeight(itemValue[i]);
+                    context.fillText(itemName[i], xScale * (i+2),y - margin);
+                }
+                
+                // shadow for graph's bar lines with color and offset
+                context.fillStyle="#9933FF;";
+                context.shadowColor = 'rgba(128,128,128, 0.5)';
+              
+                //shadow offset along X and Y direction 
+                context.shadowOffsetX = 9;
+                context.shadowOffsetY = 3;
+              
+                // translate to bottom of graph  inorder to match the data 
+                context.translate(0,canvas.height - margin);
+                context.scale(xScale,-1 * yScale);
+              
+                // draw each graph bars 
+                for (i=0;i<sections;i++) {
+                    context.fillRect((i+2), 0, 0.3, itemValue[i]);
+                }
+            }
+            
+            function computeHeight(value) {
+                y = canvas.height - value * yScale ;    
+            }
+
+            $(function() {
+                var curselYear =  $('#frame1', window.parent.document)[0].contentWindow.selYear;
+                var headerText=document.getElementById('hdrText');
+
+                hdrText.innerHTML = "REPORT OF " + curselYear;
+                plotBarGraph();
+            })
+        </script>
+    </head>
+    <body>
+        <br>
+            <div id="hdrText" 
+                 align="center" 
+                 style="font-family: Arial Black; font-size: 25px; color: black">
+                 Report $Year
+            </div>
+        </br>
+        <div id="canvasSection" align="center">
+            <canvas id="canvas" width="600" height="400">
+                Your browser does not support HTML5 Canvas.
+            </canvas>
+        </div>
+    </body>
+</html>
