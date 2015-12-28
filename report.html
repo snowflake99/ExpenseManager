@@ -24,32 +24,33 @@
             var xScale;
             var yScale;
             var y;
+            // Max and Min value of Y axis
+            var Val_Max = 0;
+            var Val_Min = 0;
             // values of each item on the graph
             var itemName = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
                              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            var itemValue = [ 12, 15, 23, 150, 50, 30,
-                              70, 10, 12, 90, 45, 50];
+            var itemValue = [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                              0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
             
             function plotBarGraph() {
                 // intialize values for each variables
                 var sections    = 12;
-                var Val_Max     = 150;
-                var Val_Min     = 0;
-                var stepSize    = 10;
-                var columnSize  = 50;
-                var rowSize     = 50;
+                var columnSize  = 20;
+                var rowSize     = 30;
                 var margin      = 10;
+                var stepSize    = Val_Max/10;
 
                 var header = "In Thousand" 
                     
                 canvas = document.getElementById("canvas");
                 context = canvas.getContext("2d");
                 context.fillStyle = "#000;"
-                
+
                 yScale = (canvas.height - columnSize - margin) / (Val_Max);
                 xScale = (canvas.width - rowSize) / (sections + 1);
-                // background black lines
-                context.strokeStyle="#000;"; 
+    
+                context.strokeStyle="#000;"; // background black lines
                 context.beginPath();
                 // column names 
                 context.font = "19 pt Arial;"
@@ -57,13 +58,15 @@
                 // draw lines in the background
                 context.font = "16 pt Helvetica"
                 var count =  0;
+                
                 for (scale=Val_Max;scale>=0;scale = scale - stepSize) {
                     y = columnSize + (yScale * count * stepSize); 
-                    context.fillText(scale, margin,y + margin);
+                    context.fillText(scale.toFixed(1), margin,y);
                     context.moveTo(rowSize,y)
                     context.lineTo(canvas.width,y)
                     count++;
                 }
+
                 context.stroke();
                 
                 // print names of each data entry
@@ -71,7 +74,7 @@
                 context.textBaseline="bottom";
                 for (i=0;i<sections;i++) {
                     computeHeight(itemValue[i]);
-                    context.fillText(itemName[i], xScale * (i+2),y - margin);
+                    context.fillText(itemName[i], xScale * (i+1),y - margin);
                 }
                 
                 // shadow for graph's bar lines with color and offset
@@ -88,7 +91,7 @@
               
                 // draw each graph bars 
                 for (i=0;i<sections;i++) {
-                    context.fillRect((i+2), 0, 0.3, itemValue[i]);
+                    context.fillRect(i+1, 0, 0.3, itemValue[i]);
                 }
             }
             
@@ -99,9 +102,26 @@
             $(function() {
                 var curselYear =  $('#frame1', window.parent.document)[0].contentWindow.selYear;
                 var headerText=document.getElementById('hdrText');
+                var idx = 0;
 
                 hdrText.innerHTML = "REPORT OF " + curselYear;
-                plotBarGraph();
+                Val_Max = 0;
+
+                $.get("./php/report.php", {year: curselYear}).
+                      done(function(report) {
+                    var re_recordRow = /[^@]+/g;
+                    var re_recordCellValue = /[^=]+$/;
+                    console.log(report); 
+                    // For all the row entries read from DB 
+                    while (m_recordRow = re_recordRow.exec(report)) {
+                        itemValue[idx] =  parseInt(re_recordCellValue.exec(m_recordRow[0])/1000);
+                        if (itemValue[idx] > Val_Max) Val_Max = itemValue[idx];
+ 
+                        idx++;
+                    }
+                    if (Val_Max > 0) plotBarGraph();
+                    else top.location.href = "home";
+                })
             })
         </script>
     </head>
