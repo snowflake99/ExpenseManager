@@ -4,6 +4,25 @@
         <meta charset="UTF-8" />
         <title>Yearly Report</title>
 
+        <style>
+            table {
+                -moz-box-shadow: 0 0 5px #888;
+                -webkit-box-shadow: 0 0 5px#888;
+                box-shadow: 0 0 5px #888;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th, td {
+                text-align: left;
+                padding: 8px;
+            }
+            
+            th {
+                background-color: #666666;
+                color: white;
+            }
+        </style>
         <script language="javascript" 
                 type="text/javascript" 
                 src="js/jquery-1.11.3.min.js"></script>
@@ -28,10 +47,13 @@
             var Val_Max = 0;
             var Val_Min = 0;
             // values of each item on the graph
+            var itemFullName = [ "January", "February", "March", "April", "May", "June", 
+                                 "July", "August", "September", "October", "November", "December"];
             var itemName = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
                              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             var itemValue = [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
                               0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+            var itemTotal = 0.0;
             
             function plotBarGraph() {
                 // intialize values for each variables
@@ -41,7 +63,7 @@
                 var margin      = 10;
                 var stepSize    = Val_Max/10;
 
-                var header = "In Thousand" 
+                var header = "Amount" 
                     
                 canvas = document.getElementById("canvas");
                 context = canvas.getContext("2d");
@@ -61,7 +83,7 @@
                 
                 for (scale=Val_Max;scale>=0;scale = scale - stepSize) {
                     y = columnSize + (yScale * count * stepSize); 
-                    context.fillText(scale.toFixed(1), margin,y);
+                    context.fillText(Math.ceil(scale.toFixed(1)), margin,y);
                     context.moveTo(rowSize,y)
                     context.lineTo(canvas.width,y)
                     count++;
@@ -99,6 +121,28 @@
                 y = canvas.height - value * yScale ;    
             }
 
+            function createReportTable () {
+                var table  = $("#reportTable");
+                var tBody  = table.find("tbody");
+                var idx = 0;
+
+                for (var i = 0; i < itemName.length; i++)   { 
+                    tBody.append(
+                    '<tr id="row'+idx+'">'+
+                        '<td>'+itemFullName[i]+'</td>'+
+                        '<td>'+itemValue[i].toFixed(1)+'</td>'+
+                    '</tr>'
+                    );
+                    idx++;
+                }
+                tBody.append(
+                '<tr id="row'+idx+'">'+
+                    '<td><b>Total</b></td>'+
+                    '<td><b>'+itemTotal.toFixed(1)+'</b></td>'+
+                '</tr>'
+                );
+            }
+
             $(function() {
                 var curselYear =  $('#frame1', window.parent.document)[0].contentWindow.selYear;
                 var headerText=document.getElementById('hdrText');
@@ -114,13 +158,17 @@
                     console.log(report); 
                     // For all the row entries read from DB 
                     while (m_recordRow = re_recordRow.exec(report)) {
-                        itemValue[idx] =  parseInt(re_recordCellValue.exec(m_recordRow[0])/1000);
+                        itemValue[idx] =  parseFloat(re_recordCellValue.exec(m_recordRow[0]));
                         if (itemValue[idx] > Val_Max) Val_Max = itemValue[idx];
+                        itemTotal += itemValue[idx]; 
  
                         idx++;
                     }
-                    if (Val_Max > 0) plotBarGraph();
-                    else top.location.href = "home";
+                    // If the max value is less than 0, cap it to avoid division by zero 
+                    if (Val_Max < 0.000001) Val_Max = 0.000001; 
+
+                    plotBarGraph();
+                    createReportTable ();
                 })
             })
         </script>
@@ -138,5 +186,15 @@
                 Your browser does not support HTML5 Canvas.
             </canvas>
         </div>
+        <table name="reportTable" id="reportTable">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Expense</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </body>
 </html>
