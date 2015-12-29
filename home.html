@@ -93,11 +93,22 @@
         <!-- Create hyperlinks to Horizontal Navigation bar  -->
         <ul>
             <li><a class="highlightColor" href="">Happy Home</a></li>
+
+            <ul class="dropdown" style="float:left;list-style-type:none;">
+                <li>
+                    <a href="javascript:void(0);">Tools &#9662;</a>
+                    <ul class="dropdown">
+                        <a href="javascript:void(0);" 
+                           onclick="javascript:void(0);">Upload</a>
+                        <a href="javascript:void(0);" 
+                           onclick="javascript:void(0);">Download</a>
+                    </ul>
+                </li>
+            </ul>
             <li><a href="javascript:void(0);" 
                    onclick="javascript:saveEntries();">Save</a></li>
             <li><a href="javascript:void(0);"
                    onclick="javascript:yearlyReport();">Report</a></li>
-            <li><a href="javascript:void(0);">Download</a></li>
             <li><a href="javascript:void(0);" 
                    onclick="javascript:monthlySummary();">Summary</a></li>
             <ul class="dropdown" style="float:right;list-style-type:none;">
