@@ -102,7 +102,8 @@
                    onclick="javascript:monthlySummary();">Summary</a></li>
             <ul class="dropdown" style="float:right;list-style-type:none;">
                 <li>
-                    <a href="javascript:void(0);"><?= ucfirst($_SESSION['username']) ?> &#9662;</a>
+                    <a href="javascript:void(0);">
+                        <?= ucfirst(strtolower($_SESSION['username'])) ?> &#9662;</a>
                     <ul class="dropdown">
                         <li><a href="php/usrLogout.php">Logout</a></li>
                     </ul>
