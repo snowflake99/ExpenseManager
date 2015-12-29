@@ -61,7 +61,7 @@
                 var columnSize  = 20;
                 var rowSize     = 30;
                 var margin      = 10;
-                var stepSize    = Val_Max/10;
+                var stepSize    = parseFloat(Val_Max/10).toFixed(2);
 
                 var header = "Amount" 
                     
@@ -88,7 +88,6 @@
                     context.lineTo(canvas.width,y)
                     count++;
                 }
-
                 context.stroke();
                 
                 // print names of each data entry
@@ -155,7 +154,6 @@
                       done(function(report) {
                     var re_recordRow = /[^@]+/g;
                     var re_recordCellValue = /[^=]+$/;
-                    console.log(report); 
                     // For all the row entries read from DB 
                     while (m_recordRow = re_recordRow.exec(report)) {
                         itemValue[idx] =  parseFloat(re_recordCellValue.exec(m_recordRow[0]));
@@ -164,10 +162,12 @@
  
                         idx++;
                     }
-                    // If the max value is less than 0, cap it to avoid division by zero 
-                    if (Val_Max < 0.000001) Val_Max = 0.000001; 
+                    
+                    if (Val_Max >= 10.0) 
+                        plotBarGraph();
+                    else 
+                        $('#canvasSection')[0].style.display='none';
 
-                    plotBarGraph();
                     createReportTable ();
                 })
             })
