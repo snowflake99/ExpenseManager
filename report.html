@@ -81,11 +81,11 @@
                 context.font = "16 pt Helvetica"
                 var count =  0;
                 
-                for (scale=parseFloat(Val_Max).toFixed(2);
-                     scale >= 0.0;
-                     scale = parseFloat(scale - stepSize).toFixed(2)) {
+                for (scale=parseFloat(Val_Max).toFixed(4);
+                     scale > 0.0 || Math.abs(scale - 0.0) < 0.001;
+                     scale = parseFloat(scale - stepSize).toFixed(4)) {
                     y = columnSize + (yScale * count * stepSize); 
-                    context.fillText(Math.abs(scale), margin,y);
+                    context.fillText(Math.abs(scale).toFixed(1), margin,y);
                     context.moveTo(rowSize,y)
                     context.lineTo(canvas.width,y)
                     count++;
