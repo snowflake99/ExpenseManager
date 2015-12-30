@@ -2,9 +2,9 @@
     include 'config.php';
     include 'opendb.php';
     
-    $selmonth   = $_GET['month'];
-    $selyear    = $_GET['year'];
-    $data       = $_GET['rowEntries'];
+    $selmonth   = $_POST['month'];
+    $selyear    = $_POST['year'];
+    $data       = $_POST['rowEntries'];
     $table      = "_".$selmonth."_".$selyear."_";
 
     if(mysql_num_rows(mysql_query("SHOW TABLES LIKE '".$table."'")) != 1)   {
