@@ -44,8 +44,8 @@
             var yScale;
             var y;
             // Max and Min value of Y axis
-            var Val_Max = 0;
-            var Val_Min = 0;
+            var Val_Max = 0.0;
+            var Val_Min = 0.0;
             // values of each item on the graph
             var itemFullName = [ "January", "February", "March", "April", "May", "June", 
                                  "July", "August", "September", "October", "November", "December"];
@@ -61,7 +61,7 @@
                 var columnSize  = 20;
                 var rowSize     = 30;
                 var margin      = 10;
-                var stepSize    = parseFloat(Val_Max/10).toFixed(2);
+                var stepSize    = Val_Max/10;
 
                 var header = "Amount" 
                     
@@ -81,9 +81,11 @@
                 context.font = "16 pt Helvetica"
                 var count =  0;
                 
-                for (scale=Val_Max;scale>=0;scale = scale - stepSize) {
+                for (scale=parseFloat(Val_Max).toFixed(2);
+                     scale >= 0.0;
+                     scale = parseFloat(scale - stepSize).toFixed(2)) {
                     y = columnSize + (yScale * count * stepSize); 
-                    context.fillText(Math.ceil(scale.toFixed(1)), margin,y);
+                    context.fillText(Math.abs(scale), margin,y);
                     context.moveTo(rowSize,y)
                     context.lineTo(canvas.width,y)
                     count++;
