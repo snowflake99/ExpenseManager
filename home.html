@@ -86,6 +86,35 @@
                     document.getElementById('frame2').src = "report";
                 }
             }
+
+            function download(filename, text) {
+              var element = document.createElement('a');
+              element.setAttribute('href', 'data:text/csv;charset=utf-8,' + 
+                                            encodeURIComponent(text));
+              element.setAttribute('download', filename);
+            
+              element.style.display = 'none';
+              document.body.appendChild(element);
+            
+              element.click();
+            
+              document.body.removeChild(element);
+            }
+
+            function downloadTable ()   {
+                var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
+                var curselYear =  document.getElementById("frame1").contentWindow.selYear;
+
+                if ((curselMonth >= 1 && curselMonth <= 12) &&
+                    (curselYear >= 1979 && curselYear <= 9999)) {
+                    if (curselMonth < 10) curselMonth = "0" + curselMonth;        
+                    $.post("./php/mySQLTableDownload.php", {month: curselMonth, 
+                                                            year: curselYear}).
+                          done(function(ret_status) {
+                        download ("ExpenseManager_"+curselMonth+"_"+curselYear+"_.csv", ret_status);
+                    })
+                }
+            }
         </script>
     </head>
 
@@ -101,7 +130,7 @@
                         <a href="javascript:void(0);" 
                            onclick="javascript:void(0);">Upload</a>
                         <a href="javascript:void(0);" 
-                           onclick="javascript:void(0);">Download</a>
+                           onclick="javascript:downloadTable();">Download</a>
                     </ul>
                 </li>
             </ul>
