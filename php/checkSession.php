@@ -1,15 +1,14 @@
 <?php
     session_start();
 
-    $activityTimeoutInMin = (1 * 60);
+    $activityTimeoutInMin = (20 * 60);
 
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         // User is loggin in
         $now = time();
         if ($now > $_SESSION['expire']) {
             // session have expired call logout and redirect to login page
-            include 'php/usrLogout.php';
-            header("Location: ../login");
+	    include 'usrLogout.php';
         } else {
             // update session new expiry time
             $_SESSION['expire'] = $now + $activityTimeoutInMin;

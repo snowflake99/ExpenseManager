@@ -12,8 +12,9 @@
 
             function gotoMonthlyEntry(month) {
                 var entryhref = 'monthlyEntry.html?sel='+month+'&year='+selYear;
-                $("a").attr("href", entryhref);
                 selMonth=month;
+
+                parent.document.getElementById('frame2').src = entryhref;
 
                 return entryhref;
             }
@@ -42,18 +43,18 @@
         <ul id="NavigationTable">
           <select name="yearSelection" id="yearSelection" onchange="selectedYear()"></select> 
 
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(01);return true;">January</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(02);return true;">February</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(03);return true;">March</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(04);return true;">April</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(05);return true;">May</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(06);return true;">June</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(07);return true;">July</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(08);return true;">August</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(09);return true;">September</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(10);return true;">October</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(11);return true;">November</a></li>
-          <li><a target='frame2' href="#" onclick="gotoMonthlyEntry(12);return true;">December</a></li>
+          <li><a id="1"  href="#" onclick="gotoMonthlyEntry(1);return true;">January</a></li>
+          <li><a id="2"  href="#" onclick="gotoMonthlyEntry(2);return true;">February</a></li>
+          <li><a id="3"  href="#" onclick="gotoMonthlyEntry(3);return true;">March</a></li>
+          <li><a id="4"  href="#" onclick="gotoMonthlyEntry(4);return true;">April</a></li>
+          <li><a id="5"  href="#" onclick="gotoMonthlyEntry(5);return true;">May</a></li>
+          <li><a id="6"  href="#" onclick="gotoMonthlyEntry(6);return true;">June</a></li>
+          <li><a id="7"  href="#" onclick="gotoMonthlyEntry(7);return true;">July</a></li>
+          <li><a id="8"  href="#" onclick="gotoMonthlyEntry(8);return true;">August</a></li>
+          <li><a id="9"  href="#" onclick="gotoMonthlyEntry(9);return true;">September</a></li>
+          <li><a id="10" href="#" onclick="gotoMonthlyEntry(10);return true;">October</a></li>
+          <li><a id="11" href="#" onclick="gotoMonthlyEntry(11);return true;">November</a></li>
+          <li><a id="12" href="#" onclick="gotoMonthlyEntry(12);return true;">December</a></li>
         </ul>
     </body>
 </html>
