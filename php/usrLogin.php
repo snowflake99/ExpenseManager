@@ -28,6 +28,8 @@
 
         $_SESSION['loggedin']   = true;
         $_SESSION['username']   = $myusername;
+        $_SESSION['start']      = time();
+        $_SESSION['expire']     = $_SESSION['start'] + (1 * 60);
 
         header("Location: ../home"); 
     }
