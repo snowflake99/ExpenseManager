@@ -109,6 +109,28 @@
                     })
                 }
             }
+
+            function manage ()  {
+                document.getElementById('frame2').src = "manage";
+            }
+
+            /* 
+            *  Function Name: OnPageLoad 
+            *  Purpose: Function will be called on page load. Display the manage menu
+            *  if user is admin. 
+            *  Input : none
+            *  Output: none
+            */
+            $(function() {
+                $.post("./php/isadmin.php").done(function(ret_status) {
+                    if (ret_status.indexOf('yes') != -1)
+                        $('#manage')[0].style.display       ='';
+                    else
+                        $('#manage')[0].style.display       ='none';
+
+                    console.log ($('#manage')[0].style.display);
+                })
+            })
         </script>
     </head>
 
@@ -121,10 +143,12 @@
                 <li>
                     <a href="javascript:void(0);">Tools &#9662;</a>
                     <ul class="dropdown">
-                        <a href="javascript:void(0);" 
-                           onclick="javascript:void(0);">Upload</a>
-                        <a href="javascript:void(0);" 
-                           onclick="javascript:downloadTable();">Download</a>
+                        <li>
+                            <a href="javascript:void(0);" 
+                               onclick="javascript:void(0);">Upload</a>
+                            <a href="javascript:void(0);" 
+                               onclick="javascript:downloadTable();">Download</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -139,7 +163,12 @@
                     <a href="javascript:void(0);">
                         <?= ucfirst(strtolower($_SESSION['username'])) ?> &#9662;</a>
                     <ul class="dropdown">
-                        <li><a href="php/usrLogout.php">Logout</a></li>
+                        <li>
+                            <a id="manage" name="manage"
+                               style="display:none;"
+                               href="javascript:manage();">Manage</a>
+                            <a href="php/usrLogout.php">Logout</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
