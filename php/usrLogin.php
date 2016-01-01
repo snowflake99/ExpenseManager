@@ -34,7 +34,7 @@
         header("Location: ../home"); 
     }
     else {
-        echo "Wrong Username or Password";
+        $msg = "Wrong Username or Password";
     }
 
     include 'closedb.php';

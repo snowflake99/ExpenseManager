@@ -1,0 +1,22 @@
+table {
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    text-align: left;
+    padding: 8px;
+}
+
+td {
+    text-align: left;
+    padding: 4px;
+}
+
+th {
+    background-color: #666666;
+    color: white;
+}

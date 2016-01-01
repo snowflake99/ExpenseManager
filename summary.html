@@ -1,35 +1,15 @@
 <!doctype html>
 <html>
     <head>
-        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="style/summary.css"> 
         <title>Monthly Summary</title>
-        <style>
-            table {
-                -moz-box-shadow: 0 0 5px #888;
-                -webkit-box-shadow: 0 0 5px#888;
-                box-shadow: 0 0 5px #888;
-                border-collapse: collapse;
-                width: 100%;
-            }
 
-            th, td {
-                text-align: left;
-                padding: 8px;
-            }
-            
-            th {
-                background-color: #666666;
-                color: white;
-            }
-        </style>
-
-        <script language="javascript" 
-                type="text/javascript" 
-                src="js/jquery-1.11.3.min.js"></script>
+        <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 
         <?php include 'php/checkSession.php'; ?>
 
-        <script type="text/javascript">
+        <script language="javascript" type="text/javascript">
             // Category color, name, data and percent
             var categoryColor = ["#ECD078","#D95B43","#C02942","#542437","#00b386",
                                  "#b35900","#993366","#aaaa55","#3f0080","#669999",
