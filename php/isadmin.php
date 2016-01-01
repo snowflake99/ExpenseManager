@@ -5,7 +5,6 @@
     include 'opendb.php';
 
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-
         $sql="SELECT isAdmin FROM _users WHERE username='$_SESSION[username]' AND isAdmin='Y'";
         $result=mysql_query($sql);
 	 
