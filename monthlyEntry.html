@@ -1,248 +1,252 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="style/monthlyEntry.css">
-    <link rel="stylesheet" type="text/css" href="style/roundButton.css">
-    <title>Monthly Entry</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="style/monthlyEntry.css">
+        <link rel="stylesheet" type="text/css" href="style/roundButton.css">
+        <title>Monthly Entry</title>
 
-    <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 
-    <?php include 'php/checkSession.php'; ?>
+        <?php include 'php/checkSession.php'; ?>
+            
+        <script language="javascript" type="text/javascript">
+            // Global variable used to create unique row elements id
+            var idx = 0;
+
+            /* 
+            *  Function Name: delRow
+            *  Purpose: Function to delete row
+            *  Input : rowIdNum - unique row index identifier.
+            *  Output: none
+            */
+            function delRow(rowIdNum)    {
+                var rowRef = document.getElementById('row'+rowIdNum);
+                var numRows = document.getElementById("expenseTable").rows.length;
         
-    <script language="javascript" type="text/javascript">
-        // Global variable used to create unique row elements id
-        var idx = 0;
-
-        /* 
-        *  Function Name: delRow
-        *  Purpose: Function to delete row
-        *  Input : rowIdNum - unique row index identifier.
-        *  Output: none
-        */
-        function delRow(rowIdNum)    {
-            var rowRef = document.getElementById('row'+rowIdNum);
-            var numRows = document.getElementById("expenseTable").rows.length;
-    
-            if (numRows > 2)    {
-                // Delete the row and show '+' in last row element
-                document.getElementById("expenseTable").
-                                    deleteRow(rowRef.rowIndex);
-                $('#expenseTable tr:last')[0].
-                                    childNodes[5].style.visibility="visible";
-            }
-        }
-
-        /* 
-        *  Function Name: addRow
-        *  Purpose: Function to add new row
-        *  Input : forDate - Date in format YYYY-MM-DD
-        *  Output: none
-        */
-        function addRow(forDate) {
-            var table  = $("#expenseTable");
-            var tBody  = table.find("tbody");
-            var rowCount = document.getElementById("expenseTable").rows.length;
-
-            // If the date is not provided, will take date from last enty made
-            if ($.inArray('*', forDate) > -1)   {
-                forDate = Array();
-                forDate.push($('#expenseTable tr:last')[0].
-                                            cells[0].childNodes[0].value);
-            }
-
-            tBody.append(
-            '<tr id="row'+idx+'">'+
-                '<td><input type="date"             \
-                            name="Date'+idx+'"      \
-                            id="Date'+idx+'"        \
-                            class="Date"            \
-                            value="'+forDate[0]+'"> \
-                </td>'+
-                '<td>'+
-                  '<select name="Category'+idx+'" id="Category'+idx+'">'+
-                     '<option value="0">Uncategorized</option>'+
-                     '<option value="1">Home</option>'+
-                     '<option value="2">Conveyance</option>'+
-                     '<option value="3">Groceries</option>'+
-                     '<option value="4">Gifts</option>'+
-                     '<option value="5">Shopping</option>'+
-                     '<option value="6">Miscellaneous</option>'+
-                     '<option value="7">Cigarette</option>'+
-                     '<option value="8">Bills</option>'+
-                     '<option value="9">Food</option>'+
-                     '<option value="10">Medical</option>'+
-                     '<option value="11">Kids</option>'+
-                  '</select>'+
-                '</td>'+
-                '<td><input name="Description'+idx+'"id="Description'+idx+'" maxlength=255></td>'+
-                '<td><input name="Amount'+idx+'"id="Amount'+idx+'" type="number" step="0.01"></td>'+
-                '<td><div name="neg'+idx+'"id="neg'+idx+'"class="round-button"> \
-                        <div class="round-button-circle">                       \
-                            <a href="javascript:delRow('+idx+');"class="round-button">-</a> \
-                        </div>                                                              \
-                     </div>                                                                 \
-                </td>'+
-                '<td><div name="pos'+idx+'"id="pos'+idx+'"class="round-button"> \
-                        <div class="round-button-circle">                       \
-                            <a href="javascript:addRow(&quot;*&quot;);"class="round-button">+</a> \
-                        </div>                                                                    \
-                     </div>                                                                       \
-                </td>'+
-            '</tr>');
-            // Format the with and alignment of fields
-            $('#Date'+idx)[0].style.width       ='140px';
-            $('#Date'+idx)[0].style.textAlign   ='center';
-
-            $('#Description'+idx)[0].style.width='500px';
-            $('#Description'+idx)[0].textAlign  ='right';
-
-            $('#Amount'+idx)[0].style.width     ='80px';
-            $('#Amount'+idx)[0].style.textAlign ='center';
-
-            // Hide the + button in previous row
-            if (rowCount > 1) {
-                $('#expenseTable tr:last').
-                        prev()[0].childNodes[5].style.visibility="hidden";
-            }
-
-            // Increment the unique index identifier
-            idx++;
-        }
-
-        /* 
-        *  Function Name: setRowValues
-        *  Purpose: Function to set values for row identified by unique idx. 
-        *  Input : idx - unique identifier for a row
-        *          s_Category - value of category field (0,1,2,....).
-        *          s_Desc - value of description field.
-        *          s_Amount - value of amount field.
-        *  Output: none
-        */
-        function setRowValues (idx, s_Category, s_Desc, s_Amount)   {
-            if (s_Category != null)
-                $('#Category'+idx)[0].value     = s_Category;
-            if (s_Desc != null)
-                $('#Description'+idx)[0].value  = s_Desc;
-            if (s_Amount != null)
-                $('#Amount'+idx)[0].value       = s_Amount;
-        } 
-
-        /* 
-        *  Function Name: getUrlVars
-        *  Purpose: Function to get values of parameters passed in URL
-        *  Input : none
-        *  Output: key value
-        */
-        function getUrlVars() {
-            var vars = {};
-            var parts = window.location.href.
-                            replace(/[?&]+([^=&]+)=([^&]*)/gi, 
-                            function(m,key,value) {vars[key] = value;});
-            return vars;
-        }
-
-        /* 
-        *  Function Name: getMonthName
-        *  Purpose: Function to get name of the month 
-        *  Input : monthId - Month in (1 to 12)
-        *  Output: month name
-        */
-        function getMonthName (monthId) {
-            var monthName = "undefined";
-
-            switch (monthId)    {
-                case '1':  monthName ="JAN"; break;
-                case '2':  monthName ="FEB"; break;
-                case '3':  monthName ="MAR"; break;
-                case '4':  monthName ="APR"; break;
-                case '5':  monthName ="MAY"; break;
-                case '6':  monthName ="JUN"; break;
-                case '7':  monthName ="JUL"; break;
-                case '8':  monthName ="AUG"; break;
-                case '9':  monthName ="SEP"; break;
-                case '10': monthName ="OCT"; break;
-                case '11': monthName ="NOV"; break;
-                case '12': monthName ="DEC"; break;
-                default:
-                    // Do nothing, will return undefined
-            }
-
-            return monthName;
-        } 
-
-        /* 
-        *  Function Name: OnPageLoad 
-        *  Purpose: Function will be called on page load
-        *  Input : none
-        *  Output: none
-        */
-        $(function() {
-            var dateTemplate = Array(); 
-            var curselMonth = getUrlVars()["sel"];
-            var curselYear = getUrlVars()["year"];
-            var headerText=document.getElementById('hdrText');
-    
-            hdrText.innerHTML = getMonthName (curselMonth) + " " + curselYear;
-
-            if (curselMonth < 10) curselMonth = '0'+curselMonth;
-            dateTemplate.push(curselYear+'-'+curselMonth+'-01');
-
-            // Get data for current selected month/year from DB
-            // If no data is found create a template row with first day of
-            // the month.
-            $.get("./php/getTableRows.php", {month: curselMonth, year: curselYear}).
-                    done(function(rowEntries) {
-                var tableIsEmpty = true;
-                var m_recordRow;
-                var m_recordCell;
-        
-                var re_recordRow = /[^@]+/g;
-                var re_recordCell = /[^?]+/g;
-        
-                var re_recordCellValue = /[^=]+$/;
-               
-                // For all the row entries read from DB 
-                while (m_recordRow = re_recordRow.exec(rowEntries)) {
-                    // For all the entries in a single row
-                    while(m_recordCell = re_recordCell.exec(m_recordRow[0]))    {
-                        // If this is a date, Add row with date and all other
-                        // fields empty.
-                        if (m_recordCell[0].indexOf("date") > -1)   
-                            addRow(re_recordCellValue.exec(m_recordCell[0]));
-                        // If this is category, Update the category field of 
-                        // newly added row.
-                        if (m_recordCell[0].indexOf("category") > -1)   
-                            setRowValues ((idx-1), 
-                                          re_recordCellValue.exec(m_recordCell[0]), 
-                                          null,
-                                          null);
-                        // If this is description, Update the description field of
-                        // newly added row.
-                        if (m_recordCell[0].indexOf("description") > -1)   
-                            setRowValues ((idx-1),
-                                          null, 
-                                          re_recordCellValue.exec(m_recordCell[0]), 
-                                          null);
-                        // If this is amount, Update the amount field of newly added
-                        // row
-                        if (m_recordCell[0].indexOf("amount") > -1)   
-                            setRowValues ((idx-1),
-                                          null, 
-                                          null,
-                                          re_recordCellValue.exec(m_recordCell[0]));
-                    }
-                    // Flag the table is not empty. The DB contains entries for selected
-                    // month/year combination.
-                    tableIsEmpty = false;
+                if (numRows > 2)    {
+                    // Delete the row and show '+' in last row element
+                    document.getElementById("expenseTable").
+                                        deleteRow(rowRef.rowIndex);
+                    $('#expenseTable tr:last')[0].
+                                        childNodes[5].style.visibility="visible";
                 }
-                // Add a row with template date (first day of the month) if the DB table
-                // if empty.
-                if (tableIsEmpty == true) addRow(dateTemplate);
-            });
+            }
+
+            /* 
+            *  Function Name: addRow
+            *  Purpose: Function to add new row
+            *  Input : forDate - Date in format YYYY-MM-DD
+            *  Output: none
+            */
+            function addRow(forDate) {
+                var table  = $("#expenseTable");
+                var tBody  = table.find("tbody");
+                var rowCount = document.getElementById("expenseTable").rows.length;
+
+                // If the date is not provided, will take date from last enty made
+                if ($.inArray('*', forDate) > -1)   {
+                    forDate = Array();
+                    forDate.push($('#expenseTable tr:last')[0].
+                                                cells[0].childNodes[0].value);
+                }
+
+                tBody.append(
+                '<tr id="row'+idx+'">'+
+                    '<td><input type="date"             \
+                                name="Date'+idx+'"      \
+                                id="Date'+idx+'"        \
+                                class="Date"            \
+                                value="'+forDate[0]+'"> \
+                    </td>'+
+                    '<td>'+
+                      '<select name="Category'+idx+'" id="Category'+idx+'">'+
+                         '<option value="0">Uncategorized</option>'+
+                         '<option value="1">Home</option>'+
+                         '<option value="2">Conveyance</option>'+
+                         '<option value="3">Groceries</option>'+
+                         '<option value="4">Gifts</option>'+
+                         '<option value="5">Shopping</option>'+
+                         '<option value="6">Miscellaneous</option>'+
+                         '<option value="7">Cigarette</option>'+
+                         '<option value="8">Bills</option>'+
+                         '<option value="9">Food</option>'+
+                         '<option value="10">Medical</option>'+
+                         '<option value="11">Kids</option>'+
+                      '</select>'+
+                    '</td>'+
+                    '<td>'+
+                        '<input name="Description'+idx+'"id="Description'+idx+'" maxlength=255>'+
+                    '</td>'+
+                    '<td>'+
+                         '<input name="Amount'+idx+'"id="Amount'+idx+'" type="number" step="0.01">'+
+                    '</td>'+
+                    '<td><div name="neg'+idx+'"id="neg'+idx+'"class="round-button"> \
+                            <div class="round-button-circle">                       \
+                                <a href="javascript:delRow('+idx+');"class="round-button">-</a> \
+                            </div>                                                              \
+                         </div>                                                                 \
+                    </td>'+
+                    '<td><div name="pos'+idx+'"id="pos'+idx+'"class="round-button"> \
+                            <div class="round-button-circle">                       \
+                                <a href="javascript:addRow(&quot;*&quot;);"class="round-button">+</a> \
+                            </div>                                                                    \
+                         </div>                                                                       \
+                    </td>'+
+                '</tr>');
+                // Format the with and alignment of fields
+                $('#Date'+idx)[0].style.width       ='140px';
+                $('#Date'+idx)[0].style.textAlign   ='center';
+
+                $('#Description'+idx)[0].style.width='500px';
+                $('#Description'+idx)[0].textAlign  ='right';
+
+                $('#Amount'+idx)[0].style.width     ='80px';
+                $('#Amount'+idx)[0].style.textAlign ='center';
+
+                // Hide the + button in previous row
+                if (rowCount > 1) {
+                    $('#expenseTable tr:last').
+                            prev()[0].childNodes[5].style.visibility="hidden";
+                }
+
+                // Increment the unique index identifier
+                idx++;
+            }
+
+            /* 
+            *  Function Name: setRowValues
+            *  Purpose: Function to set values for row identified by unique idx. 
+            *  Input : idx - unique identifier for a row
+            *          s_Category - value of category field (0,1,2,....).
+            *          s_Desc - value of description field.
+            *          s_Amount - value of amount field.
+            *  Output: none
+            */
+            function setRowValues (idx, s_Category, s_Desc, s_Amount)   {
+                if (s_Category != null)
+                    $('#Category'+idx)[0].value     = s_Category;
+                if (s_Desc != null)
+                    $('#Description'+idx)[0].value  = s_Desc;
+                if (s_Amount != null)
+                    $('#Amount'+idx)[0].value       = s_Amount;
+            } 
+
+            /* 
+            *  Function Name: getUrlVars
+            *  Purpose: Function to get values of parameters passed in URL
+            *  Input : none
+            *  Output: key value
+            */
+            function getUrlVars() {
+                var vars = {};
+                var parts = window.location.href.
+                                replace(/[?&]+([^=&]+)=([^&]*)/gi, 
+                                function(m,key,value) {vars[key] = value;});
+                return vars;
+            }
+
+            /* 
+            *  Function Name: getMonthName
+            *  Purpose: Function to get name of the month 
+            *  Input : monthId - Month in (1 to 12)
+            *  Output: month name
+            */
+            function getMonthName (monthId) {
+                var monthName = "undefined";
+
+                switch (monthId)    {
+                    case '1':  monthName ="JAN"; break;
+                    case '2':  monthName ="FEB"; break;
+                    case '3':  monthName ="MAR"; break;
+                    case '4':  monthName ="APR"; break;
+                    case '5':  monthName ="MAY"; break;
+                    case '6':  monthName ="JUN"; break;
+                    case '7':  monthName ="JUL"; break;
+                    case '8':  monthName ="AUG"; break;
+                    case '9':  monthName ="SEP"; break;
+                    case '10': monthName ="OCT"; break;
+                    case '11': monthName ="NOV"; break;
+                    case '12': monthName ="DEC"; break;
+                    default:
+                        // Do nothing, will return undefined
+                }
+
+                return monthName;
+            } 
+
+            /* 
+            *  Function Name: OnPageLoad 
+            *  Purpose: Function will be called on page load
+            *  Input : none
+            *  Output: none
+            */
+            $(function() {
+                var dateTemplate = Array(); 
+                var curselMonth = getUrlVars()["sel"];
+                var curselYear = getUrlVars()["year"];
+                var headerText=document.getElementById('hdrText');
+        
+                hdrText.innerHTML = getMonthName (curselMonth) + " " + curselYear;
+
+                if (curselMonth < 10) curselMonth = '0'+curselMonth;
+                dateTemplate.push(curselYear+'-'+curselMonth+'-01');
+
+                // Get data for current selected month/year from DB
+                // If no data is found create a template row with first day of
+                // the month.
+                $.get("./php/getTableRows.php", {month: curselMonth, year: curselYear}).
+                        done(function(rowEntries) {
+                    var tableIsEmpty = true;
+                    var m_recordRow;
+                    var m_recordCell;
+            
+                    var re_recordRow = /[^@]+/g;
+                    var re_recordCell = /[^?]+/g;
+            
+                    var re_recordCellValue = /[^=]+$/;
+                   
+                    // For all the row entries read from DB 
+                    while (m_recordRow = re_recordRow.exec(rowEntries)) {
+                        // For all the entries in a single row
+                        while(m_recordCell = re_recordCell.exec(m_recordRow[0]))    {
+                            // If this is a date, Add row with date and all other
+                            // fields empty.
+                            if (m_recordCell[0].indexOf("date") > -1)   
+                                addRow(re_recordCellValue.exec(m_recordCell[0]));
+                            // If this is category, Update the category field of 
+                            // newly added row.
+                            if (m_recordCell[0].indexOf("category") > -1)   
+                                setRowValues ((idx-1), 
+                                              re_recordCellValue.exec(m_recordCell[0]), 
+                                              null,
+                                              null);
+                            // If this is description, Update the description field of
+                            // newly added row.
+                            if (m_recordCell[0].indexOf("description") > -1)   
+                                setRowValues ((idx-1),
+                                              null, 
+                                              re_recordCellValue.exec(m_recordCell[0]), 
+                                              null);
+                            // If this is amount, Update the amount field of newly added
+                            // row
+                            if (m_recordCell[0].indexOf("amount") > -1)   
+                                setRowValues ((idx-1),
+                                              null, 
+                                              null,
+                                              re_recordCellValue.exec(m_recordCell[0]));
+                        }
+                        // Flag the table is not empty. The DB contains entries for selected
+                        // month/year combination.
+                        tableIsEmpty = false;
+                    }
+                    // Add a row with template date (first day of the month) if the DB table
+                    // if empty.
+                    if (tableIsEmpty == true) addRow(dateTemplate);
+                });
  
-        });
-    </script> 
+            });
+        </script> 
     </head>
     <body>
         <br>
