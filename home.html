@@ -122,7 +122,7 @@
             *  Output: none
             */
             $(function() {
-                $.post("./php/isadmin.php").done(function(ret_status) {
+                $.post("./php/isAdmin.php").done(function(ret_status) {
                     if (ret_status.indexOf('yes') != -1)
                         $('#manage')[0].style.display       ='';
                     else
