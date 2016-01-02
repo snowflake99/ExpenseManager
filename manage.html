@@ -10,8 +10,106 @@
         <?php include 'php/checkSession.php'; ?>
 
         <script language="javascript" type="text/javascript">
+            // Global variable used to create unique row elements id
+            var idx = 0;
+
+            function deleteRow(btn) {
+                var rowCount = document.getElementById("userTable").rows.length;
+
+                if (rowCount > 2)   {
+                    var row = btn.parentNode.parentNode;
+                    row.parentNode.removeChild(row);
+
+                    $('#userTable tr:last')[0].
+                                        childNodes[3].style.visibility="visible";
+                }
+            }
+
+            function updateRow(btn) {
+
+            }
+
+            function addRow (id, username, rights) {
+                var table    = $("#userTable");
+                var tBody    = table.find("tbody");
+                var currUser = "<?php session_start(); echo $_SESSION['username']; ?>";
+                var rowCount = document.getElementById("userTable").rows.length;
+
+                tBody.append(
+                    '<tr id="row'+idx+'">'+ 
+                        '<td>'+id+'</td>'+
+                        '<td>'+
+                            '<input name="uName'+idx+'"     \
+                                    id="uName'+idx+'"       \
+                                    maxlength=65            \
+                                    value='+username+'>'+    
+                        '</td>'+
+                        '<td>'+
+                            '<select name="rights'+idx+'" id="rights'+idx+'">'+
+                                '<option value="0">No</option>'+
+                                '<option value="1">Yes</option>'+
+                            '</select>'+
+                        '</td>'+
+                        '<td>'+
+                            '<input id="addB'+idx+'" type="button" value="Add" onclick="addRow(0,null,0)"/>'+
+                        '</td>'+
+                        '<td>'+
+                            '<input id="delB'+idx+'" type="button" value="Delete" onclick="deleteRow(this)"/>'+
+                        '</td>'+
+                        '<td>'+
+                            '<input id="updB'+idx+'" type="button" value="Update" onclick="updateRow(this)"/>'+
+                        '</td>'+
+                    '</tr>');
+
+                // Update rigths selection dropdown
+                document.getElementById("rights"+idx).value = rights;
+                // If current user and added username are same disable the delete button
+                if (currUser == username) 
+                    document.getElementById("delB"+idx).disabled = true;
+
+                $('#uName'+idx)[0].style.width     ='600px'
+;
+                // Hide the + button in previous row
+                if (rowCount > 1) {
+                    $('#userTable tr:last').
+                            prev()[0].childNodes[3].style.visibility="hidden";
+                }
+
+                // Increment the unique index identifier
+                idx++;
+            }
+
             $(function() {
-            })
+                $.get("./php/getUsers.php").done(function(rowEntries) {
+                    var m_recordRow;
+                    var m_recordCell;
+            
+                    var re_recordRow = /[^@]+/g;
+                    var re_recordCell = /[^?]+/g;
+            
+                    var re_recordCellValue = /[^=]+$/;
+
+                    var id;
+                    var username;
+                    var rights;
+                   
+                    // For all the row entries read from DB 
+                    while (m_recordRow = re_recordRow.exec(rowEntries)) {
+                        // For all the entries in a single row
+                        while(m_recordCell = re_recordCell.exec(m_recordRow[0]))    {
+                            if (m_recordCell[0].indexOf("id") > -1)  
+                                id = re_recordCellValue.exec(m_recordCell[0]);
+ 
+                            if (m_recordCell[0].indexOf("username") > -1)   
+                                username = re_recordCellValue.exec(m_recordCell[0]);
+
+                            if (m_recordCell[0].indexOf("isAdmin") > -1)   
+                                rights = re_recordCellValue.exec(m_recordCell[0]);
+                        }
+                        addRow(id, username, rights);
+                    }
+                });
+             });
         </script>
     </head>
     <body>
@@ -22,13 +120,22 @@
                  Management 
             </div>
         </br>
-        <table name="reportTable" id="reportTable">
+        <br>
+            <div id="hrdUserTableText" 
+                 align="left" 
+                 style="font-family: Arial Black; font-size: 20px; color: black">
+                 User Table 
+            </div>
+        </br>
+        <table name="userTable" id="userTable">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Username</th>
-                    <th>Email</th>
-                    <th>Rights</th>
+                    <th>Admin</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
