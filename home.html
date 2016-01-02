@@ -123,12 +123,10 @@
             */
             $(function() {
                 $.post("./php/isAdmin.php").done(function(ret_status) {
-                    if (ret_status.indexOf('yes') != -1)
+                    if (ret_status == 1)
                         $('#manage')[0].style.display       ='';
                     else
                         $('#manage')[0].style.display       ='none';
-
-                    console.log ($('#manage')[0].style.display);
                 })
             })
         </script>
