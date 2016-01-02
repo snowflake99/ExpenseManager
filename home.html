@@ -159,7 +159,7 @@
             <ul class="dropdown" style="float:right;list-style-type:none;">
                 <li>
                     <a href="javascript:void(0);">
-                        <?= ucfirst(strtolower($_SESSION['username'])) ?> &#9662;</a>
+                        <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 6-strlen($_SESSION['username'])); ?> &#9662;</a>
                     <ul class="dropdown">
                         <li>
                             <a id="manage" name="manage"
