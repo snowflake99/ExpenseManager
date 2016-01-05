@@ -64,8 +64,10 @@
                 // Update rigths selection dropdown
                 document.getElementById("uRights"+idxUser).value = rights;
                 // If current user and added username are same disable the delete button
-                if (currUser == username) 
+                if (currUser == username) {
                     document.getElementById("uDel"+idxUser).style.display = "none";
+                    document.getElementById("uUpdt"+idxUser).style.display = "none";
+                }
 
                 // Hide the + button in previous row
                 if (rowCount > 1) {
