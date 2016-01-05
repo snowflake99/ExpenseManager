@@ -96,6 +96,8 @@
 
                     $('#userTable tr:last')[0].
                                         childNodes[5].style.visibility="visible";
+
+                    location.reload(true);
                 }
             }
 
@@ -112,6 +114,8 @@
                     done(function(result) {
                     console.log(result);
                 });
+ 
+                location.reload(true);
             }
 
             /*
