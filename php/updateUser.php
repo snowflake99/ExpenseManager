@@ -11,9 +11,9 @@
 
 	    if ($userId == 0)	{
 	    	// User does not exist ! Add new user
-          	$sql="INSERT INTO _users (username, password, isAdmin) VALUES ('$userName','$userName',$rights)";
+          	$sql="INSERT INTO _users (username, password, isAdmin) VALUES ('$userName','password',$rights)";
 	    } else {
-            $sql="UPDATE _users SET username='$userName', isAdmin=$rights WHERE id=$userId";
+                $sql="UPDATE _users SET username='$userName', isAdmin=$rights WHERE id=$userId";
 	    }
         $result=mysql_query($sql);
      
