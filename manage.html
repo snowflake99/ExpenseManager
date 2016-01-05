@@ -85,21 +85,23 @@
                 var rowCount = userTable.rows.length;
 
                 if (rowCount > 2)   {
-                    var deluserId = userTable.rows[rowRef.rowIndex].cells[0].innerHTML;
+                    if (confirm('Are you sure you want to delete user ?')) {
+                        var deluserId = userTable.rows[rowRef.rowIndex].cells[0].innerHTML;
 
-                    if (deluserId != 0) {
-                        $.get("./php/removeUser.php",{userId: deluserId}).
-                            done(function(result) {
-                            alert(result);
-                        });
+                        if (deluserId != 0) {
+                            $.get("./php/removeUser.php",{userId: deluserId}).
+                                done(function(result) {
+                                alert(result);
+                            });
+                        }
+
+                        userTable.deleteRow(rowRef.rowIndex);
+
+                        $('#userTable tr:last')[0].
+                                            childNodes[5].style.visibility="visible";
+
+                        location.reload(true);
                     }
-
-                    userTable.deleteRow(rowRef.rowIndex);
-
-                    $('#userTable tr:last')[0].
-                                        childNodes[5].style.visibility="visible";
-
-                    location.reload(true);
                 }
             }
 
