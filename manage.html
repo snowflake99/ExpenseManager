@@ -148,9 +148,15 @@
 
             function deleteDataRow (rowIdNum)   {
                 var rowRef = document.getElementById('dRow'+rowIdNum);
+                var rowIndex = document.getElementById('dRow'+rowIdNum).rowIndex;
                 var rowCount = document.getElementById("dataTable").rows.length;
+                var tblName = document.getElementById("dataTable").rows[rowIndex].cells[0].innerHTML;
 
                 if (rowCount > 1)   {
+                    $.get("./php/deleteTable.php",{tableName: tblName}).
+                        done(function(result) {
+                        console.log(result);
+                    });
                     document.getElementById("dataTable").deleteRow(rowRef.rowIndex);
                 }
             }
