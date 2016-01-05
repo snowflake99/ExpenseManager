@@ -49,7 +49,7 @@
                          </td>'+
                         '<td><div name="uUpdt'+idxUser+'"id="uUpdt'+idxUser+'"class="round-button">   \
                                 <div class="round-button-circle">                                   \
-                                    <a href="javascript:updateUserRow(this);"class="round-button">~</a>\
+                                    <a href="javascript:updateUserRow('+idxUser+');"class="round-button">~</a>\
                                 </div>                                                                 \
                              </div>                                                                    \
                         </td>'+
@@ -78,19 +78,40 @@
             }
 
             function deleteUserRow(rowIdNum) {
+                var userTable = document.getElementById("userTable");
                 var rowRef = document.getElementById('uRow'+rowIdNum);
-                var rowCount = document.getElementById("userTable").rows.length;
+                var rowCount = userTable.rows.length;
 
                 if (rowCount > 2)   {
-                    document.getElementById("userTable").deleteRow(rowRef.rowIndex);
+                    var deluserId = userTable.rows[rowRef.rowIndex].cells[0].innerHTML;
+
+                    if (deluserId != 0) {
+                        $.get("./php/removeUser.php",{userId: deluserId}).
+                            done(function(result) {
+                            console.log(result);
+                        });
+                    }
+
+                    userTable.deleteRow(rowRef.rowIndex);
 
                     $('#userTable tr:last')[0].
                                         childNodes[5].style.visibility="visible";
                 }
             }
 
-            function updateUserRow(btn) {
+            function updateUserRow(rowIdNum) {
+                var rowIndex = document.getElementById('uRow'+rowIdNum).rowIndex;
 
+                var Id = document.getElementById("userTable").rows[rowIndex].cells[0].innerHTML;
+                var Name = document.getElementById('uName'+rowIdNum).value;
+                var Rights = document.getElementById('uRights'+rowIdNum).value;
+
+                $.get("./php/updateUser.php",{userId: Id, 
+                                              userName: Name, 
+                                              userRights: Rights}).
+                    done(function(result) {
+                    console.log(result);
+                });
             }
 
             /*
@@ -165,7 +186,6 @@
                     })
                 }
             }
-
 
             $(function() {
                 $.get("./php/getUsers.php").done(function(rowEntries) {
