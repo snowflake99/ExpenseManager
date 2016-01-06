@@ -43,3 +43,16 @@ ul li:hover ul.dropdown{
 ul li ul.dropdown li{
     display: block;
 }
+
+ul li ul.dropdownRightAlign{
+    background: #333;
+    display: none;
+    position: absolute;
+}
+ul li:hover ul.dropdownRightAlign{
+    display: block; /* Display the dropdown */
+	right:1px;
+}
+ul li ul.dropdownRightAlign li{
+    display: block;
+}

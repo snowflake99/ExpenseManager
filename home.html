@@ -114,6 +114,11 @@
                 document.getElementById('frame2').src = "manage";
             }
 
+            function updatePwd ()  {
+                document.getElementById('frame2').src = "updatePassword";
+            }
+        
+
             /* 
             *  Function Name: OnPageLoad 
             *  Purpose: Function will be called on page load. Display the manage menu
@@ -156,15 +161,17 @@
                    onclick="javascript:yearlyReport();">Report</a></li>
             <li><a href="javascript:void(0);" 
                    onclick="javascript:monthlySummary();">Summary</a></li>
-            <ul class="dropdown" style="float:right;list-style-type:none;">
+            <ul class="dropdownRightAlign" style="float:right;list-style-type:none;">
                 <li>
                     <a href="javascript:void(0);">
-                        <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 6-strlen($_SESSION['username'])); ?> &#9662;</a>
-                    <ul class="dropdown">
+                        <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 8-strlen($_SESSION['username'])); ?> &#9662;</a>
+                    <ul class="dropdownRightAlign">
                         <li>
                             <a id="manage" name="manage"
                                style="display:none;"
                                href="javascript:manage();">Manage</a>
+                            <a href="javascript:void(0);"
+                               onclick="javascript:updatePwd();">Password</a>
                             <a href="php/usrLogout.php">Logout</a>
                         </li>
                     </ul>
