@@ -164,7 +164,7 @@
             <ul class="dropdownRightAlign" style="float:right;list-style-type:none;">
                 <li>
                     <a href="javascript:void(0);">
-                        <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 8-strlen($_SESSION['username'])); ?> &#9662;</a>
+                        <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 1-strlen($_SESSION['username'])); ?> &#9662;</a>
                     <ul class="dropdownRightAlign">
                         <li>
                             <a id="manage" name="manage"
