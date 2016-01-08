@@ -4,6 +4,11 @@
     left: 34%;
     width: 30%;
 
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    border-collapse: collapse;
+
     /* To see the outline of the form */
     padding: 1em;
     border: 1px solid #CCC;
