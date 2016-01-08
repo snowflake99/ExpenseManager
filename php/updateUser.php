@@ -9,12 +9,12 @@
         $userName = $_GET['userName'];
         $rights   = $_GET['userRights'];
 
-	    if ($userId == 0)	{
-	    	// User does not exist ! Add new user
-          	$sql="INSERT INTO _users (username, password, isAdmin) VALUES ('$userName','password',$rights)";
-	    } else {
-                $sql="UPDATE _users SET username='$userName', isAdmin=$rights WHERE id=$userId";
-	    }
+        if ($userId == 0)   {
+            // User does not exist ! Add new user
+            $sql="INSERT INTO _users (username, password, isAdmin) VALUES ('$userName','password',$rights)";
+        } else {
+            $sql="UPDATE _users SET username='$userName', isAdmin=$rights WHERE id=$userId";
+        }
         $result=mysql_query($sql);
      
         if($result == false)  {
