@@ -141,42 +141,37 @@
         <!-- Create hyperlinks to Horizontal Navigation bar  -->
         <ul>
             <li><a class="highlightColor" href="">Happy Home</a></li>
-
-            <ul class="dropdown" style="float:left;list-style-type:none;">
-                <li>
-                    <a href="javascript:void(0);">Tools &#9662;</a>
-                    <ul class="dropdown">
-                        <li>
-                            <a href="javascript:void(0);" 
-                               onclick="javascript:void(0);">Upload</a>
-                            <a href="javascript:void(0);" 
-                               onclick="javascript:downloadTable();">Download</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <li>
+                <a href="javascript:void(0);">Tools &#9660;</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="javascript:void(0);" 
+                           onclick="javascript:void(0);">Upload</a>
+                        <a href="javascript:void(0);" 
+                           onclick="javascript:downloadTable();">Download</a>
+                    </li>
+                </ul>
+            </li>
             <li><a href="javascript:void(0);" 
                    onclick="javascript:saveEntries();">Save</a></li>
             <li><a href="javascript:void(0);"
                    onclick="javascript:yearlyReport();">Report</a></li>
             <li><a href="javascript:void(0);" 
                    onclick="javascript:monthlySummary();">Summary</a></li>
-            <ul class="dropdownRightAlign" style="float:right;list-style-type:none;">
-                <li>
-                    <a href="javascript:void(0);">
-                        <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 1-strlen($_SESSION['username'])); ?> &#9662;</a>
-                    <ul class="dropdownRightAlign">
-                        <li>
-                            <a id="manage" name="manage"
-                               style="display:none;"
-                               href="javascript:manage();">Manage</a>
-                            <a href="javascript:void(0);"
-                               onclick="javascript:updatePwd();">Password</a>
-                            <a href="php/usrLogout.php">Logout</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <li style="float:right">
+                <a href="javascript:void(0);">
+                    <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 1-strlen($_SESSION['username'])); ?> &#9660;</a>
+                <ul class="dropdownRightAlign">
+                    <li>
+                        <a id="manage" name="manage"
+                           style="display:none;"
+                           href="javascript:manage();">Manage</a>
+                        <a href="javascript:void(0);"
+                           onclick="javascript:updatePwd();">Password</a>
+                        <a href="php/usrLogout.php">Logout</a>
+                    </li>
+                </ul>
+            </li>
         </ul>
 
         <!-- Create frame for vertical navigation bar and main window  -->

@@ -1,14 +1,15 @@
 body{
-  width:90%;
-  margin:0 auto;
+    width:95%;
+    margin:0 auto;
 }
 table {
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px#888;
     box-shadow: 0 0 5px #888;
     border-collapse: collapse;
-    width: 49%;
+    width: 45%;
     float:left;
+    margin-left:10px;
 }
 
 th, td {

@@ -51,7 +51,7 @@ ul li ul.dropdownRightAlign{
 }
 ul li:hover ul.dropdownRightAlign{
     display: block; /* Display the dropdown */
-	right:1px;
+    right:1px;
 }
 ul li ul.dropdownRightAlign li{
     display: block;
