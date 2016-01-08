@@ -12,6 +12,13 @@
             header("Location: home");
         }
     ?>
+
+    <script language="javascript" type="text/javascript">
+        window.onload = function()  {
+            if (top.location.href != self.location.href)
+                top.location.href = "login";
+        };
+    </script>
 </head>
 
 <body>
