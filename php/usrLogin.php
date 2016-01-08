@@ -6,7 +6,7 @@
 
     // username and password sent from form 
     $myusername = $_POST['username'];
-    $mypassword = $_POST['password'];
+    $mypassword = md5($_POST['password']);
 
     // To protect MySQL injection 
     $myusername = stripslashes($myusername);

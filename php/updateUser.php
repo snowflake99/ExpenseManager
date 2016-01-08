@@ -10,8 +10,10 @@
         $rights   = $_GET['userRights'];
 
         if ($userId == 0)   {
+            $defaultPwd = md5('password');
+
             // User does not exist ! Add new user
-            $sql="INSERT INTO _users (username, password, isAdmin) VALUES ('$userName','password',$rights)";
+            $sql="INSERT INTO _users (username, password, isAdmin) VALUES ('$userName','$defaultPwd',$rights)";
         } else {
             $sql="UPDATE _users SET username='$userName', isAdmin=$rights WHERE id=$userId";
         }
