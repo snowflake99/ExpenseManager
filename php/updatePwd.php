@@ -10,7 +10,7 @@
         $newPwd2 = $_POST['new_pwd2'];
         $usrName = $_SESSION['username'];
 
-        // Search for id for session username 
+        // Search for unique id for current session username 
         $sql="SELECT id FROM _users WHERE username='$usrName'";
         $result=mysql_query($sql);
         
@@ -18,18 +18,31 @@
             $usrId = $row{'id'};
         }
 
-        // If the new password match with retyped password
+        // If the new password matches with retyped password
         if ($newPwd1 == $newPwd2)   {
-            $sql = "UPDATE _users SET password='$newPwd1' WHERE id=$usrId AND BINARY password='$oldPwd'";      
+            // Fetch old password from table
+            $sql = "SELECT password FROM _users WHERE id=$usrId";
             $result=mysql_query($sql);
+
+            while ($row = mysql_fetch_array($result)) {
+                $fetchedOldPwd=$row{'password'};
+            }
+
+            // If supplied old password and fetched old password matches
+            if ($fetchedOldPwd == $oldPwd)  {
+                $sql = "UPDATE _users SET password='$newPwd1' WHERE id=$usrId AND BINARY password='$oldPwd'";      
+                $result=mysql_query($sql);
      
-            if(mysql_affected_rows() != 1)  {
-                $msg='New password update failed '.mysql_error();
+                if(mysql_affected_rows() != 1)  {
+                    $msg='New password update failed! '.mysql_error();
+                } else {
+                    $msg="New password updated successfully!";
+                }
             } else {
-                $msg="New password updated successfully";
+                $msg="Old password does not match!";
             } 
         } else {
-            $msg="New password does not match";
+            $msg="New password does not match!";
         }
     }
 
