@@ -24,9 +24,9 @@
             $result=mysql_query($sql);
      
             if(mysql_affected_rows() != 1)  {
-                $msg='Could not update user detail: '.mysql_error();
+                $msg='New password update failed '.mysql_error();
             } else {
-                $msg="New password updated";
+                $msg="New password updated successfully";
             } 
         } else {
             $msg="New password does not match";
