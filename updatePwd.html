@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="style/updatePwd.css">
+        <title>Update Password</title>
+        <?php include 'php/checkSession.php'; ?>
+    </head>
+    <body>
+       <br>
+           <div id="hdrText" 
+                align="center" 
+                style="font-family: Arial Black; font-size: 25px; color: black">
+               Update Password 
+           </div>
+       </br>
+       <!-- Begin Page Content -->
+       <div id="container">
+           <form action="php/updatePwd.php" method="post">
+               <label>
+                   Old Password:
+                   <input type="password" 
+                          placeholder="Old Password"
+                          id="old_pwd" 
+                          name="old_pwd">
+               </label>
+    
+               <label>
+                   New Password:
+                   <input type="password" 
+                          placeholder="New Password"
+                          id="new_pwd1" 
+                          name="new_pwd1" >
+               </label>
+    
+               <label>
+                   Retype Password:
+                   <input type="password"
+                          placeholder="Re-type Password"
+                          id="new_pwd2" 
+                          name="new_pwd2">
+               </label>
+    
+               <label for="msg" style="color:hsla(0,100%,50%,0.5); font-family:"Helvetica Neue",Helvetica,sans-serif;">
+                   <?php  echo @$_GET['msg'];?>
+               </label>
+               <div id="lower">
+                   <input type="submit" 
+                          value="Update"
+                          autofocus>
+               </div><!--/ lower-->
+           </form>
+       </div><!--/ container-->
+       <!-- End Page Content -->
+    </body>
+</html>

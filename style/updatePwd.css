@@ -1,0 +1,26 @@
+#container {
+    position: fixed;
+    top: 30%;
+    left: 34%;
+    width: 30%;
+
+    /* To see the outline of the form */
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+form {
+    margin: 0 auto;
+}
+label {
+    margin-bottom: 10px;
+    display: block;
+}
+input {
+    width: 100%;
+    display: block;
+}
+#lower input {
+    margin-top: 5%;
+    width: auto; 
+}
