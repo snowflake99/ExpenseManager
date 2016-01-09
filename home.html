@@ -98,6 +98,7 @@
             function downloadTable ()   {
                 var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
                 var curselYear =  document.getElementById("frame1").contentWindow.selYear;
+                var currency = "<?php echo $_SESSION['currency']?>";
 
                 if ((curselMonth >= 1 && curselMonth <= 12) &&
                     (curselYear >= 1979 && curselYear <= 9999)) {
@@ -105,7 +106,7 @@
                     $.post("./php/mySQLTableDownload.php", {month: curselMonth, 
                                                             year: curselYear}).
                           done(function(ret_status) {
-                        download ("ExpenseManager_"+curselMonth+"_"+curselYear+"_.csv", ret_status);
+                        download ("ExpenseManager_"+curselMonth+"_"+curselYear+"_"+currency+".csv", ret_status);
                     })
                 }
             }

@@ -30,6 +30,7 @@
         $_SESSION['username']   = $myusername;
         $_SESSION['start']      = time();
         $_SESSION['expire']     = $_SESSION['start'] + (20 * 60);
+        $_SESSION['currency']   = 'INR';
 
         header("Location: ../home"); 
     }
