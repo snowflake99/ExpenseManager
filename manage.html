@@ -128,13 +128,14 @@
             *
             */
 
-            function addDataRow (tName) {
+            function addDataRow (tName, numRows) {
                 var tBody    = $("#dataTable").find("tbody");
                 var rowCount = document.getElementById("dataTable").rows.length;
 
                 tBody.append(
                     '<tr id="dRow'+idxData+'">'+ 
                         '<td name="dtName'+idxData+'" id="dtName'+idxData+'">'+tName+'</td>'+
+                        '<td name="dtRows'+idxData+'" id="dtRows'+idxData+'">'+numRows+'</td>'+
                         '<td></td>'+
                         '<td><div name="dDel'+idxData+'" id="dDel'+idxData+'"class="round-button"> \
                                 <div class="round-button-circle">                       \
@@ -177,6 +178,9 @@
                 var selusrName = usrList.options[i].text;
                 var tBody    = $("#dataTable").find("tbody");
                 var rowCount = document.getElementById("dataTable").rows.length;
+        // Mysql Table details
+        var tableName;
+        var numRows;
 
                 // Delete all rows of the data table
                 while(rowCount-- > 1) 
@@ -193,9 +197,14 @@
                         while (m_recordRow = re_recordRow.exec(result)) {
                             // For all the entries in a single row
                             while(m_recordCell = re_recordCell.exec(m_recordRow[0]))    {
-                                if (m_recordCell[0].indexOf("_") > -1)
-                                    addDataRow(re_recordCellValue.exec(m_recordCell[0]));
+                                if (m_recordCell[0].indexOf("table") > -1)
+                                    tableName = re_recordCellValue.exec(m_recordCell[0]);
+
+                                if (m_recordCell[0].indexOf("rows") > -1)
+                                    numRows = re_recordCellValue.exec(m_recordCell[0]);
                             }
+                            console.log (tableName+":"+numRows);
+                            addDataRow(tableName, numRows);
                         }
                     })
                 }
@@ -257,9 +266,9 @@
                         <th>Id</th>
                         <th>Username</th>
                         <th>Admin</th>
-                        <th align="right" width="7%"></th>
-                        <th align="right" width="7%"></th>
-                        <th align="right" width="7%"></th>
+                        <th align="right" width="6%"></th>
+                        <th align="right" width="6%"></th>
+                        <th align="right" width="6%"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -271,13 +280,14 @@
                 <thead>
                     <tr>
                         <th align="left">Tables</th>
+                        <th align="left">Entries</th>
                         <th align="right" width="20%">    
                             <select name="userNameList" 
                                     id="userNameList" 
                                     onchange="selChangeData()">
                                 <option value="0">Select User</option>
                         </th>
-                        <th align="right" width="7%"></th>
+                        <th align="right" width="6%"></th>
                     </tr>
                 </thead>
                 <tbody>

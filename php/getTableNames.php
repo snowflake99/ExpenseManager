@@ -16,20 +16,18 @@
 
         $tableList="";
         for ($year = 2010; $year <= date("Y"); $year++) {
-            $yearEntryPrinted=false;
             for ($month = 1; $month <= 12; $month++)   {
                 $selMonth = ($month < 10) ? ('0'.$month):$month;
                 $table = $usrId."_".$selMonth."_".$year."_";
 
                 if(mysql_num_rows(mysql_query("SHOW TABLES LIKE '".$table."'")) != 1)   {
-                    // Table does not exist!, create it. Do Nothing
+                    // Table does not exist!, Do Nothing
                 } else {
                     // Table exists
-                    if ($yearEntryPrinted == false) {
-                        echo "@year=".$year;
-                        $yearEntryPrinted=true;
-                    }
-                    echo "?table=".$table; 
+                    $result = mysql_query("SELECT COUNT(1) FROM $table");
+                    $row = mysql_fetch_array($result);
+
+                    echo "@table=".$table."?rows=".$row[0]; 
                 }
             }
         }
