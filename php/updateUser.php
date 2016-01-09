@@ -8,14 +8,15 @@
         $userId   = $_GET['userId'];
         $userName = $_GET['userName'];
         $rights   = $_GET['userRights'];
+        $currency = $_GET['userCurrency'];
 
         if ($userId == 0)   {
             $defaultPwd = md5('password');
 
             // User does not exist ! Add new user
-            $sql="INSERT INTO _users (username, password, isAdmin) VALUES ('$userName','$defaultPwd',$rights)";
+            $sql="INSERT INTO _users (username, password, isAdmin, currency) VALUES ('$userName','$defaultPwd',$rights,'$currency')";
         } else {
-            $sql="UPDATE _users SET username='$userName', isAdmin=$rights WHERE id=$userId";
+            $sql="UPDATE _users SET username='$userName', isAdmin=$rights, currency='$currency' WHERE id=$userId";
         }
         $result=mysql_query($sql);
      

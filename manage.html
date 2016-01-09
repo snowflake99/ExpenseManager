@@ -21,7 +21,7 @@
             *
             */
 
-            function addUserRow (id, username, rights) {
+            function addUserRow (id, username, rights, currency) {
                 var tBody    = $("#userTable").find("tbody");
                 var currUser = "<?php session_start(); echo $_SESSION['username']; ?>";
                 var rowCount = document.getElementById("userTable").rows.length;
@@ -41,6 +41,19 @@
                                 '<option value="1">Yes</option>'+
                             '</select>'+
                         '</td>'+
+                        '<td>'+
+                            '<select name="uCurrency'+idxUser+'" id="uCurrency'+idxUser+'">'+
+                                '<option value="INR" selected>INR</option>'+
+                                '<option value="USD">USD</option>'+
+                                '<option value="CAD">CAD</option>'+
+                                '<option value="EUR">EUR</option>'+
+                                '<option value="GBP">GBP</option>'+
+                                '<option value="AUD">AUD</option>'+
+                                '<option value="RUB">RUB</option>'+
+                                '<option value="JPY">JPY</option>'+
+                                '<option value="CNY">CNY</option>'+
+                            '</select>'+
+                        '</td>'+
                         '<td><div name="uDel'+idxUser+'"id="uDel'+idxUser+'"class="round-button"> \
                                 <div class="round-button-circle">                               \
                                     <a href="javascript:deleteUserRow('+idxUser+');"class="round-button">-</a>\
@@ -55,7 +68,7 @@
                         </td>'+
                         '<td><div name="uAdd'+idxUser+'"id="uAdd'+idxUser+'"class="round-button"> \
                                 <div class="round-button-circle">                               \
-                                    <a href="javascript:addUserRow(0,null,0);"class="round-button">+</a>\
+                                    <a href="javascript:addUserRow(0,null,0,null);"class="round-button">+</a>\
                                 </div>                                                                  \
                              </div>                                                                     \
                          </td>'+
@@ -63,6 +76,9 @@
 
                 // Update rigths selection dropdown
                 document.getElementById("uRights"+idxUser).value = rights;
+                // Update currency selection dropdown
+                if (currency != null)
+                    document.getElementById("uCurrency"+idxUser).value = currency;
                 // If current user and added username are same disable the delete button
                 if (currUser == username) {
                     document.getElementById("uDel"+idxUser).style.display = "none";
@@ -72,7 +88,7 @@
                 // Hide the + button in previous row
                 if (rowCount > 1) {
                     $('#userTable tr:last').
-                            prev()[0].childNodes[5].style.visibility="hidden";
+                            prev()[0].childNodes[6].style.visibility="hidden";
                 }
 
                 // Increment the unique index identifier
@@ -98,7 +114,7 @@
                         userTable.deleteRow(rowRef.rowIndex);
 
                         $('#userTable tr:last')[0].
-                                            childNodes[5].style.visibility="visible";
+                                            childNodes[6].style.visibility="visible";
 
                         location.reload(true);
                     }
@@ -111,10 +127,12 @@
                 var Id = document.getElementById("userTable").rows[rowIndex].cells[0].innerHTML;
                 var Name = document.getElementById('uName'+rowIdNum).value;
                 var Rights = document.getElementById('uRights'+rowIdNum).value;
-
+                var Currency = document.getElementById('uCurrency'+rowIdNum).value;
+                
                 $.get("./php/updateUser.php",{userId: Id, 
                                               userName: Name, 
-                                              userRights: Rights}).
+                                              userRights: Rights,
+                                              userCurrency: Currency}).
                     done(function(result) {
                     alert(result);
                 });
@@ -178,9 +196,9 @@
                 var selusrName = usrList.options[i].text;
                 var tBody    = $("#dataTable").find("tbody");
                 var rowCount = document.getElementById("dataTable").rows.length;
-        // Mysql Table details
-        var tableName;
-        var numRows;
+                // Mysql Table details
+                var tableName;
+                var numRows;
 
                 // Delete all rows of the data table
                 while(rowCount-- > 1) 
@@ -203,7 +221,6 @@
                                 if (m_recordCell[0].indexOf("rows") > -1)
                                     numRows = re_recordCellValue.exec(m_recordCell[0]);
                             }
-                            console.log (tableName+":"+numRows);
                             addDataRow(tableName, numRows);
                         }
                     })
@@ -223,6 +240,7 @@
                     var id;
                     var username;
                     var rights;
+                    var currency;
                    
                     // For all the row entries read from DB 
                     while (m_recordRow = re_recordRow.exec(rowEntries)) {
@@ -236,8 +254,12 @@
 
                             if (m_recordCell[0].indexOf("isAdmin") > -1)   
                                 rights = re_recordCellValue.exec(m_recordCell[0]);
+
+                            if (m_recordCell[0].indexOf("currency") > -1)   
+                                currency = re_recordCellValue.exec(m_recordCell[0]);
                         }
-                        addUserRow(id, username, rights);
+                        
+                        addUserRow(id, username, rights, currency);
                         addUserSelectList(username);
                     }
                 });
@@ -266,9 +288,10 @@
                         <th>Id</th>
                         <th>Username</th>
                         <th>Admin</th>
-                        <th align="right" width="6%"></th>
-                        <th align="right" width="6%"></th>
-                        <th align="right" width="6%"></th>
+                        <th>Currency</th>
+                        <th align="right" width="5%"></th>
+                        <th align="right" width="5%"></th>
+                        <th align="right" width="5%"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -287,7 +310,7 @@
                                     onchange="selChangeData()">
                                 <option value="0">Select User</option>
                         </th>
-                        <th align="right" width="6%"></th>
+                        <th align="right" width="5%"></th>
                     </tr>
                 </thead>
                 <tbody>

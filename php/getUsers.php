@@ -9,7 +9,7 @@
         $result=mysql_query($sql);
 	 
         while ($row = mysql_fetch_array($result)) {
-            echo "@id=".$row{'id'}."?username=".$row{'username'}."?isAdmin=".$row{'isAdmin'};
+            echo "@id=".$row{'id'}."?username=".$row{'username'}."?isAdmin=".$row{'isAdmin'}."?currency=".$row{'currency'};
         }
     }
 
