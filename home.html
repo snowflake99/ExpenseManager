@@ -99,6 +99,7 @@
                 var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
                 var curselYear =  document.getElementById("frame1").contentWindow.selYear;
                 var currency = "<?php echo $_SESSION['currency']?>";
+                var sessionUser = "<?php echo $_SESSION['username']?>";
 
                 if ((curselMonth >= 1 && curselMonth <= 12) &&
                     (curselYear >= 1979 && curselYear <= 9999)) {
@@ -106,7 +107,12 @@
                     $.post("./php/mySQLTableDownload.php", {month: curselMonth, 
                                                             year: curselYear}).
                           done(function(ret_status) {
-                        download ("ExpenseManager_"+curselMonth+"_"+curselYear+"_"+currency+".csv", ret_status);
+                        download ("ExpenseManager_"+
+                                   sessionUser+"_"+
+                                   curselMonth+"_"+
+                                   curselYear+"_"+
+                                   currency+".csv", 
+                                   ret_status);
                     })
                 }
             }
@@ -141,7 +147,7 @@
     <body>
         <!-- Create hyperlinks to Horizontal Navigation bar  -->
         <ul>
-            <li><a class="highlightColor" href="">Happy Home</a></li>
+            <li><a class="highlightColor" href="">Expense Manager</a></li>
             <li>
                 <a href="javascript:void(0);">Tools &#9660;</a>
                 <ul class="dropdown">
