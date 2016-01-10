@@ -36,13 +36,13 @@
                 if(mysql_affected_rows() != 1)  {
                     $msg='New password update failed! '.mysql_error();
                 } else {
-                    $msg="New password updated successfully!";
+                    $msg="New password updated successfully";
                 }
             } else {
-                $msg="Old password does not match!";
+                $msg="Incorrect old password!";
             } 
         } else {
-            $msg="New password does not match!";
+            $msg="Re-typed password does not match!";
         }
     }
 
