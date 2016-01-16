@@ -138,7 +138,7 @@
                       done(function(summary) {
                     var m_recordRow;
                     var m_recordCell;
-                    var idx = 0;
+                    var category;
         
                     var re_recordRow = /[^@]+/g;
                     var re_recordCell = /[^?]+/g;
@@ -149,11 +149,11 @@
                         // For all the entries in a single row
                         while(m_recordCell = re_recordCell.exec(m_recordRow[0]))    {
                             if (m_recordCell[0].indexOf("category") > -1)
-                               idx = re_recordCellValue.exec(m_recordCell[0]);
+                               category = re_recordCellValue.exec(m_recordCell[0]);
  
                             if (m_recordCell[0].indexOf("total") > -1)  {
-                                categoryData[idx] = parseFloat(
-                                                    re_recordCellValue.exec(m_recordCell[0]));
+                                categoryData[categoryName.indexOf(category[0])] = 
+                                    parseFloat(re_recordCellValue.exec(m_recordCell[0]));
                             }
                         }
                     }

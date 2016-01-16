@@ -22,7 +22,7 @@
             // Table does not exist!, create it
             $sql = "create table $table (idx int not null auto_increment, 
                                          edate date not null, 
-                                         category int, 
+                                         category varchar(32), 
                                          description varchar(255), 
                                          amount float, 
                     Primary key(idx))";
