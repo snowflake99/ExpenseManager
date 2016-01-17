@@ -165,7 +165,7 @@
                    onclick="javascript:yearlyReport();">Report</a></li>
             <li><a href="javascript:void(0);" 
                    onclick="javascript:monthlySummary();">Summary</a></li>
-            <li style="float:right">
+            <li class="userMenu">
                 <a href="javascript:void(0);">
                     <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 1-strlen($_SESSION['username'])); ?> &#9660;</a>
                 <ul class="dropdownRightAlign">

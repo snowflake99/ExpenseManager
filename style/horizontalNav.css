@@ -56,3 +56,13 @@ ul li:hover ul.dropdownRightAlign{
 ul li ul.dropdownRightAlign li{
     display: block;
 }
+
+.userMenu {
+    float: right;
+}
+@media screen and (max-width: 600px){
+    ul li {float: none; }
+    .userMenu {float: none; }
+    ul li ul.dropdownRightAlign {position: relative; }
+    ul li ul.dropdown {position: relative; }
+}
