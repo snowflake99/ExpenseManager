@@ -10,6 +10,10 @@
         <?php include 'php/checkSession.php'; ?>
 
         <script language="javascript" type="text/javascript">
+            function clearMsg () {
+                document.getElementById('msg').innerHTML = '';
+            }
+
             function validate() {
                 $.ajax({
                     url: $('#form').attr('action'),
@@ -19,6 +23,7 @@
                         document.getElementById('msg').innerHTML = response;
                     }
                 });
+
                 document.getElementById('old_pwd').value = '';
                 document.getElementById('new_pwd1').value = '';
                 document.getElementById('new_pwd2').value = '';
@@ -45,7 +50,8 @@
                    Old Password:
                    <input type="password" 
                           placeholder="Old Password"
-                          id="old_pwd" 
+                          id="old_pwd"
+                          onfocus="clearMsg();"
                           name="old_pwd">
                </label>
                <label>
@@ -53,6 +59,7 @@
                    <input type="password" 
                           placeholder="New Password"
                           id="new_pwd1" 
+                          onfocus="clearMsg();"
                           name="new_pwd1" >
                </label>
                <label>
@@ -60,6 +67,7 @@
                    <input type="password"
                           placeholder="Re-type Password"
                           id="new_pwd2" 
+                          onfocus="clearMsg();"
                           name="new_pwd2">
                </label>
                <label id="msg" 
