@@ -8,6 +8,8 @@
    float:left;
    width:80%;
    height:93%;
-   overflow: auto;
+   overflow: hidden;
+   margin: 0;
+   padding: 0;
    background-color: #f1f1f1;
 }
