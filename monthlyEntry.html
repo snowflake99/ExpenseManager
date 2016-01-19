@@ -35,7 +35,7 @@
 
             /* 
             *  Function Name: validateKey
-            *  Purpose: Function to validate key press and disable special keys
+            *  Purpose: Function to validate key press and disable special key input
             *  Input : event
             *  Output: none
             */
@@ -76,6 +76,7 @@
                                 name="Date'+idx+'"      \
                                 id="Date'+idx+'"        \
                                 class="Date"            \
+                                style="width:100%; text-align:center;" \
                                 value="'+forDate[0]+'"> \
                     </td>'+
                     '<td>'+
@@ -97,11 +98,16 @@
                     '</td>'+
                     '<td>'+
                         '<input name="Description'+idx+'" \
-                                id="Description'+idx+'" onkeypress="return validateKey(event)" \
+                                id="Description'+idx+'" onkeypress="return validateKey(event);" \
+                                style="width:100%; text-align:left;" \
                                 maxlength=255>'+
                     '</td>'+
                     '<td>'+
-                         '<input name="Amount'+idx+'"id="Amount'+idx+'" type="number" step="0.01">'+
+                         '<input name="Amount'+idx+'" \
+                                 id="Amount'+idx+'" \
+                                 type="number" \
+                                 style="width:100%; text-align:center;" \
+                                 step="0.01">'+
                     '</td>'+
                     '<td><div name="neg'+idx+'"id="neg'+idx+'"class="round-button"> \
                             <div class="round-button-circle">                       \
@@ -116,15 +122,6 @@
                          </div>                                                                       \
                     </td>'+
                 '</tr>');
-                // Format the with and alignment of fields
-                $('#Date'+idx)[0].style.width       ='100%';
-                $('#Date'+idx)[0].style.textAlign   ='center';
-
-                $('#Description'+idx)[0].style.width='100%';
-                $('#Description'+idx)[0].textAlign  ='right';
-
-                $('#Amount'+idx)[0].style.width     ='100%';
-                $('#Amount'+idx)[0].style.textAlign ='center';
 
                 // Hide the + button in previous row
                 if (rowCount > 1) {
@@ -285,12 +282,12 @@
                    bgcolor="#f1f1f1">
                 <thead>
                     <tr>
-                        <th width="10%">Date</th>
-                        <th width="10%">Category</th>
-                        <th width="60%">Description</th>
-                        <th width="15%">Amount (<?php echo $_SESSION['currency']?>)</th>
-                        <th></th>
-                        <th></th>
+                        <th style="width:15%;">Date</th>
+                        <th style="width:13%;">Category</th>
+                        <th style="width:52%;">Description</th>
+                        <th style="width:16%;">Amount (<?php echo $_SESSION['currency']?>)</th>
+                        <th style="width:2%;"></th>
+                        <th style="width:2%;"></th>
                     </tr>
                 </thead>
                 <tbody>

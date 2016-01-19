@@ -15,14 +15,11 @@ table {
 th {
     text-align: left;
     padding: 8px;
+    background-color: #666666;
+    color: white;
 }
 
 td {
     text-align: left;
     padding: 4px;
-}
-
-th {
-    background-color: #666666;
-    color: white;
 }
