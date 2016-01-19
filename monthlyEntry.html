@@ -53,6 +53,28 @@
             }
 
             /* 
+            *  Function Name: displayDaysExpense
+            *  Purpose: Function to days expense as tooltips on mouse over
+            *  Input : Input date object
+            *  Output: none
+            */
+            function displayDaysExpense (x) {
+                var curselMonth = $('#frame1', window.parent.document)[0].contentWindow.selMonth;
+                var curselYear =  $('#frame1', window.parent.document)[0].contentWindow.selYear;
+
+                if (curselMonth < 10) curselMonth = '0'+curselMonth;
+
+                $.get("./php/expenseTooltips.php", {curDate:  x.value, 
+                                                    curMonth: curselMonth, 
+                                                    curYear:  curselYear}).
+                        done(function(result) {
+                    x.title = "Date: " + x.value +
+                              "\nTotal Expense: "+ result + 
+                              " <?php echo $_SESSION['currency']?>";
+                });
+            }
+
+            /* 
             *  Function Name: addRow
             *  Purpose: Function to add new row
             *  Input : forDate - Date in format YYYY-MM-DD
@@ -77,6 +99,7 @@
                                 id="Date'+idx+'"        \
                                 class="Date"            \
                                 style="width:98%; text-align:center;" \
+                                onmouseover="displayDaysExpense(this);" \
                                 value="'+forDate[0]+'"> \
                     </td>'+
                     '<td>'+
