@@ -129,7 +129,7 @@
             function updatePwd ()  {
                 document.getElementById('frame2').src = "updatePwd";
             }
-        
+            
             function uploadTable()    {
                 var x = document.getElementById("upload");
                 var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
@@ -139,31 +139,24 @@
                     (curselYear >= 1979 && curselYear <= 9999)) {
                     if (curselMonth < 10) curselMonth = "0" + curselMonth;
 
-                    if ('files' in x) {
-                        if (x.files.length > 0)    {
-                            for (var i = 0; i < x.files.length; i++) {
-                                var file = x.files[i];
-
-                                if ('name' in file) {
-                                    // txt += "name: " + file.name + "<br>";
-                                    console.log (file.name);
-
-                                    $.post("./php/tableUpload.php", {month: curselMonth,
-                                                                     year: curselYear,
-                                                                     filename: file.name}).
-                                          done(function(ret_status) {
-                                        alert (ret_status);
-                                    })
-                                }
-                                //if ('size' in file) {
-                                //    txt += "size: " + file.size + " bytes";
-                                //}
-                            }
-                        }
+                    files = x.files;
+                    for (var i = 0, numFiles = files.length; 
+                         i < numFiles; 
+                         i++) {
+                        var file = files[i];
+                       
+                        console.log (file.name); 
+                        $.post("./php/tableUpload.php", {month: curselMonth,
+                                                         year: curselYear,
+                                                         filename: file.name}).
+                              done(function(ret_status) {
+                            alert (ret_status);
+                        })
                     }
                 } else {
                     alert ("Please select a month !");
                 }
+                x.value='';
             }
 
             /* 
@@ -195,12 +188,11 @@
                         <input type="file" 
                                id="upload" 
                                name="upload" 
-                               style="visibility: hidden; width: 1px; height: 1px" 
-                               onchange="javascript:uploadTable();"
+                               style="visibility: hidden; width: 1px; height: 1px"
+                               onchange="javascript:uploadTable();" 
                                multiple />
                         <a href="javascript:void(0);" 
-                           onclick="javascript:document.getElementById('upload').click(); 
-                                    return false;">Upload</a>
+                           onclick="javascript:document.getElementById('upload').click();">Upload</a>
                         <a href="javascript:void(0);" 
                            onclick="javascript:downloadTable();">Download</a>
                     </li>
@@ -214,7 +206,8 @@
                    onclick="javascript:monthlySummary();">Summary</a></li>
             <li class="userMenu">
                 <a href="javascript:void(0);">
-                    <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 1-strlen($_SESSION['username'])); ?> &#9660;</a>
+                    <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 
+                        1-strlen($_SESSION['username'])); ?> &#9660;</a>
                 <ul class="dropdownRightAlign">
                     <li>
                         <a id="manage" name="manage"
