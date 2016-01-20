@@ -107,8 +107,8 @@
                 if ((curselMonth >= 1 && curselMonth <= 12) &&
                     (curselYear >= 1979 && curselYear <= 9999)) {
                     if (curselMonth < 10) curselMonth = "0" + curselMonth;        
-                    $.post("./php/mySQLTableDownload.php", {month: curselMonth, 
-                                                            year: curselYear}).
+                    $.post("./php/tableDownload.php", {month: curselMonth, 
+                                                       year: curselYear}).
                           done(function(ret_status) {
                         download ("ExpenseManager_"+
                                    sessionUser+"_"+
@@ -117,6 +117,8 @@
                                    currency+".csv", 
                                    ret_status);
                     })
+                } else {
+                    alert ("Please select a month !");
                 }
             }
 
@@ -128,6 +130,41 @@
                 document.getElementById('frame2').src = "updatePwd";
             }
         
+            function uploadTable()    {
+                var x = document.getElementById("upload");
+                var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
+                var curselYear =  document.getElementById("frame1").contentWindow.selYear;
+
+                if ((curselMonth >= 1 && curselMonth <= 12) &&
+                    (curselYear >= 1979 && curselYear <= 9999)) {
+                    if (curselMonth < 10) curselMonth = "0" + curselMonth;
+
+                    if ('files' in x) {
+                        if (x.files.length > 0)    {
+                            for (var i = 0; i < x.files.length; i++) {
+                                var file = x.files[i];
+
+                                if ('name' in file) {
+                                    // txt += "name: " + file.name + "<br>";
+                                    console.log (file.name);
+
+                                    $.post("./php/tableUpload.php", {month: curselMonth,
+                                                                     year: curselYear,
+                                                                     filename: file.name}).
+                                          done(function(ret_status) {
+                                        alert (ret_status);
+                                    })
+                                }
+                                //if ('size' in file) {
+                                //    txt += "size: " + file.size + " bytes";
+                                //}
+                            }
+                        }
+                    }
+                } else {
+                    alert ("Please select a month !");
+                }
+            }
 
             /* 
             *  Function Name: OnPageLoad 
@@ -155,8 +192,15 @@
                 <a href="javascript:void(0);">Tools &#9660;</a>
                 <ul class="dropdown">
                     <li>
+                        <input type="file" 
+                               id="upload" 
+                               name="upload" 
+                               style="visibility: hidden; width: 1px; height: 1px" 
+                               onchange="javascript:uploadTable();"
+                               multiple />
                         <a href="javascript:void(0);" 
-                           onclick="javascript:void(0);">Upload</a>
+                           onclick="javascript:document.getElementById('upload').click(); 
+                                    return false;">Upload</a>
                         <a href="javascript:void(0);" 
                            onclick="javascript:downloadTable();">Download</a>
                     </li>
