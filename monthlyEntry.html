@@ -34,12 +34,12 @@
             }
 
             /* 
-            *  Function Name: validateKey
+            *  Function Name: validateDescKey
             *  Purpose: Function to validate key press and disable special key input
             *  Input : event
             *  Output: none
             */
-            function validateKey(e) {
+            function validateDescKey(e) {
                 var unicode=e.charCode? e.charCode : e.keyCode;
 
                 //if the key isn't the backspace key (which we should allow)
@@ -48,8 +48,34 @@
                     if (unicode == 61 || /* = */
                         unicode == 63 || /* ? */
                         unicode == 64)   /* @ */
-                        return false //disable key press
+                        return false; //disable key press
                 }
+
+                return true;
+            }
+
+            /* 
+            *  Function Name: validateAmountKey
+            *  Purpose: Function to validate key press and disable keys other than number and .
+            *  Input : event
+            *  Output: none
+            */
+            function validateAmountKey(e) {
+                var unicode=e.charCode? e.charCode : e.keyCode;
+
+                //if the key isn't the backspace key (which we should allow)
+                if (unicode!=8) {
+                    /* Disable the following keys */ 
+                    if ((unicode >= 48 && unicode <= 57) || /* Numbers */
+                        unicode == 46 || /* . */
+                        unicode == 42 || /* * */
+                        unicode == 43 || /* + */
+                        unicode == 45 || /* - */
+                        unicode == 47)   /* / */
+                        return true; //enable key press
+                }
+
+                return false;
             }
 
             /* 
@@ -72,6 +98,10 @@
                               "\nTotal Expense: "+ result + 
                               " <?php echo $_SESSION['currency']?>";
                 });
+            }
+
+            function autoCalculate (x)    {
+                x.value = eval (x.value);
             }
 
             /* 
@@ -121,14 +151,16 @@
                     '</td>'+
                     '<td>'+
                         '<input name="Description'+idx+'" \
-                                id="Description'+idx+'" onkeypress="return validateKey(event);" \
+                                id="Description'+idx+'" \
+                                onkeypress="return validateDescKey(event);" \
                                 style="width:98%; text-align:left;" \
                                 maxlength=255>'+
                     '</td>'+
                     '<td>'+
                          '<input name="Amount'+idx+'" \
                                  id="Amount'+idx+'" \
-                                 type="number" \
+                                 onkeypress="return validateAmountKey(event);" \
+                                 onfocusout="autoCalculate(this)" \
                                  style="width:98%; text-align:center;" \
                                  step="0.01">'+
                     '</td>'+
