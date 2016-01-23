@@ -54,10 +54,21 @@
             $handle = fopen($fileTmpLoc, "r");
 
             while (($data = fgetcsv($handle, 1000, "\t")) !== FALSE) {
+                // If all the fields are empty continue with next row
+                if ($data[0] === "" &&
+                    $data[1] === "" &&
+                    $data[2] === "" &&
+                    $data[3] === "")
+                    continue;
+
+                // Consider the previous date if current row does not have date
+                if ($data[0] !== "")
+                    $Date = $data[0]; 
+                // Convert the amount field to float
                 $value = floatval($data[3]);
                 
                 $import="INSERT INTO $table (edate,category,description,amount) 
-                                     VALUES ('$data[0]','$data[1]','$data[2]','$value')";
+                                     VALUES ('$Date','$data[1]','$data[2]','$value')";
 
                 mysql_query($import) or die(mysql_error());
             }
