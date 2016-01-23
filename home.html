@@ -135,7 +135,7 @@
                 ajax.addEventListener("load", completeHandler, false);
                 ajax.addEventListener("error", errorHandler, false);
                 ajax.addEventListener("abort", abortHandler, false);
-                ajax.open("POST", "php/file_upload_parser.php");
+                ajax.open("POST", "php/tableUpload.php");
                 ajax.send(formdata);
             }
             function progressHandler(event){
