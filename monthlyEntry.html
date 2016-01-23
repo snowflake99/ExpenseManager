@@ -13,6 +13,8 @@
         <script language="javascript" type="text/javascript">
             // Global variable used to create unique row elements id
             var idx = 0;
+            var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", 
+                           "Thursday", "Friday", "Saturday"];
 
             /* 
             *  Function Name: delRow
@@ -87,6 +89,7 @@
             function displayDaysExpense (x) {
                 var curselMonth = $('#frame1', window.parent.document)[0].contentWindow.selMonth;
                 var curselYear =  $('#frame1', window.parent.document)[0].contentWindow.selYear;
+                var y = new Date(x.value);
 
                 if (curselMonth < 10) curselMonth = '0'+curselMonth;
 
@@ -94,7 +97,7 @@
                                                     curMonth: curselMonth, 
                                                     curYear:  curselYear}).
                         done(function(result) {
-                    x.title = "Date: " + x.value +
+                    x.title = "Date: " + x.value + ", " + weekday[y.getDay()] +
                               "\nTotal Expense: "+ parseFloat(result).toFixed(2) + 
                               " <?php echo $_SESSION['currency']?>";
                 });
