@@ -13,10 +13,14 @@
         <?php include 'php/checkSession.php'; ?>
 
         <script language="javascript" type="text/javascript">
+            function _(el){
+                return document.getElementById(el);
+            }
+
             function saveEntries() {
-                var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
-                var curselYear =  document.getElementById("frame1").contentWindow.selYear;
-                var mainWinHref = document.getElementById("frame2").contentWindow.location.href;
+                var curselMonth = _("frame1").contentWindow.selMonth;
+                var curselYear =  _("frame1").contentWindow.selYear;
+                var mainWinHref = _("frame2").contentWindow.location.href;
                 var data = "";
 
                 if (mainWinHref.indexOf("monthlyEntry.html") > -1)  {
@@ -67,20 +71,20 @@
             }
 
             function monthlySummary ()  {
-                var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
-                var curselYear =  document.getElementById("frame1").contentWindow.selYear;
+                var curselMonth = _("frame1").contentWindow.selMonth;
+                var curselYear =  _("frame1").contentWindow.selYear;
 
                 if ((curselMonth >= 1 && curselMonth <= 12) &&
                     (curselYear >= 1979 && curselYear <= 9999)) {
-                    document.getElementById('frame2').src = "summary";
+                    _('frame2').src = "summary";
                 }
             }
 
             function yearlyReport () {
-                var curselYear =  document.getElementById("frame1").contentWindow.selYear;
+                var curselYear =  _("frame1").contentWindow.selYear;
 
                 if (curselYear >= 1979 && curselYear <= 9999) {
-                    document.getElementById('frame2').src = "report";
+                    _('frame2').src = "report";
                 }
             }
 
@@ -99,8 +103,8 @@
             }
 
             function downloadTable ()   {
-                var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
-                var curselYear =  document.getElementById("frame1").contentWindow.selYear;
+                var curselMonth = _("frame1").contentWindow.selMonth;
+                var curselYear =  _("frame1").contentWindow.selYear;
                 var currency = "<?php echo $_SESSION['currency']?>";
                 var sessionUser = "<?php echo $_SESSION['username']?>";
 
@@ -122,9 +126,6 @@
                 }
             }
 
-            function _(el){
-                return document.getElementById(el);
-            }
             function uploadFile(){
                 var file = _("uploadFilename").files[0];
                 var formdata = new FormData();
@@ -154,11 +155,11 @@
             }
 
             function manage ()  {
-                document.getElementById('frame2').src = "manage";
+                _('frame2').src = "manage";
             }
 
             function updatePwd ()  {
-                document.getElementById('frame2').src = "updatePwd";
+                _('frame2').src = "updatePwd";
             }
 
             /* 
@@ -206,8 +207,7 @@
                 <ul class="dropdown">
                     <li>
                         <a href="javascript:void(0);" 
-                           onclick="javascript:
-                           document.getElementById('uploadFilename').click();">Upload</a>
+                           onclick="javascript:_('uploadFilename').click();">Upload</a>
                         <a href="javascript:void(0);" 
                            onclick="javascript:downloadTable();">Download</a>
                     </li>

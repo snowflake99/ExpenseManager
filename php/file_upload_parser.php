@@ -34,7 +34,7 @@
                 $usrId = $row{'id'};
             }
 
-            $table = $usrId.preg_replace('/\\.[^.\\s]{3,4}$/', '', $fileName)."_";
+            $table = $usrId.preg_replace('/\\.[^.\\s]{3,4}$/', '', $fileName);
 
             if(mysql_num_rows(mysql_query("SHOW TABLES LIKE '".$table."'")) != 1)   {
                 // Table does not exist!, create it
