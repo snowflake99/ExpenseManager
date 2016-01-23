@@ -29,14 +29,14 @@
         
         while($row = mysql_fetch_row($result))	{
           $line = '';
-          foreach($row as $value)	{
+          foreach(array_slice($row,1) as $value )	{
             if(!isset($value) || $value == "")	{
               $value = "\t";
             }	else  {
-        # important to escape any quotes to preserve them in the data.
+              # important to escape any quotes to preserve them in the data.
               $value = str_replace('"', '""', $value);
-        # needed to encapsulate data in quotes because some data might be multi line.
-        # the good news is that numbers remain numbers in Excel even though quoted.
+              # needed to encapsulate data in quotes because some data might be multi line.
+              # the good news is that numbers remain numbers in Excel even though quoted.
               $value = '"' . $value . '"' . "\t";
             }
             $line .= $value;
@@ -45,7 +45,7 @@
         }
         # this line is needed because returns embedded in the data have "\r"
         # and this looks like a "box character" in Excel
-          $data = str_replace("\r", "", $data);
+        $data = str_replace("\r", "", $data);
         
         
         # Nice to let someone know that the search came up empty.
@@ -67,7 +67,7 @@
         header("Expires: 0");
         
         //echo $header."\n".$data;
-        echo $header."\n".$data."\n";
+        echo $data;
     }
 
     include 'closedb.php';
