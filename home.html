@@ -122,41 +122,43 @@
                 }
             }
 
+            function _(el){
+                return document.getElementById(el);
+            }
+            function uploadFile(){
+                var file = _("uploadFilename").files[0];
+                var formdata = new FormData();
+                formdata.append("uploadFilename", file);
+                var ajax = new XMLHttpRequest();
+                ajax.upload.addEventListener("progress", progressHandler, false);
+                ajax.addEventListener("load", completeHandler, false);
+                ajax.addEventListener("error", errorHandler, false);
+                ajax.addEventListener("abort", abortHandler, false);
+                ajax.open("POST", "php/file_upload_parser.php");
+                ajax.send(formdata);
+            }
+            function progressHandler(event){
+                var percent = (event.loaded / event.total) * 100;
+                console.log (Math.round(percent) + "%" + 
+                             " Uploaded Bytes: " + event.loaded + 
+                             " Total Bytes: " + event.total); 
+            }
+            function completeHandler(event){
+                alert(event.target.responseText);
+            }
+            function errorHandler(event){
+                alert ("Upload Failed");
+            }
+            function abortHandler(event){
+                alert ("Upload Aborted");
+            }
+
             function manage ()  {
                 document.getElementById('frame2').src = "manage";
             }
 
             function updatePwd ()  {
                 document.getElementById('frame2').src = "updatePwd";
-            }
-            
-            function uploadTable()    {
-                var x = document.getElementById("upload");
-                var curselMonth = document.getElementById("frame1").contentWindow.selMonth;
-                var curselYear =  document.getElementById("frame1").contentWindow.selYear;
-
-                if ((curselMonth >= 1 && curselMonth <= 12) &&
-                    (curselYear >= 1979 && curselYear <= 9999)) {
-                    if (curselMonth < 10) curselMonth = "0" + curselMonth;
-
-                    files = x.files;
-                    for (var i = 0, numFiles = files.length; 
-                         i < numFiles; 
-                         i++) {
-                        var file = files[i];
-                       
-                        console.log (file.name); 
-                        $.post("./php/tableUpload.php", {month: curselMonth,
-                                                         year: curselYear,
-                                                         filename: file.name}).
-                              done(function(ret_status) {
-                            alert (ret_status);
-                        })
-                    }
-                } else {
-                    alert ("Please select a month !");
-                }
-                x.value='';
             }
 
             /* 
@@ -167,17 +169,35 @@
             *  Output: none
             */
             $(function() {
+                _("uploadFilename").addEventListener ('click', function() {
+                    _("uploadFilename").value = '';
+                }, false);
+
                 $.post("./php/isAdmin.php").done(function(ret_status) {
                     if (ret_status == 1)
                         $('#manage')[0].style.display       ='';
                     else
                         $('#manage')[0].style.display       ='none';
                 })
-            })
+           })
         </script>
     </head>
 
     <body style="margin: 0 auto;">
+        <!-- Hidden Form to upload table data -->
+        <form enctype='multipart/form-data' 
+              id='uploadForm'
+              name='uploadForm'
+              style='display:none'
+              method='post'>
+           <input type="file" 
+                  id="uploadFilename" 
+                  name="uploadFilename"
+                  style="visibility: hidden; width: 1px; height: 1px"
+                  onchange="javascript:uploadFile();"
+                  multiple />
+        </form>
+
         <!-- Create hyperlinks to Horizontal Navigation bar  -->
         <ul>
             <li><a class="highlightColor" href="">Expense Manager</a></li>
@@ -185,14 +205,9 @@
                 <a href="javascript:void(0);">Tools &#9660;</a>
                 <ul class="dropdown">
                     <li>
-                        <input type="file" 
-                               id="upload" 
-                               name="upload" 
-                               style="visibility: hidden; width: 1px; height: 1px"
-                               onchange="javascript:uploadTable();" 
-                               multiple />
                         <a href="javascript:void(0);" 
-                           onclick="javascript:document.getElementById('upload').click();">Upload</a>
+                           onclick="javascript:
+                           document.getElementById('uploadFilename').click();">Upload</a>
                         <a href="javascript:void(0);" 
                            onclick="javascript:downloadTable();">Download</a>
                     </li>
