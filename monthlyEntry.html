@@ -95,7 +95,7 @@
                                                     curYear:  curselYear}).
                         done(function(result) {
                     x.title = "Date: " + x.value +
-                              "\nTotal Expense: "+ result + 
+                              "\nTotal Expense: "+ parseFloat(result).toFixed(2) + 
                               " <?php echo $_SESSION['currency']?>";
                 });
             }
