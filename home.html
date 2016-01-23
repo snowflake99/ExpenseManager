@@ -76,7 +76,7 @@
 
                 if ((curselMonth >= 1 && curselMonth <= 12) &&
                     (curselYear >= 1979 && curselYear <= 9999)) {
-                    _('frame2').src = "summary";
+                    _('frame2').src = "monthlySummary";
                 }
             }
 
@@ -84,7 +84,7 @@
                 var curselYear =  _("frame1").contentWindow.selYear;
 
                 if (curselYear >= 1979 && curselYear <= 9999) {
-                    _('frame2').src = "report";
+                    _('frame2').src = "yearlyReport";
                 }
             }
 
@@ -201,7 +201,25 @@
 
         <!-- Create hyperlinks to Horizontal Navigation bar  -->
         <ul>
-            <li><a class="highlightColor" href="">Expense Manager</a></li>
+            <li>
+                <a class="highlightColor" 
+                   href="javascript:void(0);">Expense Manager</a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" 
+                   onclick="javascript:saveEntries();">Save</a>
+            </li>
+            <li>
+                <a href="javascript:void(0);">Report &#9660;</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="javascript:void(0);"
+                            onclick="javascript:yearlyReport();">Yearly</a>
+                        <a href="javascript:void(0);" 
+                            onclick="javascript:monthlySummary();">Monthly</a>
+                    </li>
+                </ul>
+            </li>
             <li>
                 <a href="javascript:void(0);">Tools &#9660;</a>
                 <ul class="dropdown">
@@ -213,12 +231,6 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="javascript:void(0);" 
-                   onclick="javascript:saveEntries();">Save</a></li>
-            <li><a href="javascript:void(0);"
-                   onclick="javascript:yearlyReport();">Report</a></li>
-            <li><a href="javascript:void(0);" 
-                   onclick="javascript:monthlySummary();">Summary</a></li>
             <li class="userMenu">
                 <a href="javascript:void(0);">
                     <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 
