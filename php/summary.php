@@ -21,7 +21,12 @@
         $result=mysql_query($sql);
 
         while ($row = mysql_fetch_array($result)) {
-           echo "@category=".$row{'category'}."?total=".$row{'total'};
+            if (empty($row{'category'}))
+                $category = "Uncategorized";
+            else
+                $category = $row{'category'}; 
+
+            echo "@category=".$category."?total=".$row{'total'};
         }
     }
 
