@@ -98,14 +98,37 @@
                 var table  = $("#reportTable");
                 var tBody  = table.find("tbody");
                 var idx = 0;
+                var percentChange = 0.0;
+                var prevValue = 0.0;
 
-                for (var i = 0; i < itemName.length; i++)   { 
+                for (var i = 0; i < itemName.length; i++)   {
+                   if (prevValue < itemValue[i])   {
+                        // There is a percent increase
+                        if (prevValue > 0.0)
+                            percentChange = ((itemValue[i] - prevValue) / prevValue) * 100;
+                        else
+                            percentChange = 0.0;
+
+                        styleColor = "color:red;";
+                    } else {
+                        // There is a percent decrease or no change
+                        if (prevValue > 0.0)
+                            percentChange = ((prevValue - itemValue[i]) / prevValue) * 100;
+                        else
+                            percentChange = 0.0;
+
+                        styleColor = "color:green;";
+                    }
+ 
                     tBody.append(
                     '<tr id="row'+idx+'">'+
                         '<td>'+itemFullName[i]+'</td>'+
                         '<td>'+itemValue[i].toFixed(1)+'</td>'+
+                        '<td style='+styleColor+'>'+percentChange.toFixed(1)+'%'+'</td>'+
                     '</tr>'
                     );
+
+                    prevValue = itemValue[i];
                     idx++;
                 }
                 tBody.append(
@@ -165,6 +188,7 @@
                 <tr>
                     <th>Month</th>
                     <th>Expense (<?php echo $_SESSION['currency']?>)</th>
+                    <th>% Change</th>
                 </tr>
             </thead>
             <tbody>
