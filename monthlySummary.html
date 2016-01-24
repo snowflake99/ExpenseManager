@@ -160,7 +160,10 @@
                     // calulate percentage
                     var totalExpense = getTotal();
                     for (var i = 0; i < categoryData.length; i++)   {
-                        categoryPerc[i] = ((categoryData[i]/totalExpense) * 100);
+                        if (totalExpense > 0.0)
+                            categoryPerc[i] = ((categoryData[i]/totalExpense) * 100);
+                        else
+                            categoryPerc[i] = 0.0;
                     }
                     if (totalExpense > 0) 
                         plotPieChart();
