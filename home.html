@@ -23,7 +23,7 @@
                 var mainWinHref = _("frame2").contentWindow.location.href;
                 var data = "";
 
-                if (mainWinHref.indexOf("monthlyEntry.html") > -1)  {
+                if (mainWinHref.indexOf("monthlyEntry") > -1)  {
                     if ((curselMonth >= 1 && curselMonth <= 12) &&
                         (curselYear >= 1979 && curselYear <= 9999)) {
                         var table = $("#frame2").contents().find("tbody")[0]; 
