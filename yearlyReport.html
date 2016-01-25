@@ -101,6 +101,7 @@
                 var percentChange = 0.0;
                 var prevValue = 0.0;
                 var avarage = 0.0;
+                var numMonths = 0;
 
                 for (var i = 0; i < itemName.length; i++)   {
                    if (prevValue < itemValue[i])   {
@@ -129,10 +130,12 @@
                     '</tr>'
                     );
 
+                    if (itemValue[i] > 0.0) numMonths++;
+
                     prevValue = itemValue[i];
                     idx++;
                 }
-                average = itemTotal/12;
+                average = (numMonths > 0) ? itemTotal/numMonths : 0;
                 tBody.append(
                 '<tr id="row'+idx+'">'+
                     '<td><b>Total / Average</b></td>'+
