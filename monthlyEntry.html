@@ -16,6 +16,10 @@
             var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", 
                            "Thursday", "Friday", "Saturday"];
 
+            function _(el){
+                return document.getElementById(el);
+            }
+
             /* 
             *  Function Name: delRow
             *  Purpose: Function to delete row
@@ -23,13 +27,12 @@
             *  Output: none
             */
             function delRow(rowIdNum)    {
-                var rowRef = document.getElementById('row'+rowIdNum);
-                var numRows = document.getElementById("expenseTable").rows.length;
+                var rowRef = _('row'+rowIdNum);
+                var numRows = _("expenseTable").rows.length;
         
                 if (numRows > 2)    {
                     // Delete the row and show '+' in last row element
-                    document.getElementById("expenseTable").
-                                        deleteRow(rowRef.rowIndex);
+                    _("expenseTable").deleteRow(rowRef.rowIndex);
                     $('#expenseTable tr:last')[0].
                                         childNodes[5].style.visibility="visible";
                 }
@@ -119,7 +122,7 @@
             function addRow(forDate) {
                 var table  = $("#expenseTable");
                 var tBody  = table.find("tbody");
-                var rowCount = document.getElementById("expenseTable").rows.length;
+                var rowCount = _("expenseTable").rows.length;
 
                 // If the date is not provided, will take date from last enty made
                 if ($.inArray('*', forDate) > -1)   {
@@ -265,7 +268,7 @@
                 var dateTemplate = Array(); 
                 var curselMonth = getUrlVars()["sel"];
                 var curselYear = getUrlVars()["year"];
-                var headerText=document.getElementById('hdrText');
+                var headerText=_('hdrText');
         
                 hdrText.innerHTML = getMonthName (curselMonth) + " " + curselYear;
 
