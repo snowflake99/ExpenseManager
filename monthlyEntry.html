@@ -104,7 +104,10 @@
             }
 
             function autoCalculate (x)    {
-                x.value = eval (x.value);
+                if (x.value)
+                    x.value = eval (x.value);
+                else
+                    x.value = 0;
             }
 
             /* 
