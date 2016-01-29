@@ -150,7 +150,7 @@
                 var headerText=document.getElementById('hdrText');
                 var idx = 0;
 
-                hdrText.innerHTML = "REPORT OF " + curselYear;
+                hdrText.innerHTML = "SUMMARY OF YEAR " + curselYear;
                 Val_Max = 0;
 
                 $.get("./php/report.php", {year: curselYear}).
@@ -181,7 +181,7 @@
             <div id="hdrText" 
                  align="center" 
                  style="font-family: Arial Black; font-size: 25px; color: black">
-                 Report $Year
+                 SUMMARY OF YEAR $Year
             </div>
         </br>
         <div id="canvasSection" align="center">
