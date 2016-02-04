@@ -45,7 +45,8 @@
                                              amount float, 
                         Primary key(idx))";
             } else {
-                $sql = "TRUNCATE TABLE $table";
+                // Table will not be truncated instead appended
+                //$sql = "TRUNCATE TABLE $table";
             }
 
             $result = mysql_query($sql);
