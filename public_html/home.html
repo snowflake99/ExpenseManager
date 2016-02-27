@@ -10,7 +10,7 @@
 
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 
-        <?php include './php/checkSession.php'; ?>
+        <?php include './proxy/checkSession.php'; ?>
 
         <script language="javascript" type="text/javascript">
             function _(el){
@@ -58,7 +58,7 @@
                         }
 
                         if (curselMonth < 10) curselMonth = "0" + curselMonth;        
-                        $.post("./php/setTableRows.php", {month: curselMonth, 
+                        $.post("./proxy/setTableRows.php", {month: curselMonth, 
                                                           year: curselYear, 
                                                           rowEntries: data}).
                               done(function(ret_status) {
@@ -105,13 +105,13 @@
             function downloadTable ()   {
                 var curselMonth = _("frame1").contentWindow.selMonth;
                 var curselYear =  _("frame1").contentWindow.selYear;
-                var currency = "<?php echo $_SESSION['currency']?>";
-                var sessionUser = "<?php echo $_SESSION['username']?>";
+                var currency = "<?php session_start(); echo $_SESSION['currency'];?>";
+                var sessionUser = "<?php session_start(); echo $_SESSION['username'];?>";
 
                 if ((curselMonth >= 1 && curselMonth <= 12) &&
                     (curselYear >= 1979 && curselYear <= 9999)) {
                     if (curselMonth < 10) curselMonth = "0" + curselMonth;        
-                    $.post("./php/tableDownload.php", {month: curselMonth, 
+                    $.post("./proxy/tableDownload.php", {month: curselMonth, 
                                                        year: curselYear}).
                           done(function(ret_status) {
                         download ("ExpenseManager_"+
@@ -135,7 +135,7 @@
                 ajax.addEventListener("load", completeHandler, false);
                 ajax.addEventListener("error", errorHandler, false);
                 ajax.addEventListener("abort", abortHandler, false);
-                ajax.open("POST", "./php/tableUpload.php");
+                ajax.open("POST", "./proxy/tableUpload.php");
                 ajax.send(formdata);
             }
             function progressHandler(event){
@@ -174,7 +174,7 @@
                     _("uploadFilename").value = '';
                 }, false);
 
-                $.post("./php/isAdmin.php").done(function(ret_status) {
+                $.post("./proxy/isAdmin.php").done(function(ret_status) {
                     if (ret_status == 1)
                         $('#manage')[0].style.display       ='';
                     else
@@ -238,8 +238,9 @@
             </li>
             <li class="userMenu">
                 <a href="javascript:void(0);">
-                    <?= ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;', 
-                        1-strlen($_SESSION['username'])); ?> &#9660;</a>
+                    <?php session_start(); 
+                     echo ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;',
+                                            1-strlen($_SESSION['username'])); ?> &#9660;</a>
                 <ul class="dropdownRightAlign">
                     <li>
                         <a id="manage" name="manage"
@@ -247,7 +248,7 @@
                            href="javascript:manage();">Manage</a>
                         <a href="javascript:void(0);"
                            onclick="javascript:updatePwd();">Password</a>
-                        <a href="./php/usrLogout.php">Logout</a>
+                        <a href="./proxy/usrLogout.php">Logout</a>
                     </li>
                 </ul>
             </li>

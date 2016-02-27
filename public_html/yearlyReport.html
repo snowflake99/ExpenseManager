@@ -7,7 +7,7 @@
  
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 
-        <?php include './php/checkSession.php'; ?>
+        <?php include './proxy/checkSession.php'; ?>
 
         <script language="javascript" type="text/javascript">
             var canvas;
@@ -153,7 +153,7 @@
                 hdrText.innerHTML = "SUMMARY OF YEAR " + curselYear;
                 Val_Max = 0;
 
-                $.get("./php/report.php", {year: curselYear}).
+                $.get("./proxy/report.php", {year: curselYear}).
                       done(function(report) {
                     var re_recordRow = /[^@]+/g;
                     var re_recordCellValue = /[^=]+$/;
@@ -193,7 +193,7 @@
             <thead>
                 <tr>
                     <th>Month</th>
-                    <th>Expense (<?php echo $_SESSION['currency']?>)</th>
+                    <th>Expense (<?php session_start(); echo $_SESSION['currency'];?>)</th>
                     <th>% Change</th>
                 </tr>
             </thead>
