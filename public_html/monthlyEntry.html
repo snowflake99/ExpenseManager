@@ -108,7 +108,7 @@
 
             function autoCalculate (x)    {
                 if (x.value)
-                    x.value = eval (x.value);
+                    x.value = eval (x.value).toFixed(2);
                 else
                     x.value = 0;
             }
