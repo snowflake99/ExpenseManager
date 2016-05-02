@@ -5,6 +5,8 @@
     <link rel="stylesheet" type="text/css" href="css/login.css"> 
     <title>Login Page</title>
 
+    <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/jquery.md5.js"></script>
     <!-- Check if session is active. If it is active redirect to home page -->
     <?php
         session_start();
@@ -18,21 +20,32 @@
             if (top.location.href != self.location.href)
                 top.location.href = "login";
         };
+
+        function pwdHandler(form)    {
+            form.password.value = CryptoJS.MD5(form.password.value);
+        }
     </script>
 </head>
 
 <body>
     <!-- Begin Page Content -->
     <div id="container">
-        <form target="_top" action="./proxy/usrLogin.php" method="post">
+        <form id="loginForm"
+              target="_top"
+              method="post"
+              onsubmit="javascript:pwdHandler(this);"
+              action="./proxy/usrLogin.php">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" autofocus>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password">
-            <label for="loginmsg" style="color:hsla(0,100%,50%,0.5); font-family:"Helvetica Neue",Helvetica,sans-serif;"><?php session_start(); echo @$_GET['msg'];?></label>
+            <label for="loginmsg" 
+                   style="color:hsla(0,100%,50%,0.5); font-family:"Helvetica Neue",Helvetica,sans-serif;">
+                   <?php session_start(); echo @$_GET['msg'];?>
+            </label>
             <div id="lower">
                 <input type="checkbox"><label class="check" for="checkbox">Keep me logged in</label>
-                <input type="submit" value="Login" >
+                <input type="submit" value="Login">
             </div><!--/ lower-->
         </form>
     </div><!--/ container-->

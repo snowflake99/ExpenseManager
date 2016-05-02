@@ -5,9 +5,9 @@
     include 'opendb.php';
     
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-        $oldPwd  = md5($_POST['old_pwd']);
-        $newPwd1 = md5($_POST['new_pwd1']);
-        $newPwd2 = md5($_POST['new_pwd2']);
+        $oldPwd  = $_POST['old_pwd'];
+        $newPwd1 = $_POST['new_pwd1'];
+        $newPwd2 = $_POST['new_pwd2'];
         $usrName = $_SESSION['username'];
 
         // Search for unique id for current session username 

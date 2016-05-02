@@ -1,12 +1,11 @@
 <?php
-    header("Location: ../login"); 
 
     include 'config.php';
     include 'opendb.php';
 
     // username and password sent from form 
     $myusername = $_POST['username'];
-    $mypassword = md5($_POST['password']);
+    $mypassword = $_POST['password'];
 
     // To protect MySQL injection 
     $myusername = stripslashes($myusername);
@@ -34,14 +33,20 @@
         while ($row = mysql_fetch_array($result)) {
             $_SESSION['currency']   = $row{'currency'};
         }
-
-        header("Location: ../home"); 
+    
+        $msg="Login Successful";
+        $redirectURL="Location: ../home";
     }
     else {
         $msg = "Wrong Username or Password";
+        $redirectURL="Location: ../login";
     }
 
     include 'closedb.php';
 
+    $_SESSION['loginMsg']=$msg;
+
+    header($redirectURL);
+ 
     die();
 ?>
