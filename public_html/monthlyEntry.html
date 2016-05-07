@@ -256,7 +256,31 @@
                 }
 
                 return monthName;
-            } 
+            }
+
+            /* 
+            *  Function Name: categorySelChange
+            *  Purpose: Function will be called when there is a change in 
+            *           category selection
+            *  Input : none
+            *  Output: none
+            */
+            function categorySelChange()    {
+                var curSel = _("categorySel").value;
+
+                var table  = $("#expenseTable");
+                var tBody  = table.find("tbody");
+
+                tBody.find('tr').each(function () {
+                    var categoryField = $(this).find("select").val();
+                    
+                    if (categoryField != curSel &&
+                        "Category" != curSel)
+                       $(this)[0].style.display = 'none';
+                    else
+                       $(this)[0].style.display = '';
+                });
+            }
 
             /* 
             *  Function Name: OnPageLoad 
@@ -348,9 +372,34 @@
                    align="center"
                    bgcolor="#f1f1f1">
                 <thead>
-                    <tr>
+                    <tr style="font-size:15px;">
                         <th style="width:18%;">Date</th>
-                        <th style="width:14%;">Category</th>
+                        <th style="width:14%;">
+                            <select name="categorySel" 
+                                    id="categorySel" 
+                                    style="font-size:13px;
+                                            background-color: #666666;
+                                            color: white; 
+                                            border:0px; 
+                                            outline:0px; 
+                                            font-weight: bold;"
+                                    onchange="categorySelChange();">
+                               <option value="Category">Category</option>
+                               <option value="Uncategorized">Uncategorized</option>
+                               <option value="Home">Home</option>
+                               <option value="Conveyance">Conveyance</option>
+                               <option value="Groceries">Groceries</option>
+                               <option value="Gifts">Gifts</option>
+                               <option value="Shopping">Shopping</option>
+                               <option value="Miscellaneous">Miscellaneous</option>
+                               <option value="Cigarette">Cigarette</option>
+                               <option value="Bills">Bills</option>
+                               <option value="Food">Food</option>
+                               <option value="Medical">Medical</option>
+                               <option value="Kids">Kids</option>
+                               <option value="Automobile">Automobile</option>
+                            </select>
+                        </th>
                         <th style="width:50%;">Description</th>
                         <th style="width:14%;">Amount (<?php session_start(); echo $_SESSION['currency'];?>)</th>
                         <th style="width:2%;"></th>
