@@ -137,12 +137,12 @@
                                 name="Date'+idx+'"      \
                                 id="Date'+idx+'"        \
                                 class="Date"            \
-                                style="width:98%; text-align:center;" \
+                                style="width:90%; text-align:center;" \
                                 onmouseover="displayDaysExpense(this);" \
                                 value="'+forDate[0]+'"> \
                     </td>'+
                     '<td>'+
-                      '<select name="Category'+idx+'" id="Category'+idx+'">'+
+                      '<select name="Category'+idx+'" id="Category'+idx+'" style="width:95%;">'+
                          '<option value="Uncategorized">Uncategorized</option>'+
                          '<option value="Home">Home</option>'+
                          '<option value="Conveyance">Conveyance</option>'+
@@ -162,7 +162,7 @@
                         '<input name="Description'+idx+'" \
                                 id="Description'+idx+'" \
                                 onkeypress="return validateDescKey(event);" \
-                                style="width:98%; text-align:left;" \
+                                style="width:96%; text-align:left;" \
                                 maxlength=255>'+
                     '</td>'+
                     '<td>'+
@@ -170,20 +170,20 @@
                                  id="Amount'+idx+'" \
                                  onkeypress="return validateAmountKey(event);" \
                                  onfocusout="autoCalculate(this)" \
-                                 style="width:98%; text-align:center;" \
+                                 style="width:86%; text-align:center;" \
                                  step="0.01">'+
                     '</td>'+
-                    '<td><div name="neg'+idx+'"id="neg'+idx+'"class="round-button"> \
-                            <div class="round-button-circle">                       \
-                                <a href="javascript:delRow('+idx+');"class="round-button">-</a> \
-                            </div>                                                              \
-                         </div>                                                                 \
+                    '<td><div name="neg'+idx+'"id="neg'+idx+'"class="round-button" style="width:85%;">  \
+                            <div class="round-button-circle">                                           \
+                                <a href="javascript:delRow('+idx+');"class="round-button">-</a>         \
+                            </div>                                                                      \
+                         </div>                                                                         \
                     </td>'+
-                    '<td><div name="pos'+idx+'"id="pos'+idx+'"class="round-button"> \
-                            <div class="round-button-circle">                       \
-                                <a href="javascript:addRow(&quot;*&quot;);"class="round-button">+</a> \
-                            </div>                                                                    \
-                         </div>                                                                       \
+                    '<td><div name="pos'+idx+'"id="pos'+idx+'"class="round-button" style="width:85%;">  \
+                            <div class="round-button-circle">                                           \
+                                <a href="javascript:addRow(&quot;*&quot;);"class="round-button">+</a>   \
+                            </div>                                                                      \
+                         </div>                                                                         \
                     </td>'+
                 '</tr>');
 
@@ -374,7 +374,7 @@
                 <thead>
                     <tr style="font-size:15px;">
                         <th style="width:18%;">Date</th>
-                        <th style="width:14%;">
+                        <th style="width:16%;">
                             <select name="categorySel" 
                                     id="categorySel" 
                                     style="font-size:13px;
@@ -400,7 +400,7 @@
                                <option value="Automobile">Automobile</option>
                             </select>
                         </th>
-                        <th style="width:50%;">Description</th>
+                        <th style="width:48%;">Description</th>
                         <th style="width:14%;">Amount (<?php session_start(); echo $_SESSION['currency'];?>)</th>
                         <th style="width:2%;"></th>
                         <th style="width:2%;"></th>
