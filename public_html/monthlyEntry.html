@@ -20,6 +20,14 @@
                 return document.getElementById(el);
             }
 
+            function getFocussedElement() {
+                var el;
+                if ((el = document.activeElement) && el != document.body)
+                    return el;
+                else
+                    return null;
+            }
+
             /* 
             *  Function Name: moveRow
             *  Purpose: Function to move a row up and down in table
@@ -29,30 +37,59 @@
             */
             function moveRow(row, e)    {
                 var table = row.parentNode;
+                var focusElement = null;
  
                 e = e || window.event;
                 var keyCode = e.keyCode || e.which,
                     arrow = {left: 37, up: 38, right: 39, down: 40 };
             
                 if (e.ctrlKey) {
-                  switch (keyCode) {
-                    case arrow.left:
-                    case arrow.right:
-                        /* Do Nothing */
-                    break;
-                    case arrow.up:
-                        if (row.previousSibling)
-                            table.insertBefore ( row, row.previousSibling );
-                    break;
-                    case arrow.down:
-                        if (row.nextSibling)
-                            table.insertBefore(row, row.nextSibling.nextSibling);
-                        else
-                            table.appendChild ( row, row.nextSibling );
+                    focusElement = getFocussedElement();
 
-                    break;
+                    switch (keyCode) {
+                        case arrow.left:
+                        case arrow.right:
+                            /* Do Nothing */
+                        break;
+                        case arrow.up:
+                            if (row.previousSibling &&
+                                row.previousSibling.firstChild &&
+                                focusElement.type == "text")    {
+                                /* If the last row is moved up, hide the + btn of
+                                   current row and show it for previous row */
+                                if (!row.nextSibling)   {
+                                    row.previousSibling.
+                                        childNodes[5].style.visibility="visible";
+                                    row.childNodes[5].style.visibility="hidden";
+                                }
+
+                                table.insertBefore (row, 
+                                                    row.previousSibling);
+                                focusElement.focus();
+                            }
+                        break;
+                        case arrow.down:
+                            if (row.nextSibling && 
+                                focusElement.type == "text")    {
+                                /* If the last row is replaced with current row,
+                                   hide the + btn of last row and show it for
+                                   current row */
+                                if (!row.nextSibling.nextSibling)   {
+                                    row.nextSibling.
+                                        childNodes[5].style.visibility="hidden";
+                                    row.childNodes[5].style.visibility="visible";
+                                }
+
+                                table.insertBefore(row, 
+                                                   row.nextSibling.nextSibling);
+
+                                focusElement.focus();
+                            }
+                        break;
+                        default:
+                        break;
+                    }
                 }
-              }
             }
 
             /* 
