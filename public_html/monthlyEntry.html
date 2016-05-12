@@ -38,6 +38,7 @@
             function moveRow(row, e)    {
                 var table = row.parentNode;
                 var focusElement = null;
+                var node;
  
                 e = e || window.event;
                 var keyCode = e.keyCode || e.which,
@@ -52,9 +53,16 @@
                             /* Do Nothing */
                         break;
                         case arrow.up:
+
                             if (row.previousSibling &&
                                 row.previousSibling.firstChild &&
                                 focusElement.type == "text")    {
+                                /* If the nodes are hidden skip to next visible                                     node for inserting */
+                                for (node = row.previousSibling;
+                                     node.previousSibling &&
+                                     node.previousSibling.firstChild && 
+                                     node.style.display == 'none';
+                                     node = node.previousSibling);
                                 /* If the last row is moved up, hide the + btn of
                                    current row and show it for previous row */
                                 if (!row.nextSibling)   {
@@ -62,15 +70,21 @@
                                         childNodes[5].style.visibility="visible";
                                     row.childNodes[5].style.visibility="hidden";
                                 }
-
-                                table.insertBefore (row, 
-                                                    row.previousSibling);
+                                table.insertBefore (row, node);
                                 focusElement.focus();
                             }
                         break;
                         case arrow.down:
+
                             if (row.nextSibling && 
                                 focusElement.type == "text")    {
+                                /* If the nodes are hidden skip to next visible                                     node for inserting */
+                                for (node = row.nextSibling.nextSibling;
+                                     node && node.nextSibling &&
+                                     node.nextSibling.nextSibling &&
+                                     node.style.display == 'none';
+                                     node = node.nextSibling);
+
                                 /* If the last row is replaced with current row,
                                    hide the + btn of last row and show it for
                                    current row */
@@ -80,9 +94,7 @@
                                     row.childNodes[5].style.visibility="visible";
                                 }
 
-                                table.insertBefore(row, 
-                                                   row.nextSibling.nextSibling);
-
+                                table.insertBefore(row, node);
                                 focusElement.focus();
                             }
                         break;
