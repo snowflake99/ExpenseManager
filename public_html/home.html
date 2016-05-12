@@ -175,10 +175,14 @@
                 }, false);
 
                 $.post("./proxy/isAdmin.php").done(function(ret_status) {
-                    if (ret_status == 1)
+                    if (ret_status == 1)    {
                         $('#manage')[0].style.display       ='';
-                    else
+                        $('#phpmyadmin')[0].style.display   ='';
+                    }
+                    else {
                         $('#manage')[0].style.display       ='none';
+                        $('#phpmyadmin')[0].style.display   ='none';
+                    }
                 })
            })
         </script>
@@ -246,6 +250,9 @@
                         <a id="manage" name="manage"
                            style="display:none;"
                            href="javascript:manage();">Manage</a>
+                        <a id="phpmyadmin" name="phpmyadmin"
+                           style="display:none;"
+                           href="http://localhost/phpmyadmin/">PHP Admin</a>
                         <a href="javascript:void(0);"
                            onclick="javascript:updatePwd();">Password</a>
                         <a href="./proxy/usrLogout.php">Logout</a>
