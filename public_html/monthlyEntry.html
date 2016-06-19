@@ -57,7 +57,8 @@
                             if (row.previousSibling &&
                                 row.previousSibling.firstChild &&
                                 focusElement.type == "text")    {
-                                /* If the nodes are hidden skip to next visible                                     node for inserting */
+                                /* If the nodes are hidden skip to next visible                                     
+                                   node for inserting */
                                 for (node = row.previousSibling;
                                      node.previousSibling &&
                                      node.previousSibling.firstChild && 
@@ -78,7 +79,8 @@
 
                             if (row.nextSibling && 
                                 focusElement.type == "text")    {
-                                /* If the nodes are hidden skip to next visible                                     node for inserting */
+                                /* If the nodes are hidden skip to next visible                                     
+                                   node for inserting */
                                 for (node = row.nextSibling.nextSibling;
                                      node && node.nextSibling &&
                                      node.nextSibling.nextSibling &&
@@ -134,7 +136,8 @@
                 //if the key isn't the backspace key (which we should allow)
                 if (unicode!=8) {
                     /* Disable the following keys */ 
-                    if (unicode == 61 || /* = */
+                    if (unicode == 39 || /* ' */
+                        unicode == 61 || /* = */
                         unicode == 63 || /* ? */
                         unicode == 64)   /* @ */
                         return false; //disable key press
