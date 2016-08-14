@@ -28,15 +28,30 @@
 
         if (is_uploaded_file($fileTmpLoc)) {
             $sql="SELECT id FROM _users WHERE username='$_SESSION[username]'";
-            $result=mysql_query($sql);
-            
-            while ($row = mysql_fetch_array($result)) {
-                $usrId = $row{'id'};
+
+            if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+                $result=mysql_query($sql);
+                while ($row = mysql_fetch_array($result)) {
+                    $usrId = $row{'id'};
+                }
+            } else {
+                $result=mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_array($result)) {
+                    $usrId = $row{'id'};
+                }
             }
 
             $table = $usrId.preg_replace('/\\.[^.\\s]{3,4}$/', '', $fileName);
 
-            if(mysql_num_rows(mysql_query("SHOW TABLES LIKE '".$table."'")) != 1)   {
+            if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+                $result = mysql_query("SHOW TABLES LIKE '".$table."'");
+                $nRow = mysql_num_rows($result);
+            } else {
+                $result = mysqli_query($conn, "SHOW TABLES LIKE '".$table."'");
+                $nRow = mysqli_num_rows($result);
+            }
+
+            if($nRow != 1)   {
                 // Table does not exist!, create it
                 $sql = "create table $table (idx int not null auto_increment, 
                                              edate date not null, 
@@ -49,7 +64,11 @@
                 //$sql = "TRUNCATE TABLE $table";
             }
 
-            $result = mysql_query($sql);
+            if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+                $result = mysql_query($sql);
+            } else {
+                $result = mysqli_query($conn, $sql);
+            }
 
             //Import uploaded file to Database
             $handle = fopen($fileTmpLoc, "r");
@@ -71,7 +90,11 @@
                 $import="INSERT INTO $table (edate,category,description,amount) 
                                      VALUES ('$Date','$data[1]','$data[2]','$value')";
 
-                mysql_query($import) or die(mysql_error());
+                if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+                    mysql_query($import) or die(mysql_error());
+                } else {
+                    mysqli_query($conn, $import) or die(mysqli_error($conn));
+                }
             }
 
             fclose($handle);

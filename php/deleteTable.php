@@ -9,10 +9,19 @@
 
         $sql = "DROP TABLE $tableName";
 
-        $retval = mysql_query($sql);
+        if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+            $retval = mysql_query($sql);
+        } else {
+            $retval = mysqli_query($conn, $sql);
+        }
+
         if(! $retval )
         {
-            die('Could not delete table:'.mysql_error());
+            if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+                die('Could not delete table:'.mysql_error());
+            } else {
+                die('Could not delete table:'.mysqli_error($conn));
+            } 
         }
         echo "Table deleted successfully\n";
     }

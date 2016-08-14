@@ -1,18 +1,30 @@
-<?php 
+<?php
     session_start();
 
     include 'config.php';
     include 'opendb.php';
+
+    function mysqli_field_name($result, $field_offset)  {
+        $properties = mysqli_fetch_field_direct($result, $field_offset);
+        return is_object($properties) ? $properties->name : null;
+    }
     
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $selmonth = $_POST['month'];
         $selyear = $_POST['year'];
 
         $sql="SELECT id FROM _users WHERE username='$_SESSION[username]'";
-        $result=mysql_query($sql);
-        
-        while ($row = mysql_fetch_array($result)) {
-            $usrId = $row{'id'};
+
+        if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+            $result=mysql_query($sql);        
+            while ($row = mysql_fetch_array($result)) {
+                $usrId = $row{'id'};
+            }
+        } else {
+            $result=mysqli_query($conn, $sql);        
+            while ($row = mysqli_fetch_array($result)) {
+                $usrId = $row{'id'};
+            }
         }
 
         $table = $usrId."_".$selmonth."_".$selyear."_";
@@ -20,14 +32,25 @@
         $count = 0;
         
         $sqlquery = "select * from $table";
-        $result = mysql_query($sqlquery) or die(mysql_error());  
-        $count = mysql_num_fields($result);
+
+        if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+            $result = mysql_query($sqlquery) or die(mysql_error());  
+            $count = mysql_num_fields($result);
+        } else {
+            $result = mysqli_query($conn, $sqlquery) or die(mysqli_error($conn));  
+            $count = mysqli_num_fields($result);
+        }
 
         for ($i = 0; $i < $count; $i++)	{
-            $header .= mysql_field_name($result, $i)."\t";
+            if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+                $header .= mysql_field_name($result, $i)."\t";
+            } else {
+                $header .= mysqli_field_name($result, $i)."\t";
+            }
         }
         
-        while($row = mysql_fetch_row($result))	{
+        while( ((PHP_VERSION_ID < $VER_PHP_7_0) && ($row = mysql_fetch_row($result))) ||
+               ((PHP_VERSION_ID >= $VER_PHP_7_0) && ($row = mysqli_fetch_row($result))) )	{
           $line = '';
           foreach(array_slice($row,1) as $value )	{
             if(!isset($value) || $value == "")	{
@@ -54,7 +77,11 @@
           $data = "\nno matching records found\n";
         }
         
-        $count = mysql_num_fields($result);
+        if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+            $count = mysql_num_fields($result);
+        } else {
+            $count = mysqli_num_fields($result);
+        }
         
         # This line will stream the file to the user rather than spray it across the screen
         header("Content-type: application/octet-stream");

@@ -6,10 +6,17 @@
     
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $sql="SELECT id FROM _users WHERE username='$_SESSION[username]'";
-        $result=mysql_query($sql);
-        
-        while ($row = mysql_fetch_array($result)) {
-            $usrId = $row{'id'};
+
+        if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+            $result=mysql_query($sql);
+            while ($row = mysql_fetch_array($result)) {
+                $usrId = $row{'id'};
+            }
+        } else {
+            $result=mysqli_query($conn, $sql);
+            while ($row = mysqli_fetch_array($result)) {
+                $usrId = $row{'id'};
+            }
         }
 
         $selyear = $_GET['year'];
@@ -18,13 +25,28 @@
             if ($month < 10) $month = "0".$month;
             $table = $usrId."_".$month."_".$selyear."_";
             $sql="SELECT SUM(amount) AS TOTAL FROM $table";
-            $result=mysql_query($sql);
 
-            if(mysql_num_rows(mysql_query("SHOW TABLES LIKE '".$table."'")) != 1)   {
-                   echo "@$table=0";
+            if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+                $result=mysql_query($sql);
+                $result1=mysql_query("SHOW TABLES LIKE '".$table."'");
+                $nRow=mysql_num_rows($result1);
             } else {
-                while ($row = mysql_fetch_array($result)) {
-                   echo "@$table=".$row{'TOTAL'};
+                $result=mysqli_query($conn, $sql);
+                $result1=mysqli_query($conn, "SHOW TABLES LIKE '".$table."'");
+                $nRow=mysqli_num_rows($result1);
+            }
+
+            if($nRow != 1)   {
+                echo "@$table=0";
+            } else {
+                if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+                    while ($row = mysql_fetch_array($result)) {
+                       echo "@$table=".$row{'TOTAL'};
+                    }
+                } else {
+                    while ($row = mysqli_fetch_array($result)) {
+                       echo "@$table=".$row{'TOTAL'};
+                    }
                 }
             }
         }

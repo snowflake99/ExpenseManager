@@ -18,12 +18,19 @@
         } else {
             $sql="UPDATE _users SET username='$userName', isAdmin=$rights, currency='$currency' WHERE id=$userId";
         }
-        $result=mysql_query($sql);
-     
-        if($result == false)  {
-            die('Could not update user detail: '.mysql_error());
+
+        if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+            if(mysql_query($sql)== false)  {
+                die('Could not update user detail: '.mysql_error());
+            } else {
+                echo "User detail updated";
+            }
         } else {
-            echo "User detail updated";
+            if(mysqli_query($conn, $sql) == false)  {
+                die('Could not update user detail: '.mysqli_error($conn));
+            } else {
+                echo "User detail updated";
+            }
         } 
     }
 

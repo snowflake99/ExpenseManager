@@ -10,22 +10,45 @@
         $curYear  = $_GET['curYear'];
 
         $sql="SELECT id FROM _users WHERE username='$_SESSION[username]'";
-        $result=mysql_query($sql);
-        
-        while ($row = mysql_fetch_array($result)) {
-            $usrId = $row{'id'};
+
+        if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+            $result=mysql_query($sql);
+            while ($row = mysql_fetch_array($result)) {
+                $usrId = $row{'id'};
+            }
+        } else {
+            $result=mysqli_query($conn, $sql);
+            while ($row = mysqli_fetch_array($result)) {
+                $usrId = $row{'id'};
+            }
         }
+        
 
         $table = $usrId.'_'.$curMonth.'_'.$curYear.'_';
 
         $sql="SELECT SUM(amount) AS total FROM $table WHERE edate='$curDate'";
-        $result=mysql_query($sql);
 
-        if(mysql_num_rows(mysql_query("SHOW TABLES LIKE '".$table."'")) != 1)   {
+        if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+            $result=mysql_query($sql);
+            $result1 = mysql_query("SHOW TABLES LIKE '".$table."'");
+            $nRow = mysql_num_rows($result1); 
+        } else {
+            $result=mysqli_query($conn, $sql);
+            $result1 = mysqli_query($conn, "SHOW TABLES LIKE '".$table."'");
+            $nRow = mysqli_num_rows($result1); 
+        }
+
+        if($nRow != 1)   {
             echo '0';
         } else {
-            while ($row = mysql_fetch_array($result)) {
-               echo $row{'total'};
+            if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+                while ($row = mysql_fetch_array($result)) {
+                   echo $row{'total'};
+                }
+            } else {
+                while ($row = mysqli_fetch_array($result)) {
+                   echo $row{'total'};
+                }
             }
         }
     }
