@@ -35,20 +35,21 @@
                 var margin      = 10;
                 var stepSize    = Val_Max/10;
 
-                var header = "Amount" 
+                var gridColor   = "#b3b3b3";
+                var textColor   = "#000";
+                var fillColor   = "#ff3300";
                     
                 canvas = document.getElementById("canvas");
                 context = canvas.getContext("2d");
-                context.fillStyle = "#000;"
+                context.fillStyle = fillColor;
 
                 yScale = (canvas.height - columnSize - margin) / (Val_Max);
                 xScale = (canvas.width - rowSize) / (sections + 1);
     
-                context.strokeStyle="#000;"; // background black lines
+                // grid background
+                context.strokeStyle = gridColor; 
                 context.beginPath();
-                // column names 
-                context.font = "19 pt Arial;"
-                context.fillText(header, 0,columnSize - margin);
+
                 // draw lines in the background
                 context.font = "16 pt Helvetica"
                 var count =  0;
@@ -56,21 +57,33 @@
                 for (scale=parseFloat(Val_Max).toFixed(4);
                      scale > 0.0 || Math.abs(scale - 0.0) < 0.001;
                      scale = parseFloat(scale - stepSize).toFixed(4)) {
-                    y = columnSize + (yScale * count * stepSize); 
-                    context.fillText(Math.abs(scale).toFixed(1), margin,y);
-                    context.moveTo(rowSize,y)
-                    context.lineTo(canvas.width,y)
+                    y = columnSize + (yScale * count * stepSize);
+
+                    context.fillStyle = textColor;
+                    context.fillText(Math.abs(scale).toFixed(0), margin,y);
+                    context.fillStyle = fillColor;
+
+                    context.moveTo(rowSize,y);
+                    context.lineTo(canvas.width,y);
                     count++;
                 }
                 context.stroke();
                 
                 // print names of each data entry
-                context.font = "20 pt Verdana";
+                context.fillStyle = textColor;
+
+                context.font = "22 pt Verdana";
                 context.textBaseline="bottom";
                 for (i=0;i<sections;i++) {
                     computeHeight(itemValue[i]);
-                    context.fillText(itemName[i], xScale * (i+1),y - margin);
+
+                    if (y <= canvas.height)
+                        context.fillText(itemName[i], xScale * (i+1), y - margin);
+                    else
+                        context.fillText(itemName[i], xScale * (i+1), canvas.height - margin);
                 }
+
+                context.fillStyle = fillColor;
                 
                 // shadow for graph's bar lines with color and offset
                 context.fillStyle="#9933FF;";
@@ -86,7 +99,10 @@
               
                 // draw each graph bars 
                 for (i=0;i<sections;i++) {
-                    context.fillRect(i+1, 0, 0.3, itemValue[i]);
+                    if (itemValue[i] > 0.0)
+                        context.fillRect(i+1, 0, 0.3, itemValue[i]);
+                    else
+                        context.fillRect(i+1, 0, 0.3, 0.0);
                 }
             }
             
@@ -200,6 +216,6 @@
             <tbody>
             </tbody>
         </table>
-	<br><br>
+        <br><br>
     </body>
 </html>
