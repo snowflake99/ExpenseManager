@@ -11,21 +11,19 @@
 
         if (PHP_VERSION_ID < $VER_PHP_7_0)  {
             $result=mysql_query($sql);
-     
-            if(mysql_affected_rows() != 1)  {
-                die('Could not delete user: '.mysql_error());
-            } else {
-                echo "User deleted";
-            }
         } else {
             $result=mysqli_query($conn, $sql);
-     
-            if(mysqli_affected_rows($conn) != 1)  {
+        }
+ 
+        if( ((PHP_VERSION_ID <  $VER_PHP_7_0) && (mysql_affected_rows() != 1)) ||
+            ((PHP_VERSION_ID >= $VER_PHP_7_0) && (mysqli_affected_rows($conn) != 1)) )  {
+            if (PHP_VERSION_ID < $VER_PHP_7_0)  {
+                die('Could not delete user: '.mysql_error());
+            } else
                 die('Could not delete user: '.mysqli_error($conn));
-            } else {
-                echo "User deleted";
-            }
-        } 
+        } else {
+            echo "User deleted";
+        }
     }
 
     include 'closedb.php';

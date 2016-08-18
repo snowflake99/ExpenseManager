@@ -12,16 +12,13 @@
 
         if (PHP_VERSION_ID < $VER_PHP_7_0)  {
             $result=mysql_query($sql);
-        
-            while ($row = mysql_fetch_array($result)) {
-                $usrId = $row{'id'};
-            }
         } else {
             $result=mysqli_query($conn, $sql);
-        
-            while ($row = mysqli_fetch_array($result)) {
-                $usrId = $row{'id'};
-            }
+        }
+
+        while ( ((PHP_VERSION_ID <  $VER_PHP_7_0) && ($row = mysql_fetch_array($result))) ||
+                ((PHP_VERSION_ID >= $VER_PHP_7_0) && ($row = mysqli_fetch_array($result))) ) {
+            $usrId = $row{'id'};
         }
 
         $table = $usrId."_".$selmonth."_".$selyear."_";
@@ -30,16 +27,13 @@
 
         if (PHP_VERSION_ID < $VER_PHP_7_0)  {
             $result=mysql_query($sql);
-
-            while ($row = mysql_fetch_array($result)) {
-               echo "@edate=".$row{'edate'}."?category=".$row{'category'}."?description=".$row{'description'}."?amount=".$row{'amount'};
-            }
         } else {
             $result=mysqli_query($conn, $sql);
+        }
 
-            while ($row = mysqli_fetch_array($result)) {
-               echo "@edate=".$row{'edate'}."?category=".$row{'category'}."?description=".$row{'description'}."?amount=".$row{'amount'};
-            }
+        while ( ((PHP_VERSION_ID <  $VER_PHP_7_0) && ($row = mysql_fetch_array($result))) ||
+                ((PHP_VERSION_ID >= $VER_PHP_7_0) && ($row = mysqli_fetch_array($result))) ) {
+           echo "@edate=".$row{'edate'}."?category=".$row{'category'}."?description=".$row{'description'}."?amount=".$row{'amount'};
         }
     }
 

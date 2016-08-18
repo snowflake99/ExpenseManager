@@ -13,16 +13,14 @@
 
         if (PHP_VERSION_ID < $VER_PHP_7_0)  {
             $result=mysql_query($sql);
-            while ($row = mysql_fetch_array($result)) {
-                $usrId = $row{'id'};
-            }
         } else {
             $result=mysqli_query($conn, $sql);
-            while ($row = mysqli_fetch_array($result)) {
-                $usrId = $row{'id'};
-            }
         }
         
+        while ( ((PHP_VERSION_ID <  $VER_PHP_7_0) && ($row = mysql_fetch_array($result))) ||
+                ((PHP_VERSION_ID >= $VER_PHP_7_0) && ($row = mysqli_fetch_array($result))) ) {
+            $usrId = $row{'id'};
+        }
 
         $table = $usrId.'_'.$curMonth.'_'.$curYear.'_';
 
@@ -41,14 +39,9 @@
         if($nRow != 1)   {
             echo '0';
         } else {
-            if (PHP_VERSION_ID < $VER_PHP_7_0)  {
-                while ($row = mysql_fetch_array($result)) {
-                   echo $row{'total'};
-                }
-            } else {
-                while ($row = mysqli_fetch_array($result)) {
-                   echo $row{'total'};
-                }
+            while ( ((PHP_VERSION_ID <   $VER_PHP_7_0) && ($row = mysql_fetch_array($result))) ||
+                    ((PHP_VERSION_ID >=  $VER_PHP_7_0) && ($row = mysqli_fetch_array($result))) ) {
+               echo $row{'total'};
             }
         }
     }

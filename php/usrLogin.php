@@ -43,14 +43,9 @@
         $_SESSION['start']      = time();
         $_SESSION['expire']     = $_SESSION['start'] + (20 * 60);
 
-        if (PHP_VERSION_ID < $VER_PHP_7_0)  {
-            while ($row = mysql_fetch_array($result)) {
-                $_SESSION['currency']   = $row{'currency'};
-            }
-        } else {
-            while ($row = mysqli_fetch_array($result)) {
-                $_SESSION['currency']   = $row{'currency'};
-            }
+        while ( ((PHP_VERSION_ID <  $VER_PHP_7_0) && ($row = mysql_fetch_array($result))) ||
+                ((PHP_VERSION_ID >= $VER_PHP_7_0) && ($row = mysqli_fetch_array($result))) ) {
+            $_SESSION['currency']   = $row{'currency'};
         }
     
         $msg="Login Successful";
