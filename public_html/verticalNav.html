@@ -54,6 +54,9 @@
                 $('#NavigationTable > li').click(function() {
                   $('#NavigationTable > li').css('background-color','#f1f1f1');
                   $(this).css('background-color','#e6e6e6');
+
+                  $('#NavigationTable > li').css('font-weight','normal');
+                  $(this).css('font-weight','bold');
                 });
                 selYear = new Date().getFullYear();
                 $('#yearSelection').val(selYear);
