@@ -11,6 +11,11 @@ ul {
     position: fixed;
     height: 100%;
     overflow: auto;
+
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */
 }
 
 li {
@@ -20,6 +25,7 @@ li {
 li a {
     display: block;
     color: #000;
+    margin: 10px;
     padding: 10px 10px 10px 30px;
     text-decoration: none;
     border-radius: 5px;
