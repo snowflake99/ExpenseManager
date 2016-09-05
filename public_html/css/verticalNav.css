@@ -13,26 +13,23 @@ ul {
     overflow: auto;
 }
 
+li {
+    text-align: left;
+    height:7%;
+}
+
 li a {
     display: block;
     color: #000;
-    padding: 8px 0 8px 16px;
+    padding: 10px 10px 10px 30px;
     text-decoration: none;
+    border-radius: 5px;
 }
  
-li {
-    text-align: left;
-}
-
-.blank_rows
-{
-    height: 168px; 
-    background-color: #f1f1f1;
-}
-
-li a.active {
-    background-color: #c3c0c0;
-    color: white;
+li.active a {
+    background-color: #e6e6e6;
+    color: black;
+    font-weight: bold;
 }
 
 li a:hover:not(.active) {
