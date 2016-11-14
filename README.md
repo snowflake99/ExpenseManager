@@ -4,11 +4,12 @@ Expense Manager is a simple web based interface to manage all your expenses onli
 
 Features
 
-1. Monthly entry addition / deletion.
-2. Upload and download records in CSV format. 
-3. Monthly and Yearly view. 
-4. User authentication. 
-5. Administrator view to manage user account.
+1. Addition and deletion of monthly expense.
+2. Rearrangement of entries using keyboard shortcut.
+3. Upload and download records in CSV format. 
+4. Monthly and yearly expense summary. 
+5. User authentication. 
+6. Administrator view to manage user account.
 
 # Top Directory Structure
 
