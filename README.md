@@ -2,14 +2,14 @@
 
 Expense Manager is a simple web based interface to manage all your expenses online on a LAMP stack.
 
-Features
+# Features
 
-1. Addition and deletion of monthly expense.
-2. Rearrangement of entries using keyboard shortcut.
-3. Upload and download records in CSV format. 
-4. Monthly and yearly expense summary. 
-5. User authentication. 
-6. Administrator view to manage user account.
+1. User authentication. 
+2. Addition and deletion of expense.
+3. Rearrangement of entries using keyboard shortcut.
+4. Upload and download records in CSV format. 
+5. Expense summary in month and year views.
+6. Administrator view to manage user account and tables.
 
 # Top Directory Structure
 
@@ -24,12 +24,14 @@ Features
     |------proxy (D)
     |---README.md (F)
     |---snapshot (D)
+
+# Snapshots
    
 ![Alt text](/snapshot/login.png?raw=true "Login Page")
 
 ![Alt text](/snapshot/home.png?raw=true  "Home Page")
 
-![Alt text](/snapshot/expenses.png?raw=true "Expense Page")
+![Alt text](/snapshot/expenses.png?raw=true "Data Entry Page")
 
 ![Alt text](/snapshot/monthly_summary.png?raw=true "Monthly Summary Page")
 
