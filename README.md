@@ -14,13 +14,28 @@ Features
 # Top Directory Structure
 
     |
-    |---configuration
-    |---LICENSE
-    |---php
-    |---public_html
-    |------css
-    |------images
-    |------js
-    |------proxy
-    |---README.md
-    
+    |---configuration (D)
+    |---LICENSE (F)
+    |---php (D)
+    |---public_html (D)
+    |------css (D)
+    |------images (D)
+    |------js (D)
+    |------proxy (D)
+    |---README.md (F)
+    |---snapshot (D)
+   
+![Alt text](/snapshot/login.png?raw=true "Login Page")
+
+![Alt text](/snapshot/home.png?raw=true  "Home Page")
+
+![Alt text](/snapshot/expenses.png?raw=true "Expense Page")
+
+![Alt text](/snapshot/monthly_summary.png?raw=true "Monthly Summary Page")
+
+![Alt text](/snapshot/yearly_summary.png?raw=true "Yearly Summary Page")
+
+![Alt text](/snapshot/admin.png?raw=true "Maintanence Page")
+
+![Alt text](/snapshot/update_pwd.png?raw=true "Password Update Page")
+
