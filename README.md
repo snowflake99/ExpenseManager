@@ -1,6 +1,6 @@
 # Expense Manager
 
-Expense Manager is a simple web based interface to manage all your expenses online on a LAMP stack.
+Keeping a balanced budget can help you stay on track and sleep better at night. But if your money-management system requires sifting through piles of receipts and retrieving cash from various pockets and purses, it’s time to reconsider your approach. With Expense Manager, you can put away the paperwork and get a better understanding of your daily, weekly, monthly and annual spending habits. Expense Manager is a simple web based interface to manage all your expenses online on a LAMP stack.
 
 # Features
 
