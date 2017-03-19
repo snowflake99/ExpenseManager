@@ -162,6 +162,26 @@
                 _('frame2').src = "updatePwd";
             }
 
+            //scroll bar buffer
+            var buffer = 0; 
+
+            function pageY(elem) {
+                return elem.offsetParent ? 
+                        (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
+            }
+
+            function resizeIframe(elem) {
+                var height = document.documentElement.clientHeight;
+                height -= pageY(elem) + buffer;
+                height = (height < 0) ? 0 : height;
+                elem.style.height = height + 'px';
+            }
+
+            function resizeAllIframes () {
+                resizeIframe(_('frame1'));
+                resizeIframe(_('frame2'));
+            }
+
             /* 
             *  Function Name: OnPageLoad 
             *  Purpose: Function will be called on page load. Display the manage menu
@@ -184,6 +204,9 @@
                         $('#phpmyadmin')[0].style.display   ='none';
                     }
                 })
+
+                // Resize all  iframe on window resize event
+                window.onresize = resizeAllIframes;
            })
         </script>
     </head>
@@ -267,7 +290,7 @@
                 class="menu" 
                 src="verticalNav.html" 
                 style="visibility:hidden; border:0;" 
-                onload="this.style.visibility = 'visible';">
+                onload="this.style.visibility = 'visible'; resizeIframe(this);">
             <p>Your browser does not support iframes.</p>
         </iframe>
         <iframe id="frame2" 
@@ -275,7 +298,7 @@
                 class="mainContent" 
                 src="welcome.html" 
                 style="visibility:hidden; border:0;" 
-                onload="this.style.visibility = 'visible';">
+                onload="this.style.visibility = 'visible'; resizeIframe(this);">
             <p>Your browser does not support iframes.</p>
         </iframe>
     </body>
