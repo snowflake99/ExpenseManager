@@ -2,6 +2,8 @@
    float:left;
    width:20%;
    overflow: auto;
+   border: 0;
+   visibility:hidden; 
 }
 .mainContent {
    float:left;
@@ -9,5 +11,7 @@
    overflow: auto;
    margin: 0;
    padding: 0;
+   border: 0;
+   visibility:hidden; 
    background-color: #f1f1f1;
 }
