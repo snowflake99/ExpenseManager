@@ -1,6 +1,6 @@
 var categoryName  = ["Category",
                      "Uncategorized", "Home", "Conveyance", "Groceries", "Gifts",
-                     "Shopping", "Miscellaneous", "Cigarette", "Bills", "Food",
+                     "Shopping", "Miscellaneous", "Tobacco", "Bills", "Food",
                      "Medical", "Kids", "Automobile"];
 
 var categoryColor = ["",
