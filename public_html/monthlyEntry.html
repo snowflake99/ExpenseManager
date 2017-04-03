@@ -8,18 +8,13 @@
         <title>Expense Manager</title>
 
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script language="javascript" type="text/javascript" src="js/common.js"></script>
 
         <?php include '../php/checkSession.php'; ?>
             
         <script language="javascript" type="text/javascript">
             // Global variable used to create unique row elements id
             var idx = 0;
-            var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", 
-                           "Thursday", "Friday", "Saturday"];
-
-            function _(el){
-                return document.getElementById(el);
-            }
 
             function getFocussedElement() {
                 var el;
@@ -188,7 +183,7 @@
                                                     curMonth: curselMonth, 
                                                     curYear:  curselYear}).
                         done(function(result) {
-                    x.title = "Date: " + x.value + ", " + weekday[y.getDay()] +
+                    x.title = "Date: " + x.value + ", " + weekdays[y.getDay()] +
                               "\nTotal Expense: "+ parseFloat(result).toFixed(2) + 
                               " <?php session_start(); echo $_SESSION['currency'];?>";
                 });
@@ -237,19 +232,6 @@
                     </td>'+
                     '<td>'+
                       '<select name="Category'+idx+'" id="Category'+idx+'" style="width:95%;">'+
-                         '<option value="Uncategorized">Uncategorized</option>'+
-                         '<option value="Home">Home</option>'+
-                         '<option value="Conveyance">Conveyance</option>'+
-                         '<option value="Groceries">Groceries</option>'+
-                         '<option value="Gifts">Gifts</option>'+
-                         '<option value="Shopping">Shopping</option>'+
-                         '<option value="Miscellaneous">Miscellaneous</option>'+
-                         '<option value="Cigarette">Cigarette</option>'+
-                         '<option value="Bills">Bills</option>'+
-                         '<option value="Food">Food</option>'+
-                         '<option value="Medical">Medical</option>'+
-                         '<option value="Kids">Kids</option>'+
-                         '<option value="Automobile">Automobile</option>'+
                       '</select>'+
                     '</td>'+
                     '<td>'+
@@ -280,6 +262,14 @@
                          </div>                                                                         \
                     </td>'+
                 '</tr>');
+
+                // Build the category list
+                for(var index = 1; index < categoryName.length; index++) {
+                    var opt = document.createElement('option');
+                    opt.innerHTML = categoryName[index];
+                    opt.value = categoryName[index];
+                    _('Category'+idx).appendChild(opt);
+                }
 
                 // Hide the + button in previous row
                 if (rowCount > 1) {
@@ -324,35 +314,6 @@
             }
 
             /* 
-            *  Function Name: getMonthName
-            *  Purpose: Function to get name of the month 
-            *  Input : monthId - Month in (1 to 12)
-            *  Output: month name
-            */
-            function getMonthName (monthId) {
-                var monthName = "undefined";
-
-                switch (monthId)    {
-                    case '1':  monthName ="January"; break;
-                    case '2':  monthName ="February"; break;
-                    case '3':  monthName ="March"; break;
-                    case '4':  monthName ="April"; break;
-                    case '5':  monthName ="May"; break;
-                    case '6':  monthName ="June"; break;
-                    case '7':  monthName ="July"; break;
-                    case '8':  monthName ="August"; break;
-                    case '9':  monthName ="September"; break;
-                    case '10': monthName ="October"; break;
-                    case '11': monthName ="November"; break;
-                    case '12': monthName ="December"; break;
-                    default:
-                        // Do nothing, will return undefined
-                }
-
-                return monthName;
-            }
-
-            /* 
             *  Function Name: categorySelChange
             *  Purpose: Function will be called when there is a change in 
             *           category selection
@@ -387,8 +348,17 @@
                 var curselMonth = getUrlVars()["sel"];
                 var curselYear = getUrlVars()["year"];
                 var headerText=_('hdrText');
-        
-                hdrText.innerHTML = getMonthName (curselMonth) + " " + curselYear;
+                var categoryFilterList = _('categorySel');
+
+                // Build the category filter list
+                for(var index = 0; index < categoryName.length; index++) {
+                    var opt = document.createElement('option');
+                    opt.innerHTML = categoryName[index];
+                    opt.value = categoryName[index];
+                    categoryFilterList.appendChild(opt);
+                }
+       
+                hdrText.innerHTML = monthName[curselMonth] + " " + curselYear;
 
                 if (curselMonth < 10) curselMonth = '0'+curselMonth;
                 dateTemplate.push(curselYear+'-'+curselMonth+'-01');
@@ -478,20 +448,6 @@
                                             outline:0px; 
                                             font-weight: bold;"
                                     onchange="categorySelChange();">
-                               <option value="Category">Category</option>
-                               <option value="Uncategorized">Uncategorized</option>
-                               <option value="Home">Home</option>
-                               <option value="Conveyance">Conveyance</option>
-                               <option value="Groceries">Groceries</option>
-                               <option value="Gifts">Gifts</option>
-                               <option value="Shopping">Shopping</option>
-                               <option value="Miscellaneous">Miscellaneous</option>
-                               <option value="Cigarette">Cigarette</option>
-                               <option value="Bills">Bills</option>
-                               <option value="Food">Food</option>
-                               <option value="Medical">Medical</option>
-                               <option value="Kids">Kids</option>
-                               <option value="Automobile">Automobile</option>
                             </select>
                         </th>
                         <th style="width:48%;">Description</th>

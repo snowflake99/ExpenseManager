@@ -10,14 +10,11 @@
         <title>Expense Manager</title>
 
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script language="javascript" type="text/javascript" src="js/common.js"></script>
 
         <?php include '../php/checkSession.php'; ?>
 
         <script language="javascript" type="text/javascript">
-            function _(el){
-                return document.getElementById(el);
-            }
-
             function saveEntries() {
                 var curselMonth = _("frame1").contentWindow.selMonth;
                 var curselYear =  _("frame1").contentWindow.selYear;

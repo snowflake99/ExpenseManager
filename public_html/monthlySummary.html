@@ -7,23 +7,18 @@
         <title>Expense Manager</title>
 
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script language="javascript" type="text/javascript" src="js/common.js"></script>
 
         <?php include '../php/checkSession.php'; ?>
 
         <script language="javascript" type="text/javascript">
-            // Category color, name, data and percent
-            var categoryColor = ["#999999", "#27AE60","#D98880","#B3EF43","#FF751A",
-                                 "#C70039","#EB984E","#FF5733","#3f0080","#5DADE2",
-                                 "#E6B700","#9966FF","#3973AC"];
-            var categoryName  = ["Uncategorized", "Home", "Conveyance", "Groceries", "Gifts",
-                                 "Shopping", "Miscellaneous", "Cigarette", "Bills", "Food",
-                                 "Medical", "Kids", "Automobile"];
+            // Category data and percent
             var categoryData  = [0.0, 0.0, 0.0, 0.0, 0.0,
                                  0.0, 0.0, 0.0, 0.0, 0.0,
-                                 0.0, 0.0, 0.0];
+                                 0.0, 0.0, 0.0, 0.0];
             var categoryPerc  = [0.0, 0.0, 0.0, 0.0, 0.0,
                                  0.0, 0.0, 0.0, 0.0, 0.0,
-                                 0.0, 0.0, 0.0];
+                                 0.0, 0.0, 0.0, 0.0];
 
             function getTotal(){
                 var myTotal = 0.0;
@@ -40,29 +35,6 @@
                 }
                 return myTotal;
             }
-            
-            function getMonthName (monthId) {
-                var monthName = "undefined";
-
-                switch (monthId)    {
-                    case '1':  monthName ="JAN"; break;
-                    case '2':  monthName ="FEB"; break;
-                    case '3':  monthName ="MAR"; break;
-                    case '4':  monthName ="APR"; break;
-                    case '5':  monthName ="MAY"; break;
-                    case '6':  monthName ="JUN"; break;
-                    case '7':  monthName ="JUL"; break;
-                    case '8':  monthName ="AUG"; break;
-                    case '9':  monthName ="SEP"; break;
-                    case '10': monthName ="OCT"; break;
-                    case '11': monthName ="NOV"; break;
-                    case '12': monthName ="DEC"; break;
-                    default:
-                        // Do nothing, will return undefined
-                }
-
-                return monthName;
-            } 
 
             function plotPieChart() {
                 var canvas;
@@ -88,7 +60,7 @@
 
                 lastend = 0;
                 // Draw the legends
-                for (var j = 0; j < categoryName.length; j++)   {
+                for (var j = 1; j < categoryName.length; j++)   {
                     ctx.fillStyle = categoryColor[j];
                     ctx.beginPath();
                     ctx.rect (0,75+lastend,10,10);
@@ -104,7 +76,7 @@
                 var tBody  = table.find("tbody");
                 var idx = 0;
 
-                for (var i = 0; i < categoryName.length; i++)   { 
+                for (var i = 1; i < categoryName.length; i++)   { 
                     tBody.append(
                     '<tr id="row'+idx+'">'+
                         '<td>'+categoryName[i]+'</td>'+
@@ -129,7 +101,7 @@
                 var headerText=document.getElementById('hdrText');
     
                 hdrText.innerHTML = "SUMMARY OF " +
-                                    getMonthName (curselMonth.toString()) + 
+                                    monthName[curselMonth].substr(0, 3).toUpperCase() +
                                     " " + 
                                     curselYear;
 

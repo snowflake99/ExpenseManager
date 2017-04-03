@@ -7,6 +7,7 @@
         <title>Expense Manager</title>
 
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script language="javascript" type="text/javascript" src="js/common.js"></script>
 
         <?php include '../php/checkSession.php'; ?>
 
@@ -14,14 +15,6 @@
            // variable to store the current selected month and year
            var selYear = 0;
            var selMonth = 0;
-
-            function _(el){
-                return document.getElementById(el);
-            }
-
-            function __(el){
-                return parent.document.getElementById(el);
-            }
 
             function gotoMonthlyEntry(month) {
                 var entryhref = 'monthlyEntry?sel='+month+'&year='+selYear;
