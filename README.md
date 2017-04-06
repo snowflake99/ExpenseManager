@@ -10,6 +10,7 @@ Keeping a balanced budget can help you stay on track and sleep better at night. 
 4. Upload and download records in CSV format. 
 5. Expense summary in month and year views.
 6. Administrator view to manage user account and tables.
+7. Shortcut to PHPMyAdmin.
 
 # Top Directory Structure
 
