@@ -8,6 +8,7 @@
         <title>Expense Manager</title>
  
         <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script language="javascript" type="text/javascript" src="js/common.js"></script>
 
         <?php include '../php/checkSession.php'; ?>
 
@@ -225,7 +226,13 @@
                                 if (m_recordCell[0].indexOf("rows") > -1)
                                     numRows = re_recordCellValue.exec(m_recordCell[0]);
                             }
-                            addDataRow(tableName, numRows);
+
+                            var str = tableName.toString(); 
+                            var i = str.indexOf('_') + 1;
+                            var entryName = monthName[parseInt(str.substr(i, 2))].substr(0, 3) + 
+                                            ' ' +
+                                            str.substr(i+3, 4);
+                            addDataRow(entryName, numRows);
                         }
                     })
                 }
