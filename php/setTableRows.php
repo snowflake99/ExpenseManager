@@ -75,8 +75,17 @@
                 $result = mysqli_query($conn, $sql);
             }
         }
-        
-        echo "Data Saved $table";
+      
+        $tableName = "Data"; 
+        $pos = strpos($table, "_");
+        if ($pos != false)  {
+            $mNum = intval(substr($table, $pos+1, 2));
+            $mName = date('F', mktime(0, 0, 0, $mNum, 10)); 
+
+            $y = substr($table, $pos+4, 4);  
+            $tableName = $mName . ' ' . $y;
+        }
+        echo "$tableName Saved";
     } else {
         echo "Session Expired !";
     }
