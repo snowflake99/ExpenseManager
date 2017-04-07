@@ -149,13 +149,14 @@
             *
             */
 
-            function addDataRow (tName, numRows) {
+            function addDataRow (tName, hName, numRows) {
                 var tBody    = $("#dataTable").find("tbody");
                 var rowCount = document.getElementById("dataTable").rows.length;
 
                 tBody.append(
                     '<tr id="dRow'+idxData+'">'+ 
                         '<td name="dtName'+idxData+'" id="dtName'+idxData+'">'+tName+'</td>'+
+                        '<td name="dhName'+idxData+'" id="dhName'+idxData+'" style="display:none;">'+hName+'</td>'+
                         '<td name="dtRows'+idxData+'" id="dtRows'+idxData+'">'+numRows+'</td>'+
                         '<td></td>'+
                         '<td><div name="dDel'+idxData+'" id="dDel'+idxData+'"class="round-button"> \
@@ -174,7 +175,7 @@
                 var rowRef = document.getElementById('dRow'+rowIdNum);
                 var rowIndex = document.getElementById('dRow'+rowIdNum).rowIndex;
                 var rowCount = document.getElementById("dataTable").rows.length;
-                var tblName = document.getElementById("dataTable").rows[rowIndex].cells[0].innerHTML;
+                var tblName = document.getElementById("dataTable").rows[rowIndex].cells[1].innerHTML;
 
                 if (confirm('Are you sure you want to delete table ?')) {
                     if (rowCount > 1)   {
@@ -229,10 +230,10 @@
 
                             var str = tableName.toString(); 
                             var i = str.indexOf('_') + 1;
-                            var entryName = monthName[parseInt(str.substr(i, 2))].substr(0, 3) + 
+                            var name = monthName[parseInt(str.substr(i, 2))].substr(0, 3) + 
                                             ' ' +
                                             str.substr(i+3, 4);
-                            addDataRow(entryName, numRows);
+                            addDataRow(name, tableName, numRows);
                         }
                     })
                 }
