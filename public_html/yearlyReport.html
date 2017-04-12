@@ -50,7 +50,6 @@
                 context.beginPath();
 
                 // draw lines in the background
-                context.font = "16 pt Helvetica"
                 var count =  0;
                 
                 for (scale=parseFloat(Val_Max).toFixed(4);
@@ -71,7 +70,6 @@
                 // print names of each data entry
                 context.fillStyle = textColor;
 
-                context.font = "22 pt Verdana";
                 context.textBaseline="bottom";
                 for (i = 1; i <= sections; i++) {
                     computeHeight(itemValue[i]);

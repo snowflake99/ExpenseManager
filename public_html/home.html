@@ -87,17 +87,21 @@
             }
 
             function download(filename, text) {
-                var element = document.createElement('a');
-                element.setAttribute('href', 'data:text/csv;charset=utf-8,' + 
-                                              encodeURIComponent(text));
-                element.setAttribute('download', filename);
-                element.style.display = 'none';
-
-                document.body.appendChild(element);
-                
-                element.click();
-                
-                document.body.removeChild(element);
+                if (navigator.msSaveBlob) { // IE 10+
+                    var bb = new MSBlobBuilder(); 
+                    bb.append(text); 
+                    var blobObject = bb.getBlob('text/csv');
+                    window.navigator.msSaveOrOpenBlob(blobObject, filename); 
+                } else {
+                    var element = document.createElement('a');
+                    element.setAttribute('href', 'data:text/csv;charset=utf-8,' + 
+                                                  encodeURIComponent(text));
+                    element.setAttribute('download', filename);
+                    element.style.display = 'none';
+                    document.body.appendChild(element);
+                    element.click();
+                    document.body.removeChild(element);
+                }
             }
 
             function downloadTable ()   {
@@ -169,7 +173,7 @@
             }
 
             function resizeIframe(elem) {
-                var height = document.documentElement.clientHeight;
+                var height = window.innerHeight; 
                 height -= pageY(elem) + buffer;
                 height = (height < 0) ? 0 : height;
                 elem.style.height = height + 'px';
