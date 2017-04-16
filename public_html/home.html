@@ -28,27 +28,29 @@
                         for (var i = 0, row; row = table.rows[i]; i++) {
                            data += "@"; 
                            for (var j = 0, col; col = row.cells[j]; j++) {
+                               colValue = col.childNodes[0].childNodes[0].value;
+
                                switch (j)  {
                                    // date
                                    case 0: 
-                                   if (isNaN(Date.parse(col.childNodes[0].value)) == true)
+                                   if (isNaN(Date.parse(colValue)) == true)
                                         data += "edate="+curselYear+"-"+curselMonth+"-"+"01";
-                                   else data += "edate=" + col.childNodes[0].value; 
+                                   else data += "edate=" + colValue;
                                    break;
                                    // category
                                    case 1:
-                                   if (col.childNodes[0].value == '')  data += "?category=0";
-                                   else data += "?category=" + col.childNodes[0].value; 
+                                   if (colValue == '')  data += "?category=0";
+                                   else data += "?category=" + colValue; 
                                    break;
                                    // description
                                    case 2:
-                                   if (col.childNodes[0].value == '') data += "?description=--Empty--"; 
-                                   else data += "?description=" + col.childNodes[0].value; 
+                                   if (colValue == '') data += "?description=--Empty--"; 
+                                   else data += "?description=" + colValue; 
                                    break;
                                    // amount
                                    case 3:
-                                   if (col.childNodes[0].value == '') data += "?amount=0";
-                                   else data += "?amount=" + col.childNodes[0].value; 
+                                   if (colValue == '') data += "?amount=0";
+                                   else data += "?amount=" + colValue; 
                                    break;
                                    default: break;
                                }

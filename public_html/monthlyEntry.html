@@ -217,49 +217,47 @@
                 if ($.inArray('*', forDate) > -1)   {
                     forDate = Array();
                     forDate.push($('#expenseTable tr:last')[0].
-                                                cells[0].childNodes[0].value);
+                                                cells[0].childNodes[0].childNodes[0].value);
                 }
 
                 tBody.append(
                 '<tr id="row'+idx+'" onkeydown="moveRow(this, event);">'+
-                    '<td><input type="date"             \
+                    '<td><div class="dateCol"><input type="date" \
                                 name="Date'+idx+'"      \
                                 id="Date'+idx+'"        \
                                 class="Date"            \
-                                style="width:90%; text-align:center;" \
                                 onmouseover="displayDaysExpense(this);" \
-                                value="'+forDate[0]+'"> \
+                                value="'+forDate[0]+'"></div> \
                     </td>'+
                     '<td>'+
-                      '<select name="Category'+idx+'" id="Category'+idx+'" style="width:95%;">'+
-                      '</select>'+
+                      '<div class="categoryCol"><select name="Category'+idx+'" id="Category'+idx+'">'+
+                      '</select></div>'+
                     '</td>'+
-                    '<td>'+
+                    '<td><div class="descCol">'+
                         '<input type="text" name="Description'+idx+'" \
                                 id="Description'+idx+'" \
                                 onkeypress="return validateDescKey(event);" \
-                                style="width:96%; text-align:left;" \
-                                maxlength=255>'+
+                                maxlength=255></div>'+
                     '</td>'+
-                    '<td>'+
+                    '<td><div class="amountCol">'+
                          '<input type="text" name="Amount'+idx+'" \
                                  id="Amount'+idx+'" \
                                  onkeypress="return validateAmountKey(event);" \
                                  onfocusout="autoCalculate(this)" \
-                                 style="width:86%; text-align:center;" \
-                                 step="0.01">'+
+                                 style="text-align:center;" \
+                                 step="0.01"></div>'+
                     '</td>'+
-                    '<td><div name="neg'+idx+'"id="neg'+idx+'"class="round-button" style="width:85%;">  \
+                    '<td><div class="buttonCol"><div name="neg'+idx+'"id="neg'+idx+'"class="round-button"> \
                             <div class="round-button-circle">                                           \
                                 <a href="javascript:delRow('+idx+');"class="round-button">-</a>         \
                             </div>                                                                      \
-                         </div>                                                                         \
+                         </div></div>                                                                   \
                     </td>'+
-                    '<td><div name="pos'+idx+'"id="pos'+idx+'"class="round-button" style="width:85%;">  \
+                    '<td><div class="buttonCol"><div name="pos'+idx+'"id="pos'+idx+'"class="round-button"> \
                             <div class="round-button-circle">                                           \
                                 <a href="javascript:addRow(&quot;*&quot;);"class="round-button">+</a>   \
                             </div>                                                                      \
-                         </div>                                                                         \
+                         </div></div>                                                                   \
                     </td>'+
                 '</tr>');
 
@@ -437,8 +435,8 @@
                    bgcolor="#f1f1f1">
                 <thead>
                     <tr style="font-size:15px;">
-                        <th style="width:18%;">Date</th>
-                        <th style="width:16%;">
+                        <th class="dateCol">Date</th>
+                        <th class="categoryCol">
                             <select name="categorySel" 
                                     id="categorySel" 
                                     style="font-size:13px;
@@ -450,10 +448,10 @@
                                     onchange="categorySelChange();">
                             </select>
                         </th>
-                        <th style="width:48%;">Description</th>
-                        <th style="width:14%;">Amount (<?php session_start(); echo $_SESSION['currency'];?>)</th>
-                        <th style="width:2%;"></th>
-                        <th style="width:2%;"></th>
+                        <th class="descCol">Description</th>
+                        <th class="amountCol">Amount (<?php session_start(); echo $_SESSION['currency'];?>)</th>
+                        <th class="buttonCol"></th>
+                        <th class="buttonCol"></th>
                     </tr>
                 </thead>
                 <tbody>

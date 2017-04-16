@@ -1,5 +1,4 @@
 body{
-    width:95%;
     margin:0 auto;
 }
 
@@ -9,7 +8,7 @@ table {
     box-shadow: 0 0 5px #888;
     border-collapse: collapse;
     width: 95%;
-    margin-left:10px;
+    border: 1px solid #ddd;
 }
 
 th {
@@ -32,4 +31,33 @@ input[type=text], input[type=date], select {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.dateCol {
+    width: 140px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.categoryCol {
+    width: 120px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.descCol {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.amountCol {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonCol {
+    width: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
