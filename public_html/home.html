@@ -236,55 +236,47 @@
                 <a class="highlightColor" 
                    href="">Expense Manager</a>
             </li>
-            <li>
-                <a href="javascript:void(0);">Record &#9660;</a>
-                <ul class="dropdown">
-                    <li>
-                        <a href="javascript:void(0);" 
-                            onclick="javascript:saveEntries();">Save</a>
-                    </li>
-                </ul>
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="dropbtn">Record &#9660;</a>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0);" 
+                        onclick="javascript:saveEntries();">Save</a>
+                </div>
             </li>
-            <li>
-                <a href="javascript:void(0);">Summary &#9660;</a>
-                <ul class="dropdown">
-                    <li>
-                        <a href="javascript:void(0);"
-                            onclick="javascript:yearlyReport();">Year</a>
-                        <a href="javascript:void(0);" 
-                            onclick="javascript:monthlySummary();">Month</a>
-                    </li>
-                </ul>
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="dropbtn">Summary &#9660;</a>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0);"
+                        onclick="javascript:yearlyReport();">Year</a>
+                    <a href="javascript:void(0);" 
+                        onclick="javascript:monthlySummary();">Month</a>
+                </div>
             </li>
-            <li>
-                <a href="javascript:void(0);">Tools &#9660;</a>
-                <ul class="dropdown">
-                    <li>
-                        <a href="javascript:void(0);" 
-                           onclick="javascript:_('uploadFilename').click();">Upload</a>
-                        <a href="javascript:void(0);" 
-                           onclick="javascript:downloadTable();">Download</a>
-                    </li>
-                </ul>
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="dropbtn">Tools &#9660;</a>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0);" 
+                       onclick="javascript:_('uploadFilename').click();">Upload</a>
+                    <a href="javascript:void(0);" 
+                       onclick="javascript:downloadTable();">Download</a>
+                </div>
             </li>
-            <li class="userMenu">
-                <a href="javascript:void(0);">
+            <li class="dropdown" style="float:right;">
+                <a href="javascript:void(0);" class="dropbtn">
                     <?php session_start(); 
                      echo ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;',
                                             1-strlen($_SESSION['username'])); ?> &#9660;</a>
-                <ul class="dropdownRightAlign">
-                    <li>
-                        <a id="manage" name="manage"
-                           style="display:none;"
-                           href="javascript:manage();">Manage</a>
-                        <a id="phpmyadmin" name="phpmyadmin"
-                           style="display:none;"
-                           href="/phpmyadmin">PHP Admin</a>
-                        <a href="javascript:void(0);"
-                           onclick="javascript:updatePwd();">Password</a>
-                        <a href="./proxy/usrLogout.php">Logout</a>
-                    </li>
-                </ul>
+                <div class="dropdown-content" style="right:0;">
+                    <a id="manage" name="manage"
+                       style="display:none;"
+                       href="javascript:manage();">Manage</a>
+                    <a id="phpmyadmin" name="phpmyadmin"
+                       style="display:none;"
+                       href="/phpmyadmin">PHP Admin</a>
+                    <a href="javascript:void(0);"
+                       onclick="javascript:updatePwd();">Password</a>
+                    <a href="./proxy/usrLogout.php">Logout</a>
+                </div>
             </li>
         </ul>
 
