@@ -1,7 +1,7 @@
 body{
-    width:95%;
     margin:0 auto;
 }
+
 table {
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px#888;
@@ -11,6 +11,8 @@ table {
     float:left;
     margin-left:10px;
     margin-top:5px;
+    table-layout: fixed;
+    border: 1px solid #ddd;
 }
 
 th, td {
@@ -41,3 +43,44 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
+.idCol {
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.usernameCol {
+    width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.adminCol {
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.currencyCol {
+    width: 60px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonCol {
+    width: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tableNameCol {
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.entriesCol {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}

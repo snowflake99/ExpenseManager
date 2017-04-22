@@ -30,21 +30,21 @@
                 
                 tBody.append(
                     '<tr id="uRow'+idxUser+'">'+ 
-                        '<td>'+id+'</td>'+
-                        '<td>'+
+                        '<td><div class="idCol">'+id+'</div></td>'+
+                        '<td><div class="usernameCol">'+
                             '<input type="text"                 \
                                     name="uName'+idxUser+'"     \
                                     id="uName'+idxUser+'"       \
-                                    maxlength=65                \
+                                    maxlength=24                \
                                     value="'+username+'">'+    
-                        '</td>'+
-                        '<td>'+
+                        '</div></td>'+
+                        '<td><div class="adminCol">'+
                             '<select name="uRights'+idxUser+'" id="uRights'+idxUser+'">'+
                                 '<option value="0">No</option>'+
                                 '<option value="1">Yes</option>'+
                             '</select>'+
-                        '</td>'+
-                        '<td>'+
+                        '</div></td>'+
+                        '<td><div class="currencyCol">'+
                             '<select name="uCurrency'+idxUser+'" id="uCurrency'+idxUser+'">'+
                                 '<option value="INR" selected>INR</option>'+
                                 '<option value="USD">USD</option>'+
@@ -56,24 +56,24 @@
                                 '<option value="JPY">JPY</option>'+
                                 '<option value="CNY">CNY</option>'+
                             '</select>'+
-                        '</td>'+
-                        '<td><div name="uDel'+idxUser+'"id="uDel'+idxUser+'"class="round-button"> \
+                        '</div></td>'+
+                        '<td><div class="buttonCol"><div name="uDel'+idxUser+'"id="uDel'+idxUser+'"class="round-button"> \
                                 <div class="round-button-circle">                               \
                                     <a href="javascript:deleteUserRow('+idxUser+');"class="round-button">-</a>\
                                 </div>                                                                        \
-                             </div>                                                                           \
+                             </div></div>                                                                     \
                          </td>'+
-                        '<td><div name="uUpdt'+idxUser+'"id="uUpdt'+idxUser+'"class="round-button">   \
+                        '<td><div class="buttonCol"><div name="uUpdt'+idxUser+'"id="uUpdt'+idxUser+'"class="round-button">   \
                                 <div class="round-button-circle">                                   \
                                     <a href="javascript:updateUserRow('+idxUser+');"class="round-button">~</a>\
                                 </div>                                                                 \
-                             </div>                                                                    \
+                             </div></div>                                                              \
                         </td>'+
-                        '<td><div name="uAdd'+idxUser+'"id="uAdd'+idxUser+'"class="round-button"> \
+                        '<td><div class="buttonCol"><div name="uAdd'+idxUser+'"id="uAdd'+idxUser+'"class="round-button"> \
                                 <div class="round-button-circle">                               \
                                     <a href="javascript:addUserRow(0,null,0,null);"class="round-button">+</a>\
                                 </div>                                                                  \
-                             </div>                                                                     \
+                             </div></div>                                                               \
                          </td>'+
                     '</tr>');
 
@@ -105,8 +105,9 @@
 
                 if (rowCount > 2)   {
                     if (confirm('Are you sure you want to delete user ?')) {
-                        var deluserId = userTable.rows[rowRef.rowIndex].cells[0].innerHTML;
+                        var deluserId = userTable.rows[rowRef.rowIndex].cells[0].childNodes[0].innerHTML;
 
+                        console.log(deluserId);
                         if (deluserId != 0) {
                             $.get("./proxy/removeUser.php",{userId: deluserId}).
                                 done(function(result) {
@@ -127,11 +128,11 @@
             function updateUserRow(rowIdNum) {
                 var rowIndex = document.getElementById('uRow'+rowIdNum).rowIndex;
 
-                var Id = document.getElementById("userTable").rows[rowIndex].cells[0].innerHTML;
+                var Id = document.getElementById("userTable").rows[rowIndex].cells[0].childNodes[0].innerHTML;
                 var Name = document.getElementById('uName'+rowIdNum).value;
                 var Rights = document.getElementById('uRights'+rowIdNum).value;
                 var Currency = document.getElementById('uCurrency'+rowIdNum).value;
-                
+               
                 $.get("./proxy/updateUser.php",{userId: Id, 
                                               userName: Name, 
                                               userRights: Rights,
@@ -139,7 +140,7 @@
                     done(function(result) {
                     alert(result);
                 });
- 
+
                 location.reload(true);
             }
             
@@ -155,15 +156,15 @@
 
                 tBody.append(
                     '<tr id="dRow'+idxData+'">'+ 
-                        '<td name="dtName'+idxData+'" id="dtName'+idxData+'">'+tName+'</td>'+
+                        '<td name="dtName'+idxData+'" id="dtName'+idxData+'"><div class="tableNameCol">'+tName+'</div></td>'+
                         '<td name="dhName'+idxData+'" id="dhName'+idxData+'" style="display:none;">'+hName+'</td>'+
-                        '<td name="dtRows'+idxData+'" id="dtRows'+idxData+'">'+numRows+'</td>'+
-                        '<td></td>'+
-                        '<td><div name="dDel'+idxData+'" id="dDel'+idxData+'"class="round-button"> \
+                        '<td name="dtRows'+idxData+'" id="dtRows'+idxData+'"><div class="entriesCol">'+numRows+'</div></td>'+
+                        '<td><div class="usernameCol"></div></td>'+
+                        '<td><div class="buttonCol"><div name="dDel'+idxData+'" id="dDel'+idxData+'"class="round-button"> \
                                 <div class="round-button-circle">                       \
                                     <a href="javascript:deleteDataRow('+idxData+');"class="round-button">-</a>  \
                                 </div>                                                                      \
-                             </div>                                                                         \
+                             </div></div>                                                                    \
                          </td>'+
                     '</tr>');
 
@@ -290,13 +291,13 @@
             <table name="userTable" id="userTable">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Username</th>
-                        <th>Admin</th>
-                        <th>Currency</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th class="idCol">Id</th>
+                        <th class="usernameCol">Username</th>
+                        <th class="adminCol">Admin</th>
+                        <th class="currencyCol">Currency</th>
+                        <th class="buttonCol"></th>
+                        <th class="buttonCol"></th>
+                        <th class="buttonCol"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -307,15 +308,15 @@
             <table name="dataTable" id="dataTable">
                 <thead>
                     <tr>
-                        <th style="width:34%;">Tables</th>
-                        <th style="width:10%;">Entries</th>
-                        <th style="width:50%;">    
+                        <th class="tableNameCol">Tables</th>
+                        <th class="entriesCol">Entries</th>
+                        <th class="usernameCol">    
                             <select name="userNameList" 
                                     id="userNameList" 
                                     onchange="selChangeData()">
                                 <option value="0">Select User</option>
                         </th>
-                        <th style="width:6%;"</th>
+                        <th class="buttonCol"></th>
                     </tr>
                 </thead>
                 <tbody>
