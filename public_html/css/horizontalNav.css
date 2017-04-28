@@ -1,6 +1,27 @@
 body {
     margin: 0;
 }
+
+.searchBox {
+    width: 30%;
+    position: absolute;
+    left: 45%;
+}
+
+.searchContainer {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#searchInput {
+    background-image: url('/images/searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+}
 ul {
     list-style-type: none;
     margin: 0;
@@ -56,8 +77,13 @@ li.dropdown {
     display: block;
 }
 
-@media screen and (max-width: 600px){  
+@media screen and (max-width: 700px){  
     ul li  {width: 100%; float: left;}
     .dropdown {float: left;}
     .dropdown-content {right:auto !important;}
 }
+
+@media screen and (max-width: 990px){  
+    .searchBox {display: none;}
+}
+

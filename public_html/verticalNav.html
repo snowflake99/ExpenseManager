@@ -16,9 +16,15 @@
            var selYear = 0;
            var selMonth = 0;
 
+            function clearSearch()  {
+                __('searchInput').value = '';
+            }
+
             function gotoMonthlyEntry(month) {
                 var entryhref = 'monthlyEntry?sel='+month+'&year='+selYear;
                 selMonth=month;
+
+                clearSearch();
 
                 __('frame2').src = entryhref;
 
@@ -27,6 +33,8 @@
 
             function selectedYear() {
                 var mainWinHref = __("frame2").contentWindow.location.href;
+
+                clearSearch();
 
                 selYear = _("yearSelection").value;
 

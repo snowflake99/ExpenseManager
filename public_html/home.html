@@ -186,6 +186,29 @@
                 resizeIframe(_('frame2'));
             }
 
+            function searchTable() {
+                var mainWinHref = _("frame2").contentWindow.location.href;
+
+                if (mainWinHref.indexOf("monthlyEntry") > -1)  {
+                    var input = document.getElementById("searchInput");
+                    var filter = input.value.toUpperCase();
+                    var table = $("#frame2").contents().find("tbody")[0]; 
+                    var tr = table.getElementsByTagName("tr");
+                    var td, i;
+
+                    for (i = 0; i < tr.length; i++)   {
+                        td = tr[i].getElementsByTagName("td")[2].getElementsByTagName('input');
+                        if (td) {
+                            if (td[0].value.toUpperCase().indexOf(filter) > -1)  {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            }
+
             /* 
             *  Function Name: OnPageLoad 
             *  Purpose: Function will be called on page load. Display the manage menu
@@ -259,6 +282,12 @@
                        onclick="javascript:_('uploadFilename').click();">Upload</a>
                     <a href="javascript:void(0);" 
                        onclick="javascript:downloadTable();">Download</a>
+                </div>
+            </li>
+            <li class="searchBox">
+                <div class="searchContainer">
+                    <input type="text" id="searchInput" onkeyup="searchTable()" 
+                           placeholder="Search records" title="Type text to search">
                 </div>
             </li>
             <li class="dropdown" style="float:right;">
