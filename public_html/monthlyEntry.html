@@ -259,6 +259,7 @@
                             </div>                                                                      \
                          </div></div>                                                                   \
                     </td>'+
+                    '<td style="display:none;"><div name="searchElement'+idx+'"id="searchElement'+idx+'">1</div></td>' +
                 '</tr>');
 
                 // Build the category list
@@ -328,10 +329,13 @@
                     var categoryField = $(this).find("select").val();
                     
                     if (categoryField != curSel &&
-                        "Category" != curSel)
+                        "Category" != curSel)   {
                        $(this)[0].style.display = 'none';
-                    else
+                       $(this)[0].querySelector('[id^="searchElement"]').innerHTML = 0;
+                    } else {
                        $(this)[0].style.display = '';
+                       $(this)[0].querySelector('[id^="searchElement"]').innerHTML = 1;
+                    }
                 });
             }
 

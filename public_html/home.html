@@ -197,12 +197,16 @@
                     var td, i;
 
                     for (i = 0; i < tr.length; i++)   {
-                        td = tr[i].getElementsByTagName("td")[2].getElementsByTagName('input');
-                        if (td) {
-                            if (td[0].value.toUpperCase().indexOf(filter) > -1)  {
-                                tr[i].style.display = "";
-                            } else {
-                                tr[i].style.display = "none";
+                        var searchRow = parseInt(tr[i].querySelector('[id^="searchElement"]').innerHTML);
+ 
+                        if (searchRow)  {
+                            td = tr[i].getElementsByTagName("td")[2].getElementsByTagName('input');
+                            if (td) {
+                                if (td[0].value.toUpperCase().indexOf(filter) > -1)  {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
                             }
                         }
                     }
@@ -309,20 +313,22 @@
             </li>
         </ul>
 
-        <!-- Create frame for vertical navigation bar and main window  -->
-        <iframe id="frame1" 
-                name="frame1" 
-                class="menu" 
-                src="verticalNav.html" 
-                onload="this.style.visibility = 'visible'; resizeIframe(this);">
-            <p>Your browser does not support iframes.</p>
-        </iframe>
-        <iframe id="frame2" 
-                name="frame2" 
-                class="mainContent" 
-                src="welcome.html" 
-                onload="this.style.visibility = 'visible'; resizeIframe(this);">
-            <p>Your browser does not support iframes.</p>
-        </iframe>
+        <div>
+            <!-- Create frame for vertical navigation bar and main window  -->
+            <iframe id="frame1" 
+                    name="frame1" 
+                    class="menu" 
+                    src="verticalNav.html" 
+                    onload="this.style.visibility = 'visible'; resizeIframe(this);">
+                <p>Your browser does not support iframes.</p>
+            </iframe>
+            <iframe id="frame2" 
+                    name="frame2" 
+                    class="mainContent" 
+                    src="welcome.html" 
+                    onload="this.style.visibility = 'visible'; resizeIframe(this);">
+                <p>Your browser does not support iframes.</p>
+            </iframe>
+        </div>
     </body>
 </html>
