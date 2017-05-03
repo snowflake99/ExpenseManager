@@ -1,17 +1,30 @@
+html,body {
+   height: 100%;
+}
+
 .menu {
    float:left;
    width:20%;
+   height:100%;
    overflow: auto;
    border: 0;
    visibility:hidden; 
 }
+
 .mainContent {
    float:left;
    width:80%;
+   height:100%;
    overflow: auto;
    margin: 0;
    padding: 0;
    border: 0;
    visibility:hidden; 
    background-color: #f1f1f1;
+}
+
+#iframeContainer {
+   width:100%;
+   height: calc(100% - 46px);
+   overflow: hidden;
 }

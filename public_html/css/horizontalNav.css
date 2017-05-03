@@ -2,6 +2,11 @@ body {
     margin: 0;
 }
 
+#navContainer {
+    height:46px;
+    width:100%;
+}
+
 .searchBox {
     width: 30%;
     position: absolute;
@@ -75,12 +80,6 @@ li.dropdown {
 
 .dropdown:hover .dropdown-content {
     display: block;
-}
-
-@media screen and (max-width: 700px){  
-    ul li  {width: 100%; float: left;}
-    .dropdown {float: left;}
-    .dropdown-content {right:auto !important;}
 }
 
 @media screen and (max-width: 990px){  

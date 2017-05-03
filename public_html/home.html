@@ -174,18 +174,6 @@
                         (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
             }
 
-            function resizeIframe(elem) {
-                var height = window.innerHeight; 
-                height -= pageY(elem) + buffer;
-                height = (height < 0) ? 0 : height;
-                elem.style.height = height + 'px';
-            }
-
-            function resizeAllIframes () {
-                resizeIframe(_('frame1'));
-                resizeIframe(_('frame2'));
-            }
-
             function searchTable() {
                 var mainWinHref = _("frame2").contentWindow.location.href;
 
@@ -235,9 +223,6 @@
                         $('#phpmyadmin')[0].style.display   ='none';
                     }
                 })
-
-                // Resize all  iframe on window resize event
-                window.onresize = resizeAllIframes;
            })
         </script>
     </head>
@@ -257,76 +242,78 @@
                   multiple />
         </form>
 
-        <!-- Create hyperlinks to Horizontal Navigation bar  -->
-        <ul>
-            <li>
-                <a class="highlightColor" 
-                   href="">Expense Manager</a>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0);" class="dropbtn">Record &#9660;</a>
-                <div class="dropdown-content">
-                    <a href="javascript:void(0);" 
-                        onclick="javascript:saveEntries();">Save</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0);" class="dropbtn">Summary &#9660;</a>
-                <div class="dropdown-content">
-                    <a href="javascript:void(0);"
-                        onclick="javascript:yearlyReport();">Year</a>
-                    <a href="javascript:void(0);" 
-                        onclick="javascript:monthlySummary();">Month</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0);" class="dropbtn">Tools &#9660;</a>
-                <div class="dropdown-content">
-                    <a href="javascript:void(0);" 
-                       onclick="javascript:_('uploadFilename').click();">Upload</a>
-                    <a href="javascript:void(0);" 
-                       onclick="javascript:downloadTable();">Download</a>
-                </div>
-            </li>
-            <li class="searchBox">
-                <div class="searchContainer">
-                    <input type="text" id="searchInput" onkeyup="searchTable()" 
-                           placeholder="Search records" title="Type text to search">
-                </div>
-            </li>
-            <li class="dropdown" style="float:right;">
-                <a href="javascript:void(0);" class="dropbtn">
-                    <?php session_start(); 
-                     echo ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;',
-                                            1-strlen($_SESSION['username'])); ?> &#9660;</a>
-                <div class="dropdown-content" style="right:0;">
-                    <a id="manage" name="manage"
-                       style="display:none;"
-                       href="javascript:manage();">Manage</a>
-                    <a id="phpmyadmin" name="phpmyadmin"
-                       style="display:none;"
-                       href="/phpmyadmin">PHP Admin</a>
-                    <a href="javascript:void(0);"
-                       onclick="javascript:updatePwd();">Password</a>
-                    <a href="./proxy/usrLogout.php">Logout</a>
-                </div>
-            </li>
-        </ul>
+        <div id="navContainer">
+            <!-- Create hyperlinks to Horizontal Navigation bar  -->
+            <ul>
+                <li>
+                    <a class="highlightColor" 
+                       href="">Expense Manager</a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Record &#9660;</a>
+                    <div class="dropdown-content">
+                        <a href="javascript:void(0);" 
+                            onclick="javascript:saveEntries();">Save</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Summary &#9660;</a>
+                    <div class="dropdown-content">
+                        <a href="javascript:void(0);"
+                            onclick="javascript:yearlyReport();">Year</a>
+                        <a href="javascript:void(0);" 
+                            onclick="javascript:monthlySummary();">Month</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0);" class="dropbtn">Tools &#9660;</a>
+                    <div class="dropdown-content">
+                        <a href="javascript:void(0);" 
+                           onclick="javascript:_('uploadFilename').click();">Upload</a>
+                        <a href="javascript:void(0);" 
+                           onclick="javascript:downloadTable();">Download</a>
+                    </div>
+                </li>
+                <li class="searchBox">
+                    <div class="searchContainer">
+                        <input type="text" id="searchInput" onkeyup="searchTable()" 
+                               placeholder="Search records" title="Type text to search">
+                    </div>
+                </li>
+                <li class="dropdown" style="float:right;">
+                    <a href="javascript:void(0);" class="dropbtn">
+                        <?php session_start(); 
+                         echo ucfirst(strtolower($_SESSION['username'])).str_repeat('&nbsp;',
+                                                1-strlen($_SESSION['username'])); ?> &#9660;</a>
+                    <div class="dropdown-content" style="right:0;">
+                        <a id="manage" name="manage"
+                           style="display:none;"
+                           href="javascript:manage();">Manage</a>
+                        <a id="phpmyadmin" name="phpmyadmin"
+                           style="display:none;"
+                           href="/phpmyadmin">PHP Admin</a>
+                        <a href="javascript:void(0);"
+                           onclick="javascript:updatePwd();">Password</a>
+                        <a href="./proxy/usrLogout.php">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-        <div>
+        <div id='iframeContainer'>
             <!-- Create frame for vertical navigation bar and main window  -->
             <iframe id="frame1" 
                     name="frame1" 
                     class="menu" 
                     src="verticalNav.html" 
-                    onload="this.style.visibility = 'visible'; resizeIframe(this);">
+                    onload="this.style.visibility = 'visible';">
                 <p>Your browser does not support iframes.</p>
             </iframe>
             <iframe id="frame2" 
                     name="frame2" 
                     class="mainContent" 
                     src="welcome.html" 
-                    onload="this.style.visibility = 'visible'; resizeIframe(this);">
+                    onload="this.style.visibility = 'visible';">
                 <p>Your browser does not support iframes.</p>
             </iframe>
         </div>
