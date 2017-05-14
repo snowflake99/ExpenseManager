@@ -25,7 +25,7 @@ li {
 li a {
     display: block;
     color: #000;
-    margin: 10px;
+    margin: 2px;
     padding: 10px 10px 10px 30px;
     text-decoration: none;
     border-radius: 5px;
@@ -44,7 +44,6 @@ li a:hover:not(.active) {
 
 select {
     width: 100%;
-    text-indent: 30px;
     padding: 4px 2px;
     margin: 0;
     display: inline-block;
