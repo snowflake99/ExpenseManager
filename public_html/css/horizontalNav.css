@@ -14,8 +14,7 @@ body {
 }
 
 .searchContainer {
-    padding-top: 1px;
-    padding-bottom: 1px;
+    height: 46px;
 }
 
 #searchInput {
@@ -25,7 +24,11 @@ body {
     width: 100%;
     font-size: 16px;
     padding: 12px 20px 12px 40px;
-    border: 1px solid #ddd;
+    border:none;
+    border-radius: 3px;
+    display:block;
+    box-sizing : border-box;
+    height: 100%;
 }
 ul {
     list-style-type: none;
@@ -82,7 +85,11 @@ li.dropdown {
     display: block;
 }
 
-@media screen and (max-width: 990px){  
+@media screen and (max-width: 750px){
     .searchBox {display: none;}
+}
+
+@media screen and (max-width: 990px){
+    .searchBox {position: relative; left: 0px;}
 }
 
