@@ -52,30 +52,21 @@
                  method="post" 
                  onsubmit="javascript:validate(this); return false;" 
                  action="./proxy/updatePwd.php">
-               <label>
-                   Old Password:
-                   <input type="password" 
-                          placeholder="Password"
-                          id="old_pwd"
-                          onfocus="clearMsg();"
-                          name="old_pwd">
-               </label>
-               <label>
-                   New Password:
-                   <input type="password" 
-                          placeholder="Password"
-                          id="new_pwd1" 
-                          onfocus="clearMsg();"
-                          name="new_pwd1" >
-               </label>
-               <label>
-                   Retype Password:
-                   <input type="password"
-                          placeholder="Password"
-                          id="new_pwd2" 
-                          onfocus="clearMsg();"
-                          name="new_pwd2">
-               </label>
+                 <input type="password" 
+                        placeholder="Old Password"
+                        id="old_pwd"
+                        onfocus="clearMsg();"
+                        name="old_pwd">
+                 <input type="password" 
+                        placeholder="New Password"
+                        id="new_pwd1" 
+                        onfocus="clearMsg();"
+                        name="new_pwd1" >
+                 <input type="password"
+                        placeholder="Retype Password"
+                        id="new_pwd2" 
+                        onfocus="clearMsg();"
+                        name="new_pwd2">
                <label id="msg" 
                       style="color:hsla(0,100%,50%,0.5); font-family:"Helvetica Neue",Helvetica,sans-serif;">
                </label>

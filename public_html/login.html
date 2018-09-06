@@ -31,15 +31,14 @@
 <body>
     <!-- Begin Page Content -->
     <div id="container">
+        <img id="loginImage" src="images/image.png" />
         <form id="loginForm"
               target="_top"
               method="post"
               onsubmit="javascript:pwdHandler(this);"
               action="./proxy/usrLogin.php">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" autofocus>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
+            <input type="text" id="username" name="username" placeholder="Username" autofocus>
+            <input type="password" id="password" name="password" placeholder="Password">
             <label for="loginmsg" 
                    style="color:hsla(0,100%,50%,0.5); font-family:"Helvetica Neue",Helvetica,sans-serif;">
                    <?php session_start(); echo @$_GET['msg'];?>
@@ -49,6 +48,9 @@
                 <input type="submit" value="Login">
             </div><!--/ lower-->
         </form>
+        <div id="loginMessage">
+            <msgBold>Expense Manager - </msgBold><msgNormal>managing your every day expense.</msgNormal>
+        </div>
     </div><!--/ container-->
     <!-- End Page Content -->
 </body>

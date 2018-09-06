@@ -18,7 +18,7 @@ form {
     margin: 0 auto;
 }
 label {
-    margin-bottom: 10px;
+    margin-top: 8px;
     display: block;
 }
 input {
@@ -38,7 +38,7 @@ input[type=submit] {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 12px;
     margin: 4px 2px;
     cursor: pointer;
 }
@@ -46,7 +46,7 @@ input[type=submit] {
 input[type=password] {
     width: 100%;
     padding: 4px;
-    margin: 0;
+    margin-top: 8px;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
