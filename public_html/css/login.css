@@ -87,7 +87,6 @@ input[type=password]:focus,input[type=time]:focus {
     box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .4), 0 0 0 5px #e6f2f9;
 }
 #lower {
-    background: #ecf2f5;
     width: 100%;
     height: 54px;
     margin-top: 20px;
