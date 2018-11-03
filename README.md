@@ -5,26 +5,23 @@ Keeping a balanced budget can help you stay on track and sleep better at night. 
 # Features
 
 1. User authentication. 
-2. Addition and deletion of expense.
-3. Rearrangement of entries using keyboard shortcut.
-4. Upload and download records in CSV format. 
-5. Expense summary in month and year views.
+2. Add and delete expense.
+3. Rearrangement of expense entries.
+4. Upload and download monthly data in CSV format. 
+5. Summary in day, month and year.
 6. Administrator view to manage user account and tables.
 7. Shortcut to PHPMyAdmin.
 
-# Top Directory Structure
-
-    |
-    |---configuration (D)
-    |---LICENSE (F)
-    |---php (D)
-    |---public_html (D)
-    |------css (D)
-    |------images (D)
-    |------js (D)
-    |------proxy (D)
-    |---README.md (F)
-    |---snapshot (D)
+# Project Structure
+    .
+    ├── configuration
+    ├── php
+    ├── public_html
+    │   ├── css
+    │   ├── images
+    │   ├── js
+    │   └── proxy
+    └── snapshot
 
 # Snapshots
    
