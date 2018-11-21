@@ -25,10 +25,13 @@ Keeping a balanced budget can help you stay on track and sleep better at night. 
 
 # Snapshots
 
+## Authentication
+![Alt text](/snapshot/login.png?raw=true  "User Authentication")
+
 ## Home Page
 ![Alt text](/snapshot/home.png?raw=true  "Home Page")
 
-## Monthly Expenditure 
+## Monthly Expenditure By Category
 ![Alt text](/snapshot/monthly_summary.png?raw=true "Monthly Summary Page")
 
 ## Yearly Overview
