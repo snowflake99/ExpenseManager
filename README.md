@@ -1,7 +1,8 @@
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity) 
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/snowflake99/ExpenseManager/graphs/commit-activity) 
 [![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://shields.io/) 
-[![GitHub contributors](https://img.shields.io/github/contributors/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/contributors/) 
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/Naereen/badges.svg)](http://isitmaintained.com/project/Naereen/badges "Percentage of issues still open") 
+[![GitHub contributors](https://img.shields.io/github/contributors/snowflake99/ExpenseManager.svg)](https://github.com/snowflake99/ExpenseManager/graphs/contributors/) 
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/snowflake99/ExpenseManager.svg)](http://isitmaintained.com/project/snowflake99/ExpenseManager "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/snowflake99/ExpenseManager.svg)](http://isitmaintained.com/project/snowflake99/ExpenseManager "Percentage of issues still open")
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
 [![apache version](https://img.shields.io/badge/apache-v2.4.10-red.svg)](https://shields.io/)
