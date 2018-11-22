@@ -1,3 +1,13 @@
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity) 
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://shields.io/) 
+[![GitHub contributors](https://img.shields.io/github/contributors/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/contributors/) 
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/Naereen/badges.svg)](http://isitmaintained.com/project/Naereen/badges "Percentage of issues still open") 
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
+
+[![apache version](https://img.shields.io/badge/apache-v2.4.10-red.svg)](https://shields.io/)
+[![php version](https://img.shields.io/badge/Php-v7.0-orange.svg)](https://shields.io/) 
+[![mysql version](https://img.shields.io/badge/mysql-v15.1-yellow.svg)](https://shields.io/) 
+
 # Expense Manager
 
 Keeping a balanced budget can help you stay on track and sleep better at night. But if your money-management system requires sifting through piles of receipts and retrieving cash from various pockets and purses, it’s time to reconsider your approach. With Expense Manager, you can put away the paperwork and get a better understanding of your daily, weekly, monthly and annual spending habits. Expense Manager is a simple web based interface to manage all your expenses online on a LAMP stack.
