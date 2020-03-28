@@ -183,7 +183,7 @@
                                                     curMonth: curselMonth, 
                                                     curYear:  curselYear}).
                         done(function(result) {
-                    x.title = "Date: " + x.value + ", " + weekdays[y.getDay()] +
+                    x.title = "Date: " + x.value + ", " + weekdays[(y.getDay()+1) % 7] +
                               "\nTotal Expense: "+ parseFloat(result).toFixed(2) + 
                               " <?php session_start(); echo $_SESSION['currency'];?>";
                 });
