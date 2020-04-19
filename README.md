@@ -22,7 +22,7 @@ Keeping a balanced budget can help you stay on track and sleep better at night. 
 6. Administrator view to manage user account and tables.
 7. Shortcut to PHPMyAdmin.
 
-# Project Structure
+# Structure
     .
     ├── configuration
     ├── php
